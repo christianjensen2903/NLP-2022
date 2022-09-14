@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 class Model(ABC):
-
+    
     def train(self):
         """Train the model"""
         pass

@@ -2,6 +2,10 @@ from abc import ABC, abstractmethod
 
 class Model(ABC):
 
+    def extract_X(self, dataset):
+        """Extract features from the dataset"""
+        pass
+
     def train(self, X, y):
         """Train the model"""
         pass

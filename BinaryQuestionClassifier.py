@@ -31,7 +31,7 @@ class BinaryQuestionClassifier(Model):
 
     def train(self, X, y):
         """Train the model"""
-        self.model = LogisticRegression(n_jobs=7).fit(X, y)
+        self.model = LogisticRegression(n_jobs=-1).fit(X, y)
         print(f'Training accuracy: {self.model.score(X, y)}')
 
 

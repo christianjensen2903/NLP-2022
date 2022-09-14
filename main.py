@@ -32,6 +32,9 @@ languages = {
 
 # Find the most common first and last words in each language
 for language in languages.values():
+    pipeline = Pipeline(language)
+
+
     count_words = lambda text: np.unique(text, return_counts=True) # Count occurences of words in text
     sort_words = lambda word_count: np.argsort(word_count[1])[::-1] # Get list of sorted indices based on most frequent words
     zip_words = lambda word_counts, sort_indices: list(zip(word_counts[0][sort_indices],word_counts[1][sort_indices])) # Zip the most frequent words with its number of occurences
@@ -41,7 +44,7 @@ for language in languages.values():
         return zip_words(word_count, sort_words(word_count))
 
 
-    tokenized_questions = language.pipeline.train_data['tokenized_question']
+    tokenized_questions = pipeline.train_data['tokenized_question']
     first = [sublist[0] for sublist in tokenized_questions]
     last = [sublist[-1] for sublist in tokenized_questions]
     

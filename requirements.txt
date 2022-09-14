@@ -1,3 +1,4 @@
 datasets
-fugashi[unidic-lite]
+fugashi[unidic]
+python -m unidic download
 libvoikko

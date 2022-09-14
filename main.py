@@ -2,7 +2,7 @@ import numpy as np
 from Pipeline import Pipeline
 from Language import Language
 from BinaryQuestionClassifier import BinaryQuestionClassifier
-from Preprocess import clean_english, clean_finnish, clean_japanese, tokenize_japanese
+from Preprocess_old import clean_english, clean_finnish, clean_japanese, tokenize_japanese
 from datasets import load_dataset
 from nltk.tokenize import word_tokenize
 # TASK 1.1a
@@ -31,27 +31,27 @@ languages = {
 #TASK 1.1b
 
 # Find the most common first and last words in each language
-# for language in languages.values():
-#     count_words = lambda text: np.unique(text, return_counts=True) # Count occurences of words in text
-#     sort_words = lambda word_count: np.argsort(word_count[1])[::-1] # Get list of sorted indices based on most frequent words
-#     zip_words = lambda word_counts, sort_indices: list(zip(word_counts[0][sort_indices],word_counts[1][sort_indices])) # Zip the most frequent words with its number of occurences
-#     def find_most_common(text):
-#         """Finds the most frequent words in a text together with its number of occurences"""
-#         word_count = count_words(text)
-#         return zip_words(word_count, sort_words(word_count))
+for language in languages.values():
+    count_words = lambda text: np.unique(text, return_counts=True) # Count occurences of words in text
+    sort_words = lambda word_count: np.argsort(word_count[1])[::-1] # Get list of sorted indices based on most frequent words
+    zip_words = lambda word_counts, sort_indices: list(zip(word_counts[0][sort_indices],word_counts[1][sort_indices])) # Zip the most frequent words with its number of occurences
+    def find_most_common(text):
+        """Finds the most frequent words in a text together with its number of occurences"""
+        word_count = count_words(text)
+        return zip_words(word_count, sort_words(word_count))
 
 
-#     tokenized_questions = language.pipeline.train_data['tokenized_question']
-#     first = [sublist[0] for sublist in tokenized_questions]
-#     last = [sublist[-1] for sublist in tokenized_questions]
+    tokenized_questions = language.pipeline.train_data['tokenized_question']
+    first = [sublist[0] for sublist in tokenized_questions]
+    last = [sublist[-1] for sublist in tokenized_questions]
     
-#     print(f"""
-#     Language: {language.name}
-#     Most frequent first words:
-#     {find_most_common(first)[:5]}
-#     Most frequent last words:
-#     {find_most_common(last)[:5]}
-#     """)
+    print(f"""
+    Language: {language.name}
+    Most frequent first words:
+    {find_most_common(first)[:5]}
+    Most frequent last words:
+    {find_most_common(last)[:5]}
+    """)
 
 
 # #Task 1.2

@@ -31,24 +31,6 @@ class Pipeline():
         self.train_data = self.train_data.map(add_label)
         self.validation_data = self.validation_data.map(add_label)
 
-    def extract_features(self):
-        """Extract features from the dataset"""
-        # Avoid tokenizing again
-        self.vectorizer = CountVectorizer(
-                tokenizer= lambda x: x,
-                preprocessor=lambda x: x,
-        )
-        def add_features(row):
-            row['overlap'] = len([e for e in row['tokenized_question'] if e in row['tokenized_plaintext']])
-            return row
-
-        self.train_data = self.train_data.map(add_features)
-        self.validation_data = self.validation_data.map(add_features)
-
-        # self.X = self.vectorizer.fit_transform(self.train_data['tokenized_question'])
-        self.X = np.array(self.train_data['overlap']).reshape(-1, 1)
-        self.X_validation = np.array(self.validation_data['overlap']).reshape(-1, 1)
-
 
     def clean(self, cleaner):
         """Clean the dataset"""

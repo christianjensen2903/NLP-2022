@@ -2,7 +2,7 @@ from nltk import download
 from nltk.stem.snowball import SnowballStemmer  
 from nltk.corpus import stopwords
 from fugashi import Tagger
-import advertools as adv
+# import advertools as adv
 
 
 #Downloading stopwords
@@ -24,13 +24,13 @@ def clean_finnish(text):
     words = [stemmer.stem(word) for word in lower if not word in stop_words]
     return words
 
-def clean_japanese(text):
-    lower = [x.lower() for x in text]
-    stop_words = set(adv.stopwords['japanese'])
-    words = [word for word in lower if not word in stop_words]
-    return words
+# def clean_japanese(text):
+    # lower = [x.lower() for x in text]
+    # stop_words = set(adv.stopwords['japanese'])
+    # words = [word for word in lower if not word in stop_words]
+    # return words
 
 
 # Defining tagger for japanese tokenizer
-japanese_tagger = Tagger('-Owakati') # Tagger has initial startup overhead, therefore it is defined here and not in lambda function
-tokenize_japanese = lambda text : japanese_tagger.parse(text).split(" ")
+# japanese_tagger = Tagger('-Owakati') # Tagger has initial startup overhead, therefore it is defined here and not in lambda function
+# tokenize_japanese = lambda text : japanese_tagger.parse(text).split(" ")

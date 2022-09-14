@@ -1,7 +1,6 @@
 from nltk import download
 from nltk.stem.snowball import SnowballStemmer  
 from nltk.corpus import stopwords
-from fugashi import Tagger
 import advertools as adv
 
 
@@ -32,5 +31,7 @@ def clean_japanese(text):
 
 
 # Defining tagger for japanese tokenizer
+from fugashi import Tagger
 japanese_tagger = Tagger('-Owakati') # Tagger has initial startup overhead, therefore it is defined here and not in lambda function
 tokenize_japanese = lambda text : japanese_tagger.parse(text).split(" ")
+# tokenize_japanese = lambda text : text

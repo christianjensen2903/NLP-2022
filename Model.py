@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 class Model(ABC):
 
-    def train(self):
+    def train(self, X, y):
         """Train the model"""
         pass
 
@@ -10,7 +10,7 @@ class Model(ABC):
         """Predict the answer"""
         pass
 
-    def evaluate(self):
+    def evaluate(self, X, y):
         """Evaluate the model"""
         pass
 

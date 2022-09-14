@@ -1,3 +1,4 @@
+import numpy as np
 from Pipeline import Pipeline
 from Language import Language
 from BinaryQuestionClassifier import BinaryQuestionClassifier

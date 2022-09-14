@@ -2,7 +2,7 @@ import numpy as np
 from Pipeline import Pipeline
 from Language import Language
 from BinaryQuestionClassifier import BinaryQuestionClassifier
-from Preprocess import clean_english , clean_finnish #, clean_japanese , tokenize_japanese
+from Preprocess import clean_english, clean_finnish, clean_japanese, tokenize_japanese
 from datasets import load_dataset
 from nltk.tokenize import word_tokenize
 # TASK 1.1a

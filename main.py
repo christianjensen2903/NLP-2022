@@ -1,45 +1,43 @@
-import numpy as np
 from Pipeline import Pipeline
 from languages.English import English
 from languages.Finnish import Finnish
 # from languages.Japanese import Japanese
 from Preprocess import Preprocess
 from DataExploration import DataExploration
-# from BinaryQuestionClassifier import BinaryQuestionClassifier
+from Model import Model
+from BinaryQuestionClassifier import BinaryQuestionClassifier
 import datasets
+from typing import List
 
-# TASK 1.1a
-# Preprocess the data
+from languages.LanguageModel import LanguageModel
 
-datasets.logging.set_verbosity_error()
 
-# Fetching language appropriate pipelines and getting data
-english_pipeline = English()
-languages = [English(), Finnish()]
-#TASK 1.1b
+datasets.logging.set_verbosity_error() # Is used to minimize the clutter in the console
 
-# Find the most common first and last words in each language
+
+languages: List[LanguageModel] = [English(), Finnish()] # Define the languages to be used
+models: List[Model] = [BinaryQuestionClassifier()] # Define the models to be tested
+
+
+# Run trough the pipeline for all languages and models
 for language in languages:
     pipeline = Pipeline()
     
+    # Get the preprocessed data and split it into training and validation data
     preprocessor = Preprocess(language.tokenize, language.clean)
     data = pipeline.get_data(language=language.name, preproccesor=preprocessor)
-    train_data, test_data = pipeline.split_data(data)
+    train_data, validation_data = pipeline.split_data(data)
 
+    # Explore the data
     data_exploration = DataExploration(train_data)
     data_exploration.find_frequent_words()
 
-    
+    # Train and evaluate all the models
+    for model in models:
+        X_train = model.extract_X(train_data)
+        y_train = train_data['is_answerable']
+        X_validation = model.extract_X(validation_data)
+        y_validation = validation_data['is_answerable']
 
-
-# #Task 1.2
-# for language in languages.values():
-#     print(f'\nLanguage: {language.name}')
-#     model = BinaryQuestionClassifier()
-#     X = model.extract_X(language.pipeline.train_data)
-#     y = language.pipeline.train_data['is_answerable']
-#     model.train(X, y)
-
-#     X_val = model.extract_X(language.pipeline.validation_data)
-#     y_val = language.pipeline.validation_data['is_answerable']
-#     model.evaluate(X_val, y_val)
+        model = pipeline.train(model, X_train, y_train)
+        pipeline.evaluate(model, X_validation, y_validation)

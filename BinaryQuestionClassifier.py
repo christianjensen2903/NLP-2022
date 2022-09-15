@@ -32,7 +32,8 @@ class BinaryQuestionClassifier(Model):
     def train(self, X, y):
         """Train the model"""
         self.model = LogisticRegression().fit(X, y)
-        print(f'Training accuracy: {self.model.score(X, y)}')
+        
+
 
 
     def predict(self, X):
@@ -41,7 +42,7 @@ class BinaryQuestionClassifier(Model):
 
     def evaluate(self, X, y):
         """Evaluate the model"""
-        print(f'Validation accuracy: {self.model.score(X, y)}')
+        return self.model.score(X, y)
 
     def save(self):
         """Save the model"""

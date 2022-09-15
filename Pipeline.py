@@ -2,12 +2,13 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 from datasets import load_dataset
 from Preprocess import Preprocess
+from Model import Model
 
 class Pipeline():
     def __init__(self):
         pass
 
-    def get_data(self, language, preproccesor):
+    def get_data(self, language, preproccesor: Preprocess):
         """Get the preprocessed data"""
         destination = f'cleaned_data/{language}.json'
 
@@ -34,19 +35,18 @@ class Pipeline():
         train_data, validation_data = train_test_split(data, test_size=0.2)
         return train_data, validation_data
 
-    def train(self, model):
+
+    def train(self, model: Model, X, y):
         """Train the model"""
         print('\nTraining the model...')
-        self.Y = self.train_data['is_answerable']
-        self.model = model.fit(self.X, self.Y)
-        print(f'Training accuracy: {self.model.score(self.X, self.Y)}')
+        model.train(X, y)
+        print(f'Train score: {model.evaluate(X, y)}')
+        return model
 
-    def validate(self):
-        """Validate the model"""
-        print('\nValidating the model...')
-        # self.X_validation = self.vectorizer.transform(self.validation_data['tokenized_question'])
-        self.Y_validation = self.validation_data['is_answerable']
-        print(f'Validation accuracy: {self.model.score(self.X_validation, self.Y_validation)}')
+    def evaluate(self, model: Model, X, y):
+        """Evaluate the model"""
+        print('\nEvaluating the model...')
+        print(f'Validation score: {model.evaluate(X, y)}')
         
 
     

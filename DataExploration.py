@@ -1,5 +1,5 @@
 import numpy as np
-
+import textwrap
 
 class DataExploration():
     def __init__(self, data):
@@ -29,9 +29,10 @@ class DataExploration():
         first = [sublist[0] for sublist in tokenized_questions]
         last = [sublist[-1] for sublist in tokenized_questions]
         
-        print(f"""
+        # textwrap.dedent is used to remove the indentation from the string
+        print(textwrap.dedent(f"""
         Most frequent first words:
         {find_most_common(first)[:5]}
         Most frequent last words:
         {find_most_common(last)[:5]}
-        """)
+        """))

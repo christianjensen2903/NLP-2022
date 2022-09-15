@@ -2,23 +2,22 @@ import pandas as pd
 
 
 class Preprocess:
-    def __init__(self, data, tokenizer, cleaner):
-        self.data = data
+    def __init__(self, tokenizer, cleaner):
         self.tokenizer = tokenizer
         self.cleaner = cleaner
 
-    def preprocess(self):
+    def preprocess(self, dataset):
         """Preprocess the dataset"""
-        self.data = self.flatten(self.data)
-        self.data = self.explode_annotations(self.data)
-        self.data = self.data.dropna()
-        self.data = self.data.drop_duplicates()
-        self.data = self.label_answerable(self.data)
-        self.data = self.tokenize(self.data)
-        self.data = self.clean(self.data)
-        self.data = self.data = self.balance(self.data)
+        data = self.flatten(dataset)
+        data = self.explode_annotations(data)
+        data = data.dropna()
+        data = data.drop_duplicates()
+        data = self.label_answerable(data)
+        data = self.tokenize(data)
+        data = self.clean(data)
+        data = data = self.balance(data)
 
-        return self.data
+        return data
 
     def flatten(self, dataset):
         """Concat the training data and the validation data"""

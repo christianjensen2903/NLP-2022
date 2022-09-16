@@ -22,10 +22,10 @@ class Model(ABC):
         """Evaluate the model"""
         pass
 
-    def save(self):
+    def save(self, language):
         """Save the model"""
         pass
 
-    def load(self):
+    def load(self, language):
         """Load the model"""
         pass

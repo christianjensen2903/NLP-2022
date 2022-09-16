@@ -6,7 +6,7 @@ class Model(ABC):
         """Get the path of the model for loading and saving"""
         pass
 
-    def extract_X(self, dataset):
+    def extract_X(self, dataset, language):
         """Extract features from the dataset"""
         pass
 

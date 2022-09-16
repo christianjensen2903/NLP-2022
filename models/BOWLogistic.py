@@ -12,9 +12,9 @@ class BOWLogistic(Model):
         self.plaintext_vectorizer = None
 
     def get_path(self, language):
-        return f'saved_models/logistic_regression[{language.name}].pkl'
+        return f'saved_models/bow_logistic/{language.name}.pkl'
 
-    def extract_X(self, dataset):
+    def extract_X(self, dataset, language):
         # Extract bag of words for question and document
         if self.plaintext_vectorizer is None or self.plaintext_vectorizer is None:
             self.plaintext_vectorizer = CountVectorizer(
@@ -55,15 +55,17 @@ class BOWLogistic(Model):
         return X
 
     def train(self, X, y):
-        parameters = {
-            'penalty': ['l2'],
-            'C': [1]
-        }
-        self.model = GridSearchCV(
-            LogisticRegression(),
-            parameters
-        ).fit(X, y)
-        # self.model = LogisticRegression().fit(X, y)
+        # -- Axel har udkommenteret dette, da han har en toaster pc --
+        # parameters = {
+        #     'penalty': ['l2'],
+        #     'C': [1]
+        # }
+        # self.model = GridSearchCV(
+        #     LogisticRegression(),
+        #     parameters,
+        #     verbose=10
+        # ).fit(X, y)
+        self.model = LogisticRegression().fit(X, y)
 
     def predict(self, X):
         pass

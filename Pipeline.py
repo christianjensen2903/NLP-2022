@@ -43,12 +43,11 @@ class Pipeline():
 
     def train(self, model: Model, X, y):
         """Train the model"""
-        print('\nTraining the model...')
+        print('Training the model...')
         model.train(X, y)
         print(f'Train score: {model.evaluate(X, y)}')
         return model
 
     def evaluate(self, model: Model, X, y):
         """Evaluate the model"""
-        print('\nEvaluating the model...')
         print(f'Validation score: {model.evaluate(X, y)}')

@@ -1,8 +1,9 @@
-from Model import Model
-import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import GridSearchCV
 from pickle import dump, load
+from models.Model import Model
+import numpy as np
 
 
 class BinaryQuestionClassifier(Model):
@@ -11,17 +12,17 @@ class BinaryQuestionClassifier(Model):
         self.plaintext_vectorizer = None
 
     def get_path(self, language):
-        return f'models/logistic_regression[{language.name}].pkl'
+        return f'saved_models/logistic_regression[{language.name}].pkl'
 
     def extract_X(self, dataset):
         # Extract bag of words for question and document
         if self.plaintext_vectorizer is None or self.plaintext_vectorizer is None:
             self.plaintext_vectorizer = CountVectorizer(
-                tokenizer=lambda x: x, # Avoid tokenizing again
+                tokenizer=lambda x: x,  # Avoid tokenizing again
                 preprocessor=lambda x: x
             )
             self.question_vectorizer = CountVectorizer(
-                tokenizer=lambda x: x, 
+                tokenizer=lambda x: x,
                 preprocessor=lambda x: x
             )
             question_bow = self.question_vectorizer.fit_transform(
@@ -43,12 +44,26 @@ class BinaryQuestionClassifier(Model):
 
         # Concatenate the features
         X = np.concatenate(
-            (question_bow.toarray(), plaintext_bow.toarray(), overlap.reshape(-1, 1)), axis=1)
+            (
+                question_bow.toarray(), 
+                plaintext_bow.toarray(), 
+                overlap.reshape(-1,  1)
+            ), 
+            axis=1
+        )
 
         return X
 
     def train(self, X, y):
-        self.model = LogisticRegression().fit(X, y)
+        parameters = {
+            'penalty': ['l2'],
+            'C': [1]
+        }
+        self.model = GridSearchCV(
+            LogisticRegression(),
+            parameters
+        ).fit(X, y)
+        # self.model = LogisticRegression().fit(X, y)
 
     def predict(self, X):
         pass

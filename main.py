@@ -4,8 +4,8 @@ from languages.Finnish import Finnish
 # from languages.Japanese import Japanese
 from Preprocess import Preprocess
 from DataExploration import DataExploration
-from Model import Model
-from BinaryQuestionClassifier import BinaryQuestionClassifier
+from models.Model import Model
+from models.BinaryQuestionClassifier import BinaryQuestionClassifier
 import datasets
 from typing import List
 
@@ -44,7 +44,6 @@ for language in languages:
         X_validation = model.extract_X(validation_data)
         y_validation = validation_data['is_answerable']
         try:
-            print('\nLoading model...')
             model.load(language)
         except:
             model = pipeline.train(model, X_train, y_train)

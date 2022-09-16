@@ -2,7 +2,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 from datasets import load_dataset
 from Preprocess import Preprocess
-from Model import Model
+from models.Model import Model
 
 
 class Pipeline():
@@ -35,8 +35,8 @@ class Pipeline():
         """Split the data into training and validation data"""
         # Random state is needed for saving and loading the model
         train_data, validation_data = train_test_split(
-            data, 
-            test_size=0.2, 
+            data,
+            test_size=0.2,
             random_state=0
         )
         return train_data, validation_data

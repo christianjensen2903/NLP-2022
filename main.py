@@ -24,7 +24,7 @@ models: List[Model] = [BinaryQuestionClassifier()]
 
 # Run trough the pipeline for all languages and models
 for language in languages:
-    print(f'-- Language: {language.name} --\n')
+    print(f'-- Language: {language.name} --')
     pipeline = Pipeline()
 
     # Get the preprocessed data and split it into training and validation data
@@ -38,12 +38,13 @@ for language in languages:
 
     # Train and evaluate all the models
     for model in models:
+        print('\nExtracting features...')
         X_train = model.extract_X(train_data)
         y_train = train_data['is_answerable']
         X_validation = model.extract_X(validation_data)
         y_validation = validation_data['is_answerable']
         try:
-            print('Loading model...')
+            print('\nLoading model...')
             model.load(language)
         except:
             model = pipeline.train(model, X_train, y_train)

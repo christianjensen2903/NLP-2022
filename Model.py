@@ -2,6 +2,10 @@ from abc import ABC, abstractmethod
 
 class Model(ABC):
 
+    def get_path(self, language):
+        """Get the path of the model for loading and saving"""
+        pass
+
     def extract_X(self, dataset):
         """Extract features from the dataset"""
         pass

@@ -15,7 +15,7 @@ class Preprocess:
         data = self.label_answerable(data)
         data = self.tokenize(data)
         data = self.clean(data)
-        data = data = self.balance(data)
+        data = self.balance(data)
 
         return data
 

@@ -4,6 +4,7 @@ from datasets import load_dataset
 from Preprocess import Preprocess
 from Model import Model
 
+
 class Pipeline():
     def __init__(self):
         pass
@@ -19,22 +20,26 @@ class Pipeline():
         except:
             # If the file doesn't exist, fetch the data from the internet and preprocess it
             data = load_dataset('copenlu/answerable_tydiqa')
-            data = self.filter_language(data, language)
             print('\nPreproccessing the data...')
+            data = self.filter_language(data, language)
             data = preproccesor.preprocess(data)
             data.to_json(destination, orient='records')
 
         return data
-    
+
     def filter_language(self, dataset, language):
         """Filter the dataset to only contain the language of interest"""
         return dataset.filter(lambda x: x['language'] == language)
 
     def split_data(self, data):
         """Split the data into training and validation data"""
-        train_data, validation_data = train_test_split(data, test_size=0.2)
+        # Random state is needed for saving and loading the model
+        train_data, validation_data = train_test_split(
+            data, 
+            test_size=0.2, 
+            random_state=0
+        )
         return train_data, validation_data
-
 
     def train(self, model: Model, X, y):
         """Train the model"""
@@ -47,6 +52,3 @@ class Pipeline():
         """Evaluate the model"""
         print('\nEvaluating the model...')
         print(f'Validation score: {model.evaluate(X, y)}')
-        
-
-    

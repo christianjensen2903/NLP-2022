@@ -12,17 +12,21 @@ from typing import List
 from languages.LanguageModel import LanguageModel
 
 
-datasets.logging.set_verbosity_error() # Is used to minimize the clutter in the console
+# Is used to minimize the clutter in the console
+datasets.logging.set_verbosity_error()
 
 
-languages: List[LanguageModel] = [English(), Finnish()] # Define the languages to be used
-models: List[Model] = [BinaryQuestionClassifier()] # Define the models to be tested
+# Define the languages to be used
+languages: List[LanguageModel] = [English(), Finnish()]
+# Define the models to be tested
+models: List[Model] = [BinaryQuestionClassifier()]
 
 
 # Run trough the pipeline for all languages and models
 for language in languages:
+    print(f'-- Language: {language.name} --\n')
     pipeline = Pipeline()
-    
+
     # Get the preprocessed data and split it into training and validation data
     preprocessor = Preprocess(language.tokenize, language.clean)
     data = pipeline.get_data(language=language.name, preproccesor=preprocessor)
@@ -38,6 +42,10 @@ for language in languages:
         y_train = train_data['is_answerable']
         X_validation = model.extract_X(validation_data)
         y_validation = validation_data['is_answerable']
-
-        model = pipeline.train(model, X_train, y_train)
+        try:
+            print('Loading model...')
+            model.load(language)
+        except:
+            model = pipeline.train(model, X_train, y_train)
+            model.save(language)
         pipeline.evaluate(model, X_validation, y_validation)

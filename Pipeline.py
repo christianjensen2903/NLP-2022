@@ -59,5 +59,6 @@ class Pipeline():
         clf = GridSearchCV(model.model, parameters, cv=5)
         clf.fit(X, y)
         print(clf.best_params_)
-        return clf.best_estimator_
+        model.model = clf.best_estimator_
+        return model
     

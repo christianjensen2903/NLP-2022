@@ -12,9 +12,6 @@ class BOWLogistic(Model):
         self.plaintext_vectorizer = None
         self.model = LogisticRegression()
 
-    def get_path(self, language):
-        return f'saved_models/bow_logistic/{language.name}.pkl'
-
     def extract_X(self, dataset, language):
         # Extract bag of words for question and document
         if self.plaintext_vectorizer is None or self.plaintext_vectorizer is None:
@@ -65,7 +62,7 @@ class BOWLogistic(Model):
         return self.model.score(X, y)
 
     def save(self, language):
-        dump(self.model, open(self.get_path(language), 'wb'))
+        dump(self.model, open(super().get_save_path(language, 'pkl'), 'wb'))
 
     def load(self, language):
-        self.model = load(open(self.get_path(language), 'rb'))
+        self.model = load(open(super().get_save_path(language, 'pkl'), 'rb'))

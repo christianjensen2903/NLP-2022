@@ -47,6 +47,7 @@ parameters = {
     }
 }
 
+grid_search = False
 
 # Run trough the pipeline for all languages and models
 for language in languages:
@@ -71,9 +72,11 @@ for language in languages:
         X_validation = model.extract_X(validation_data, language)
         y_validation = validation_data['is_answerable']
         try:
-            model.load(language)
+            model.load(language.name)
         except:
-            # model = pipeline.train(model, X_train, y_train)
-            model = pipeline.grid_search(model, X_train, y_train, parameters[model])
-            model.save(language)
+            if grid_search:
+                model = pipeline.grid_search(model, X_train, y_train, parameters[model])
+            else:
+                model = pipeline.train(model, X_train, y_train)
+            model.save(language.name)
         pipeline.evaluate(model, X_validation, y_validation)

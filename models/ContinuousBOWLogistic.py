@@ -1,4 +1,5 @@
 from models.BOWLogistic import BOWLogistic
+from gensim.models import Word2Vec as GensimWord2Vec
 from models.Word2Vec import Word2Vec
 import numpy as np
 
@@ -7,9 +8,6 @@ class ContinuousBOWLogistic(BOWLogistic):
     def __init__(self):
         super().__init__()
         self.word2vec = None
-
-    def get_path(self, language):
-        return f'saved_models/continuous_bow_logistic/{language.name}.pkl'
 
     def get_word2vec(self, dataset, language):
         word2vec = Word2Vec()

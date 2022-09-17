@@ -7,8 +7,6 @@ class Word2Vec(Model):
     def __init__(self):
         pass
 
-    def get_path(self, language):
-        return f'saved_models/word2vec/{language.name}.model'
 
     def extract_X(self, dataset):
         return dataset['tokenized_question'].to_list() + dataset['tokenized_plaintext'].to_list()
@@ -28,7 +26,7 @@ class Word2Vec(Model):
         pass
 
     def save(self, language):
-        self.model.save(self.get_path(language))
+        self.model.save(super().get_save_path(language, 'model'))
 
     def load(self, language):
-        self.model = GensimWord2Vec.load(self.get_path(language))
+        self.model = GensimWord2Vec.load(super().get_save_path(language, 'model'))

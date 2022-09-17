@@ -10,6 +10,7 @@ class BOWLogistic(Model):
     def __init__(self):
         self.question_vectorizer = None
         self.plaintext_vectorizer = None
+        self.model = LogisticRegression()
 
     def get_path(self, language):
         return f'saved_models/bow_logistic/{language.name}.pkl'
@@ -55,17 +56,7 @@ class BOWLogistic(Model):
         return X
 
     def train(self, X, y):
-        # -- Axel har udkommenteret dette, da han har en toaster pc --
-        # parameters = {
-        #     'penalty': ['l2'],
-        #     'C': [1]
-        # }
-        # self.model = GridSearchCV(
-        #     LogisticRegression(),
-        #     parameters,
-        #     verbose=10
-        # ).fit(X, y)
-        self.model = LogisticRegression().fit(X, y)
+        self.model = self.model.fit(X, y)
 
     def predict(self, X):
         pass

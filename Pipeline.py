@@ -3,6 +3,7 @@ import pandas as pd
 from datasets import load_dataset
 from Preprocess import Preprocess
 from models.Model import Model
+from sklearn.model_selection import GridSearchCV
 
 
 class Pipeline():
@@ -51,3 +52,12 @@ class Pipeline():
     def evaluate(self, model: Model, X, y):
         """Evaluate the model"""
         print(f'Validation score: {model.evaluate(X, y)}')
+
+    def grid_search(self, model: Model, X, y, parameters):
+        """Perform a grid search to find the best hyperparameters"""
+        print('Performing grid search...')
+        clf = GridSearchCV(model.model, parameters, cv=5)
+        clf.fit(X, y)
+        print(clf.best_params_)
+        return clf.best_estimator_
+    

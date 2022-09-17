@@ -22,12 +22,30 @@ languages: List[LanguageModel] = [
     Finnish()
 ]
 
+
+bowLogistic, continuousBOWLogistic, continuousLogistic, word2Vec = BOWLogistic(), ContinuousBOWLogistic(), ContinuousLogistic(), Word2Vec()
 # Define the models to be tested
 models: List[Model] = [
-    BOWLogistic(),
-    ContinuousBOWLogistic(),
-    ContinuousLogistic()
+    bowLogistic,
+    continuousBOWLogistic,
+    continuousLogistic
 ]
+
+# Define the parameters to be used in the grid search
+parameters = {
+    bowLogistic: {
+        'penalty': ['l2'],
+        'C': [0.1, 1, 10, 100, 1000],
+    },
+    continuousBOWLogistic: {
+        'penalty': ['l2'],
+        'C': [0.1, 1, 10, 100, 1000],
+    },
+    continuousLogistic: {
+        'penalty': ['l2'],
+        'C': [0.1, 1, 10, 100, 1000],
+    }
+}
 
 
 # Run trough the pipeline for all languages and models
@@ -55,6 +73,7 @@ for language in languages:
         try:
             model.load(language)
         except:
-            model = pipeline.train(model, X_train, y_train)
+            # model = pipeline.train(model, X_train, y_train)
+            model = pipeline.grid_search(model, X_train, y_train, parameters[model])
             model.save(language)
         pipeline.evaluate(model, X_validation, y_validation)

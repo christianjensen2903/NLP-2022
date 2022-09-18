@@ -26,7 +26,7 @@ class Word2Vec(Model):
         pass
 
     def save(self, language):
-        self.model.save(super().get_save_path(language, 'model'))
+        self.model.save(super().get_save_path(language.name, 'model'))
 
     def load(self, language):
-        self.model = GensimWord2Vec.load(super().get_save_path(language, 'model'))
+        self.model = GensimWord2Vec.load(super().get_save_path(language.name, 'model'))

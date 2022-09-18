@@ -1,3 +1,4 @@
+from languages.Japanese import Japanese
 from models.BOWLogistic import BOWLogistic
 from models.ContinuousBOWLogistic import ContinuousBOWLogistic
 from models.ContinuousLogistic import ContinuousLogistic
@@ -19,7 +20,8 @@ datasets.logging.set_verbosity_error()
 # Define the languages to be used
 languages: List[LanguageModel] = [
     English(),
-    Finnish()
+    Finnish(),
+    Japanese()
 ]
 
 
@@ -67,6 +69,10 @@ for language in languages:
     for model in models:
         print(f'\n - Model: {model.__class__.__name__}')
         print('Extracting features...')
+        try: #Added to make sure word2vec is trained for each language
+            model.word2vec = None
+        except:
+            pass
         X_train = model.extract_X(train_data, language)
         y_train = train_data['is_answerable']
         X_validation = model.extract_X(validation_data, language)

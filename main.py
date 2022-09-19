@@ -3,9 +3,10 @@ from models.ContinuousBOWLogistic import ContinuousBOWLogistic
 from models.ContinuousLogistic import ContinuousLogistic
 from languages.LanguageModel import LanguageModel
 from DataExploration import DataExploration
+from transformers import BertTokenizer
 from languages.English import English
 from languages.Finnish import Finnish
-from languages.Japanese import Japanese
+# from languages.Japanese import Japanese
 from Preprocess import Preprocess
 from Pipeline import Pipeline
 from models.Word2Vec import Word2Vec
@@ -20,11 +21,12 @@ datasets.logging.set_verbosity_error()
 languages: List[LanguageModel] = [
     English(),
     Finnish(),
-    Japanese()
+    # Japanese()
 ]
 
 
-bowLogistic, continuousBOWLogistic, continuousLogistic, word2Vec = BOWLogistic(), ContinuousBOWLogistic(), ContinuousLogistic(), Word2Vec()
+bowLogistic, continuousBOWLogistic, continuousLogistic, word2Vec = BOWLogistic(
+), ContinuousBOWLogistic(), ContinuousLogistic(), Word2Vec()
 # Define the models to be tested
 models: List[Model] = [
     bowLogistic,
@@ -59,7 +61,23 @@ for language in languages:
     preprocessor = Preprocess(language.tokenize, language.clean)
     data = pipeline.get_data(language=language.name, preproccesor=preprocessor)
     train_data, validation_data = pipeline.split_data(data)
+    tokenizer = BertTokenizer.from_pretrained(
+        'bert-base-uncased',
+        do_lower_case=True
+    )
+    max_len = 0
 
+    # For every sentence...
+    for sent in train_data['tokenized_question'] + train_data['tokenized_plaintext']:
+
+        # Tokenize the text and add `[CLS]` and `[SEP]` tokens.
+        input_ids = tokenizer.encode(sent, add_special_tokens=True)
+
+        # Update the maximum sentence length.
+        max_len = max(max_len, len(input_ids))
+        
+    print('Max sentence length: ', max_len)
+    
     # Explore the data
     data_exploration = DataExploration(train_data)
     data_exploration.find_frequent_words()
@@ -68,7 +86,7 @@ for language in languages:
     for model in models:
         print(f'\n - Model: {model.__class__.__name__}')
         print('Extracting features...')
-        try: #Added to make sure word2vec is trained for each language
+        try:  # Added to make sure word2vec is trained for each language
             model.word2vec = None
         except:
             pass
@@ -80,7 +98,8 @@ for language in languages:
             model.load(language.name)
         except:
             if grid_search:
-                model = pipeline.grid_search(model, X_train, y_train, parameters[model])
+                model = pipeline.grid_search(
+                    model, X_train, y_train, parameters[model])
             else:
                 model = pipeline.train(model, X_train, y_train)
             model.save(language.name)

@@ -1,12 +1,11 @@
-from languages.Japanese import Japanese
 from models.BOWLogistic import BOWLogistic
 from models.ContinuousBOWLogistic import ContinuousBOWLogistic
 from models.ContinuousLogistic import ContinuousLogistic
 from languages.LanguageModel import LanguageModel
 from DataExploration import DataExploration
-# from languages.Japanese import Japanese
 from languages.English import English
 from languages.Finnish import Finnish
+from languages.Japanese import Japanese
 from Preprocess import Preprocess
 from Pipeline import Pipeline
 from models.Word2Vec import Word2Vec

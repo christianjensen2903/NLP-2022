@@ -1,9 +1,9 @@
 from models.BOWLogistic import BOWLogistic
 from models.ContinuousBOWLogistic import ContinuousBOWLogistic
 from models.ContinuousLogistic import ContinuousLogistic
+from models.BertClassifier import BertClassifier
 from languages.LanguageModel import LanguageModel
 from DataExploration import DataExploration
-from transformers import BertTokenizer
 from languages.English import English
 from languages.Finnish import Finnish
 # from languages.Japanese import Japanese
@@ -25,10 +25,11 @@ languages: List[LanguageModel] = [
 ]
 
 
-bowLogistic, continuousBOWLogistic, continuousLogistic, word2Vec = BOWLogistic(
-), ContinuousBOWLogistic(), ContinuousLogistic(), Word2Vec()
+bowLogistic, continuousBOWLogistic, continuousLogistic, word2Vec, bertClassifier = BOWLogistic(
+), ContinuousBOWLogistic(), ContinuousLogistic(), Word2Vec(), BertClassifier()
 # Define the models to be tested
 models: List[Model] = [
+    bertClassifier,
     bowLogistic,
     continuousBOWLogistic,
     continuousLogistic
@@ -61,23 +62,7 @@ for language in languages:
     preprocessor = Preprocess(language.tokenize, language.clean)
     data = pipeline.get_data(language=language.name, preproccesor=preprocessor)
     train_data, validation_data = pipeline.split_data(data)
-    tokenizer = BertTokenizer.from_pretrained(
-        'bert-base-uncased',
-        do_lower_case=True
-    )
-    max_len = 0
 
-    # For every sentence...
-    for sent in train_data['tokenized_question'] + train_data['tokenized_plaintext']:
-
-        # Tokenize the text and add `[CLS]` and `[SEP]` tokens.
-        input_ids = tokenizer.encode(sent, add_special_tokens=True)
-
-        # Update the maximum sentence length.
-        max_len = max(max_len, len(input_ids))
-        
-    print('Max sentence length: ', max_len)
-    
     # Explore the data
     data_exploration = DataExploration(train_data)
     data_exploration.find_frequent_words()

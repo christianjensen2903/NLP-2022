@@ -26,10 +26,10 @@ class Word2Vec(Model):
 
     def save(self, language):
         self.model.save(
-            self.get_save_path(language.name, 'model')
+            self.get_save_path(language, 'model')
         )
 
     def load(self, language):
         self.model = GensimWord2Vec.load(
-            self.get_save_path(language.name, 'model')
+            self.get_save_path(language, 'model')
         )

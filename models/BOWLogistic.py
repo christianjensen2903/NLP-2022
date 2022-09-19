@@ -62,7 +62,7 @@ class BOWLogistic(Model):
         return self.model.score(X, y)
 
     def save(self, language):
-        dump(self.model, open(super().get_save_path(language, 'pkl'), 'wb'))
+        dump(self.model, open(self.get_save_path(language, 'pkl'), 'wb'))
 
     def load(self, language):
-        self.model = load(open(super().get_save_path(language, 'pkl'), 'rb'))
+        self.model = load(open(self.get_save_path(language, 'pkl'), 'rb'))

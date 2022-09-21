@@ -13,6 +13,12 @@ from models.Word2Vec import Word2Vec
 from models.Model import Model
 from typing import List
 import datasets
+import torch
+
+# y = torch.tensor([True, False, True], dtype=torch.long)
+# formatted_y = torch.zeros((len(y), 2))
+# formatted_y[torch.arange(len(y)), y] = 1
+# print(formatted_y)
 
 # Is used to minimize the clutter in the console
 datasets.logging.set_verbosity_error()

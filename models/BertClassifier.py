@@ -1,5 +1,5 @@
-from transformers import BertForSequenceClassification, AdamW, BertConfig
-from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
+from transformers import BertForSequenceClassification, AdamW
+from torch.utils.data import DataLoader, RandomSampler
 from torch.utils.data import TensorDataset
 from transformers import BertTokenizer, get_linear_schedule_with_warmup
 from models.Model import Model
@@ -20,24 +20,33 @@ class BertClassifier(Model):
             'bert-base-uncased',
             do_lower_case=True
         )
+        input_ids = []
+        attention_masks = []
 
-        encoded_dict = tokenizer.encode_plus(
-            dataset['question_text'].tolist(),
-            dataset['document_plaintext'].tolist(),
-            add_special_tokens=True,
-            padding='max_length',
-            truncation=True,
-            max_length=512,
-            return_attention_mask=True,
-            return_tensors='pt',
-        )
+        for index, row in dataset.iterrows():
+            encoded_dict = tokenizer.encode_plus(
+                row['question_text'],
+                row['document_plaintext'],
+                add_special_tokens=True,
+                max_length=512,
+                padding=True,
+                truncation=True,
+                return_attention_mask=True,
+                return_tensors='pt',
+            )
+            input_ids.append(encoded_dict['input_ids'])
+            attention_masks.append(encoded_dict['attention_mask'])
 
-        return (encoded_dict['input_ids'], encoded_dict['attention_mask'])
+        input_ids = torch.cat(input_ids, dim=0)
+        attention_masks = torch.cat(attention_masks, dim=0)
+        return (input_ids, attention_masks)
 
     def train(self, X, y):
-        print('hmm')
         input_ids, attention_masks = X
-        dataset = TensorDataset(input_ids, attention_masks, y)
+        y = torch.tensor(y.values, dtype=torch.long)
+        formatted_y = torch.zeros((len(y), 2))
+        formatted_y[torch.arange(len(y)), y] = 1
+        dataset = TensorDataset(input_ids, attention_masks, formatted_y)
         batch_size = 32
         train_dataloader = DataLoader(
             dataset,

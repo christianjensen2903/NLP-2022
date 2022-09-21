@@ -14,6 +14,7 @@ class Preprocess:
         data = data.drop_duplicates()
         data = self.label_answerable(data)
         data = self.tokenize(data)
+        data['answer_start'], data['answer_end'] = zip(*data.apply(lambda row: self.find_answer_span(row['tokenized_plaintext'], row['tokenized_answer']), axis=1))
         data = self.clean(data)
         data = self.balance(data)
 
@@ -36,7 +37,21 @@ class Preprocess:
         """Tokenize the dataset"""
         dataset['tokenized_question'] = dataset['question_text'].apply(self.tokenizer)
         dataset['tokenized_plaintext'] = dataset['document_plaintext'].apply(self.tokenizer)
+        dataset['tokenized_answer'] = dataset['answer_text'].apply(self.tokenizer)
         return dataset
+
+    def find_answer_span(self, sentence, answer):
+        """Find the start and end index of the answer in the sentence after tokenization"""
+        answer_length=len(answer)
+
+        if answer_length != 0:
+            # Loop over indices where the answer could start
+            for ind in (i for i,e in enumerate(sentence) if e==answer[0]):
+                # Check if the rest of the answer matches
+                if sentence[ind:ind+answer_length]==answer:
+                    return ind,ind+answer_length-1
+                    
+        return -1, -1
 
     def label_answerable(self, dataset):
         """Label the dataset"""

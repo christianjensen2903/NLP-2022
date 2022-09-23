@@ -31,8 +31,8 @@ languages: List[LanguageModel] = [
 ]
 
 
-bowLogistic, continuousBOWLogistic, continuousLogistic, word2Vec, bertClassifier = BOWLogistic(
-), ContinuousBOWLogistic(), ContinuousLogistic(), Word2Vec(), BertClassifier()
+bowLogistic, continuousBOWLogistic, continuousLogistic, bertClassifier = BOWLogistic(
+), ContinuousBOWLogistic(), ContinuousLogistic(), BertClassifier()
 # Define the models to be tested
 models: List[Model] = [
     bertClassifier,
@@ -77,10 +77,11 @@ for language in languages:
     for model in models:
         print(f'\n - Model: {model.__class__.__name__}')
         print('Extracting features...')
-        try:  # Added to make sure word2vec is trained for each language
+
+        # Check if word2vec is loaded with the correct language
+        if model.word2vec and model.word2vec.language != language.name:
             model.word2vec = None
-        except:
-            pass
+
         X_train = model.extract_X(train_data, language)
         y_train = train_data['is_answerable']
         X_validation = model.extract_X(validation_data, language)
@@ -90,8 +91,20 @@ for language in languages:
         except:
             if grid_search:
                 model = pipeline.grid_search(
-                    model, X_train, y_train, parameters[model])
+                    model,
+                    X_train,
+                    y_train,
+                    parameters[model]
+                )
             else:
-                model = pipeline.train(model, X_train, y_train)
+                model = pipeline.train(
+                    model,
+                    X_train,
+                    y_train
+                )
             model.save(language.name)
-        pipeline.evaluate(model, X_validation, y_validation)
+        pipeline.evaluate(
+            model,
+            X_validation,
+            y_validation
+        )

@@ -4,7 +4,8 @@ import numpy as np
 
 
 class Word2Vec(Model):
-    def __init__(self):
+    def __init__(self, language):
+        self.language = language
         pass
 
     def extract_X(self, dataset):

@@ -10,7 +10,7 @@ class ContinuousBOWLogistic(BOWLogistic):
         self.word2vec = None
 
     def get_word2vec(self, dataset, language):
-        word2vec = Word2Vec()
+        word2vec = Word2Vec(language)
         try:
             word2vec.load(language)
         except:

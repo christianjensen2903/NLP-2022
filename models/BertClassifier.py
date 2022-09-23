@@ -1,3 +1,4 @@
+from os import truncate
 from transformers import BertForSequenceClassification, AdamW
 from torch.utils.data import DataLoader, RandomSampler
 from torch.utils.data import TensorDataset
@@ -29,7 +30,7 @@ class BertClassifier(Model):
                 row['document_plaintext'],
                 add_special_tokens=True,
                 max_length=512,
-                padding=True,
+                padding='max_length',
                 truncation=True,
                 return_attention_mask=True,
                 return_tensors='pt',

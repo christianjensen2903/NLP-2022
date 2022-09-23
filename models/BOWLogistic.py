@@ -10,11 +10,12 @@ class BOWLogistic(Model):
     def __init__(self):
         self.question_vectorizer = None
         self.plaintext_vectorizer = None
+        self.first_word_vectorizer = None
         self.model = LogisticRegression()
 
     def extract_X(self, dataset, language):
         # Extract bag of words for question and document
-        if self.plaintext_vectorizer is None or self.plaintext_vectorizer is None:
+        if self.plaintext_vectorizer is None or self.plaintext_vectorizer is None or self.first_word_vectorizer is None:
             self.plaintext_vectorizer = CountVectorizer(
                 tokenizer=lambda x: x,  # Avoid tokenizing again
                 preprocessor=lambda x: x
@@ -23,11 +24,19 @@ class BOWLogistic(Model):
                 tokenizer=lambda x: x,
                 preprocessor=lambda x: x
             )
+            self.first_word_vectorizer = CountVectorizer(
+                tokenizer=lambda x: x,
+                preprocessor=lambda x: x
+            )
+            
             question_bow = self.question_vectorizer.fit_transform(
                 dataset['tokenized_question']
             )
             plaintext_bow = self.plaintext_vectorizer.fit_transform(
                 dataset['tokenized_plaintext']
+            )
+            first_word_bow = self.first_word_vectorizer.fit_transform(
+                dataset['tokenized_question'].str[0]
             )
         else:
             question_bow = self.question_vectorizer.transform(
@@ -36,16 +45,23 @@ class BOWLogistic(Model):
             plaintext_bow = self.plaintext_vectorizer.transform(
                 dataset['tokenized_plaintext']
             )
+            first_word_bow = self.first_word_vectorizer.transform(
+                dataset['tokenized_question'].str[0]
+            )
 
         overlap = np.array([len([e for e in question if e in plaintext]) for question, plaintext in zip(
             dataset['cleaned_question'], dataset['cleaned_plaintext'])])
+
+        
+
 
         # Concatenate the features
         X = np.concatenate(
             (
                 question_bow.toarray(),
                 plaintext_bow.toarray(),
-                overlap.reshape(-1,  1)
+                first_word_bow.toarray(),
+                overlap.reshape(-1,  1),
             ),
             axis=1
         )

@@ -6,7 +6,7 @@ from DataExploration import DataExploration
 from transformers import BertTokenizer
 from languages.English import English
 from languages.Finnish import Finnish
-# from languages.Japanese import Japanese
+from languages.Japanese import Japanese
 from Preprocess import Preprocess
 from Pipeline import Pipeline
 from models.Word2Vec import Word2Vec
@@ -21,7 +21,7 @@ datasets.logging.set_verbosity_error()
 languages: List[LanguageModel] = [
     English(),
     Finnish(),
-    # Japanese()
+    Japanese()
 ]
 
 

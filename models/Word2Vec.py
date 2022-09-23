@@ -4,7 +4,8 @@ import numpy as np
 
 
 class Word2Vec(Model):
-    def __init__(self):
+    def __init__(self, language):
+        self.language = language
         pass
 
     def extract_X(self, dataset):
@@ -26,10 +27,10 @@ class Word2Vec(Model):
 
     def save(self, language):
         self.model.save(
-            self.get_save_path(language.name, 'model')
+            self.get_save_path(language, 'model')
         )
 
     def load(self, language):
         self.model = GensimWord2Vec.load(
-            self.get_save_path(language.name, 'model')
+            self.get_save_path(language, 'model')
         )

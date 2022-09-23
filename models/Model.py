@@ -4,7 +4,7 @@ import os
 
 class Model(ABC):
 
-    def get_save_path(self, language: str, filetype: str):
+    def get_save_path(self, filetype=''):
         """Get the path of the model for loading and saving"""
         # Get the path of type saved_models/model_type
         path = os.path.join(
@@ -17,10 +17,13 @@ class Model(ABC):
         # Return the path of type saved_models/model_type/language.filetype
         return os.path.join(
             path,
-            f'{language}.{filetype}'
+            f'{self.language}.{filetype}' if filetype else self.language
         )
 
-    def extract_X(self, dataset, language: str = ""):
+    def set_language(self, language: str):
+        self.language = language
+
+    def extract_X(self, dataset):
         """Extract features from the dataset"""
         pass
 
@@ -36,10 +39,10 @@ class Model(ABC):
         """Evaluate the model"""
         pass
 
-    def save(self, language: str):
+    def save(self):
         """Save the model"""
         pass
 
-    def load(self, language: str):
+    def load(self):
         """Load the model"""
         pass

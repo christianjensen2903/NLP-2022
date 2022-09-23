@@ -6,7 +6,7 @@ from transformers import BertTokenizer, get_linear_schedule_with_warmup
 from models.Model import Model
 import torch
 
-
+# Not currently functional 
 class BertClassifier(Model):
     def __init__(self):
         self.model = BertForSequenceClassification.from_pretrained(
@@ -16,7 +16,7 @@ class BertClassifier(Model):
             output_hidden_states=False,
         )
 
-    def extract_X(self, dataset, language):
+    def extract_X(self, dataset):
         tokenizer = BertTokenizer.from_pretrained(
             'bert-base-uncased',
             do_lower_case=True
@@ -115,12 +115,8 @@ class BertClassifier(Model):
         """Evaluate the model"""
         pass
 
-    def save(self, language):
-        self.model.save_pretrained(
-            self.get_save_path(language, 'model')
-        )
+    def save(self):
+        self.model.save_pretrained(self.get_save_path('model'))
 
-    def load(self, language):
-        self.model.from_pretrained(
-            self.get_save_path(language, 'model')
-        )
+    def load(self):
+        self.model.from_pretrained(self.get_save_path('model'))

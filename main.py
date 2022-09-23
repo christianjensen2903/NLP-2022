@@ -1,24 +1,18 @@
-from models.BOWLogistic import BOWLogistic
 from models.ContinuousBOWLogistic import ContinuousBOWLogistic
 from models.ContinuousLogistic import ContinuousLogistic
-from models.BertClassifier import BertClassifier
 from languages.LanguageModel import LanguageModel
+from models.GPT2Generator import GPT2Generator
+from models.GPT2Generator import GPT2Generator
 from DataExploration import DataExploration
+from models.BOWLogistic import BOWLogistic
+# from languages.Japanese import Japanese
 from languages.English import English
 from languages.Finnish import Finnish
-# from languages.Japanese import Japanese
 from Preprocess import Preprocess
-from Pipeline import Pipeline
-from models.Word2Vec import Word2Vec
 from models.Model import Model
+from Pipeline import Pipeline
 from typing import List
 import datasets
-import torch
-
-# y = torch.tensor([True, False, True], dtype=torch.long)
-# formatted_y = torch.zeros((len(y), 2))
-# formatted_y[torch.arange(len(y)), y] = 1
-# print(formatted_y)
 
 # Is used to minimize the clutter in the console
 datasets.logging.set_verbosity_error()
@@ -31,11 +25,11 @@ languages: List[LanguageModel] = [
 ]
 
 
-bowLogistic, continuousBOWLogistic, continuousLogistic, bertClassifier = BOWLogistic(
-), ContinuousBOWLogistic(), ContinuousLogistic(), BertClassifier()
+bowLogistic, continuousBOWLogistic, continuousLogistic, gpt2Generator = BOWLogistic(
+), ContinuousBOWLogistic(), ContinuousLogistic(), GPT2Generator()
 # Define the models to be tested
 models: List[Model] = [
-    bertClassifier,
+    # gpt2Generator,
     bowLogistic,
     continuousBOWLogistic,
     continuousLogistic
@@ -75,19 +69,20 @@ for language in languages:
 
     # Train and evaluate all the models
     for model in models:
+        model.set_language(language.name)
         print(f'\n - Model: {model.__class__.__name__}')
         print('Extracting features...')
 
-        # Check if word2vec is loaded with the correct language
-        if model.word2vec and model.word2vec.language != language.name:
-            model.word2vec = None
-
-        X_train = model.extract_X(train_data, language)
+        X_train = model.extract_X(train_data)
         y_train = train_data['is_answerable']
-        X_validation = model.extract_X(validation_data, language)
+        X_validation = model.extract_X(validation_data)
         y_validation = validation_data['is_answerable']
         try:
-            model.load(language.name)
+            model.load()
+            if model.__class__.__name__ == 'GPT2Generator':
+                model.predict('What is')
+                model.predict('How can')
+                model.predict('Where')
         except:
             if grid_search:
                 model = pipeline.grid_search(
@@ -102,7 +97,7 @@ for language in languages:
                     X_train,
                     y_train
                 )
-            model.save(language.name)
+            model.save()
         pipeline.evaluate(
             model,
             X_validation,

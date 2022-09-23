@@ -4,9 +4,8 @@ import numpy as np
 
 
 class Word2Vec(Model):
-    def __init__(self, language):
-        self.language = language
-        pass
+    def __init__(self):
+        super().__init__()
 
     def extract_X(self, dataset):
         return dataset['tokenized_question'].to_list() + dataset['tokenized_plaintext'].to_list()
@@ -25,12 +24,8 @@ class Word2Vec(Model):
     def evaluate(self, X, y):
         pass
 
-    def save(self, language):
-        self.model.save(
-            self.get_save_path(language, 'model')
-        )
+    def save(self):
+        self.model.save(self.get_save_path('model'))
 
-    def load(self, language):
-        self.model = GensimWord2Vec.load(
-            self.get_save_path(language, 'model')
-        )
+    def load(self):
+        self.model = GensimWord2Vec.load(self.get_save_path('model'))

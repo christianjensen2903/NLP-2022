@@ -60,8 +60,8 @@ class BOWLogistic(Model):
             (
                 question_bow.toarray(),
                 plaintext_bow.toarray(),
-                first_word_bow.toarray(),
-                overlap.reshape(-1,  1),
+                first_word_bow.toarray(), # First word in question
+                overlap.reshape(-1,  1),  # Amount of words overlapping 
             ),
             axis=1
         )
@@ -82,3 +82,13 @@ class BOWLogistic(Model):
 
     def load(self, language):
         self.model = load(open(super().get_save_path(language, 'pkl'), 'rb'))
+    
+    def explainability(self , language):
+        word_weigths = dict(zip(
+            list(map(lambda x : "*QUESTION* " + x,[*self.question_vectorizer.vocabulary_ ]))+
+            list(map(lambda x : "*PLAINTEXT* " + x,[*self.plaintext_vectorizer.vocabulary_]))+
+            list(map(lambda x : "*FIRSTWORD* " + x,[*self.first_word_vectorizer.vocabulary_]))+
+            ['*OVERLAP*'],
+            list(self.model.coef_[0]),
+            ))
+        return (sorted(word_weigths.items() , key=lambda item:item[1] , reverse=True)[:5] , sorted(word_weigths.items() , key=lambda item:item[1] , reverse=False)[:5])

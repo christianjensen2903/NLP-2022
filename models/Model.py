@@ -43,3 +43,7 @@ class Model(ABC):
     def load(self, language: str):
         """Load the model"""
         pass
+
+    def explainability(self, language: str):
+        """Use an use an interpretability method on the model"""
+        pass

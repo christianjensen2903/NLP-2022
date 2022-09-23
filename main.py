@@ -84,6 +84,7 @@ for language in languages:
 
     # Train and evaluate all the models
     for model in models:
+        model.__init__()
         print(f'\n - Model: {model.__class__.__name__}')
         print('Extracting features...')
         try:  # Added to make sure word2vec is trained for each language
@@ -104,3 +105,5 @@ for language in languages:
                 model = pipeline.train(model, X_train, y_train)
             model.save(language.name)
         pipeline.evaluate(model, X_validation, y_validation)
+        print("Explainability \n",model.explainability(language))
+        

@@ -10,3 +10,5 @@ class ContinuousLogistic(ContinuousBOWLogistic):
             dataset,
             language
         )
+    def explainability(self , language):
+        return 

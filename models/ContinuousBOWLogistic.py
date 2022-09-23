@@ -48,3 +48,5 @@ class ContinuousBOWLogistic(BOWLogistic):
             ),
             axis=1
         )
+    def explainability(self , language):
+        return super().explainability(language)

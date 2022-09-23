@@ -33,3 +33,7 @@ class Word2Vec(Model):
         self.model = GensimWord2Vec.load(
             self.get_save_path(language.name, 'model')
         )
+
+    def explainability(self , language):
+        """Use an use an interpretability method on the model"""
+        pass

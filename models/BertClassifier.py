@@ -64,6 +64,10 @@ class BertClassifier(Model):
     def load(self, language):
         """Load the model"""
         pass
+    
+    def explainability(self):
+        """Use an use an interpretability method on the model"""
+        pass
 
 
 # Load the BERT tokenizer.

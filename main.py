@@ -29,7 +29,7 @@ bowLogistic, continuousBOWLogistic, continuousLogistic, gpt2Generator = BOWLogis
 ), ContinuousBOWLogistic(), ContinuousLogistic(), GPT2Generator()
 # Define the models to be tested
 models: List[Model] = [
-    # gpt2Generator,
+    gpt2Generator,
     bowLogistic,
     continuousBOWLogistic,
     continuousLogistic
@@ -79,10 +79,6 @@ for language in languages:
         y_validation = validation_data['is_answerable']
         try:
             model.load()
-            if model.__class__.__name__ == 'GPT2Generator':
-                model.predict('What is')
-                model.predict('How can')
-                model.predict('Where')
         except:
             if grid_search:
                 model = pipeline.grid_search(

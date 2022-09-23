@@ -1,13 +1,13 @@
 from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling
-from sklearn.model_selection import train_test_split
 from models.Model import Model
 from datasets import Dataset
-
+import torch
 
 # -- Resources --
 # https://huggingface.co/Finnish-NLP/gpt2-finnish
 # https://www.modeldifferently.com/en/2021/12/generación-de-fake-news-con-gpt-2/
 # https://github.com/huggingface/transformers/issues/1528#issuecomment-544977912
+
 
 class GPT2Generator(Model):
     def __init__(self):
@@ -33,7 +33,7 @@ class GPT2Generator(Model):
     def train(self, X, y):
         training_args = TrainingArguments(
             output_dir=self.get_save_path(),
-            num_train_epochs=6,
+            num_train_epochs=1,
             per_device_train_batch_size=32,
             per_device_eval_batch_size=16,
             warmup_steps=200,
@@ -53,7 +53,7 @@ class GPT2Generator(Model):
         )
         self.trainer.train()
 
-    def predict(self, X, num_return_sequences=5, max_length=30):
+    def generate_text(self, X, num_return_sequences=5, max_length=30):
         self.model.eval()
         text_ids = self.tokenizer.encode(X, return_tensors='pt')
 
@@ -66,7 +66,20 @@ class GPT2Generator(Model):
 
         for i, model_output in enumerate(generated_text_samples):
             print(
-                f"{i}: {self.tokenizer.decode(model_output, skip_special_tokens=True)}")
+                f"{i}: {self.tokenizer.decode(model_output, skip_special_tokens=True)}"
+            )
+
+    def predict(self, X):
+        self.model.eval()
+
+        def get_last_hidden_state(row):
+            row['last_hidden_state'] = self.model(
+                torch.tensor(row['input_ids'])
+            )[2][-1][-1]
+            return row
+
+        with torch.no_grad():
+            return X.map(get_last_hidden_state)
 
     def save(self):
         path = self.get_save_path()

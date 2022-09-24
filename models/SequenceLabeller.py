@@ -98,7 +98,7 @@ class SequenceLabeller(Model):
         data_collator = DataCollatorForTokenClassification(tokenizer=self.tokenizer)
 
         training_args = TrainingArguments(
-            output_dir='./saved_models/SequenceLabeller',          # output directory
+            #output_dir='./',          # output directory
             num_train_epochs=1,
             per_device_train_batch_size=32,
             per_device_eval_batch_size=16,

@@ -24,3 +24,8 @@ y = sequence_labeller.extract_y(data, 'english')
 sequence_labeller.train(X, y)
 
 sequence_labeller.save('english')
+
+# TODO: Check that loads correctly
+# TODO: Implement/check that it can predict
+# TODO: Implemement evaluation
+# TODO: Implement beamsearch. look into num_beams

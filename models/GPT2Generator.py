@@ -1,6 +1,7 @@
 from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling
 from models.Model import Model
 from datasets import Dataset
+import numpy as np
 import torch
 
 # -- Resources --
@@ -79,7 +80,7 @@ class GPT2Generator(Model):
             return row
 
         with torch.no_grad():
-            return X.map(get_last_hidden_state)
+            return np.array(X.map(get_last_hidden_state)['last_hidden_state'])
 
     def save(self):
         path = self.get_save_path()

@@ -43,10 +43,10 @@ class GPT2Generator(Model):
 
         return tokenized_train_dataset
 
-    def train(self, X, y):
+    def train(self, X):
         training_args = TrainingArguments(
             output_dir=self.get_save_path(),
-            num_train_epochs=1,
+            num_train_epochs=6,
             per_device_train_batch_size=32,
             per_device_eval_batch_size=16,
             warmup_steps=200,

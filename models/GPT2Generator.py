@@ -19,14 +19,21 @@ class GPT2Generator(Model):
         )
 
     def extract_X(self, dataset):
-        train_dataset = Dataset.from_pandas(dataset[['question_text']])
+        train_dataset = Dataset.from_pandas(
+            dataset[['question_text', 'document_plaintext']])
 
         def tokenize_function(examples):
-            return self.tokenizer(examples['question_text'], padding=True)
+            input_str = 'Question:' + examples['question_text'] + 'Context:' + examples['document_plaintext']
+            # Truncating input_str to max length
+            input_str = input_str[:1024]                                                                     
+            return self.tokenizer(
+                input_str,
+                padding=True
+            )
 
         tokenized_train_dataset = train_dataset.map(
             tokenize_function,
-            remove_columns=['question_text'],
+            remove_columns=['question_text', 'document_plaintext'],
         )
 
         return tokenized_train_dataset

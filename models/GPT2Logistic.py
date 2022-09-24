@@ -19,4 +19,6 @@ class GPT2Logistic(BOWLogistic):
 
     def extract_X(self, dataset):
         self.GPT2Generator = self.get_GPT2Generator(dataset)
-        return self.GPT2Generator.extract_X(dataset)
+        return self.GPT2Generator.predict(
+            self.GPT2Generator.extract_X(dataset)
+        )

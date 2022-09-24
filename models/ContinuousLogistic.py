@@ -5,10 +5,5 @@ class ContinuousLogistic(ContinuousBOWLogistic):
     def __init__(self):
         super().__init__()
 
-    def extract_X(self, dataset, language):
-        return super().get_continuous_representation(
-            dataset,
-            language
-        )
-    def explainability(self , language):
-        return 
+    def extract_X(self, dataset):
+        return super().get_continuous_representation(dataset)

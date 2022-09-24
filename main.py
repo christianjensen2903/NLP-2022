@@ -1,16 +1,16 @@
-from models.BOWLogistic import BOWLogistic
 from models.ContinuousBOWLogistic import ContinuousBOWLogistic
 from models.ContinuousLogistic import ContinuousLogistic
 from languages.LanguageModel import LanguageModel
+from models.GPT2Logistic import GPT2Logistic
 from DataExploration import DataExploration
-from transformers import BertTokenizer
+from models.BOWLogistic import BOWLogistic
+# from languages.Japanese import Japanese
 from languages.English import English
 from languages.Finnish import Finnish
 from languages.Japanese import Japanese
 from Preprocess import Preprocess
-from Pipeline import Pipeline
-from models.Word2Vec import Word2Vec
 from models.Model import Model
+from Pipeline import Pipeline
 from typing import List
 import datasets
 
@@ -25,10 +25,11 @@ languages: List[LanguageModel] = [
 ]
 
 
-bowLogistic, continuousBOWLogistic, continuousLogistic, word2Vec = BOWLogistic(
-), ContinuousBOWLogistic(), ContinuousLogistic(), Word2Vec()
+bowLogistic, continuousBOWLogistic, continuousLogistic, gpt2Logisitic = BOWLogistic(
+), ContinuousBOWLogistic(), ContinuousLogistic(), GPT2Logistic()
 # Define the models to be tested
 models: List[Model] = [
+    gpt2Logisitic,
     bowLogistic,
     continuousBOWLogistic,
     continuousLogistic
@@ -61,49 +62,41 @@ for language in languages:
     preprocessor = Preprocess(language.tokenize, language.clean)
     data = pipeline.get_data(language=language.name, preproccesor=preprocessor)
     train_data, validation_data = pipeline.split_data(data)
-    tokenizer = BertTokenizer.from_pretrained(
-        'bert-base-uncased',
-        do_lower_case=True
-    )
-    max_len = 0
 
-    # For every sentence...
-    for sent in train_data['tokenized_question'] + train_data['tokenized_plaintext']:
-
-        # Tokenize the text and add `[CLS]` and `[SEP]` tokens.
-        input_ids = tokenizer.encode(sent, add_special_tokens=True)
-
-        # Update the maximum sentence length.
-        max_len = max(max_len, len(input_ids))
-        
-    print('Max sentence length: ', max_len)
-    
     # Explore the data
     data_exploration = DataExploration(train_data)
     data_exploration.find_frequent_words()
 
     # Train and evaluate all the models
     for model in models:
-        model.__init__()
+        model.set_language(language.name)
         print(f'\n - Model: {model.__class__.__name__}')
-        print('Extracting features...')
-        try:  # Added to make sure word2vec is trained for each language
-            model.word2vec = None
-        except:
-            pass
-        X_train = model.extract_X(train_data, language)
-        y_train = train_data['is_answerable']
-        X_validation = model.extract_X(validation_data, language)
-        y_validation = validation_data['is_answerable']
         try:
-            model.load(language.name)
+            model.load()
         except:
+            print('Extracting training features...')
+            X_train = model.extract_X(train_data)
+            y_train = train_data['is_answerable']
             if grid_search:
                 model = pipeline.grid_search(
-                    model, X_train, y_train, parameters[model])
+                    model,
+                    X_train,
+                    y_train,
+                    parameters[model]
+                )
             else:
-                model = pipeline.train(model, X_train, y_train)
-            model.save(language.name)
-        pipeline.evaluate(model, X_validation, y_validation)
-        print("Explainability \n",model.explainability(language))
-        
+                model = pipeline.train(
+                    model,
+                    X_train,
+                    y_train
+                )
+            model.save()
+            
+        print('Extracting validation features...')
+        X_validation = model.extract_X(validation_data)
+        y_validation = validation_data['is_answerable']
+        pipeline.evaluate(
+            model,
+            X_validation,
+            y_validation
+        )

@@ -1,3 +1,4 @@
+from os import pread
 from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling
 from models.Model import Model
 from datasets import Dataset
@@ -12,15 +13,22 @@ import torch
 
 class GPT2Generator(Model):
     def __init__(self):
-        # self.language_to_model = {
-        #     'english': 'gpt2',
-        #     'finnish': 'Finnish-NLP/gpt2-finnish',
-        #     'japanese': 'cl-tohoku/bert-base-japanese-whole-word-masking'
-        # }
-        self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+        self.language_to_pretrained_name = {
+            'english': 'gpt2',
+            'finnish': 'Finnish-NLP/gpt2-finnish',
+            'japanese': 'rinna/japanese-gpt2-small' # Unsure if japanese is functional (not tested)
+        }
+
+    def set_language(self, language):
+        super().set_language(language)
+        pretrained_name = self.language_to_pretrained_name[language]
+        self.tokenizer = GPT2Tokenizer.from_pretrained(
+            pretrained_name
+        )
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.model = GPT2LMHeadModel.from_pretrained(
-            "gpt2", output_hidden_states=True
+            pretrained_name,
+            output_hidden_states=True
         )
 
     def extract_X(self, dataset):
@@ -28,9 +36,11 @@ class GPT2Generator(Model):
             dataset[['question_text', 'document_plaintext']])
 
         def tokenize_function(examples):
-            input_str = 'Question:' + examples['question_text'] + 'Context:' + examples['document_plaintext']
+            input_str = 'Question:' + \
+                examples['question_text'] + 'Context:' + \
+                examples['document_plaintext']
             # Truncating input_str to max length
-            input_str = input_str[:1024]                                                                     
+            input_str = input_str[:1024]
             return self.tokenizer(
                 input_str,
                 padding=True
@@ -46,7 +56,7 @@ class GPT2Generator(Model):
     def train(self, X):
         training_args = TrainingArguments(
             output_dir=self.get_save_path(),
-            num_train_epochs=6,
+            num_train_epochs=1,
             per_device_train_batch_size=32,
             per_device_eval_batch_size=16,
             warmup_steps=200,

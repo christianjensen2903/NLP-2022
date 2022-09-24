@@ -63,6 +63,8 @@ for language in languages:
     preprocessor = Preprocess(language.tokenize, language.clean)
     data = pipeline.get_data(language=language.name, preproccesor=preprocessor)
     train_data, validation_data = pipeline.split_data(data)
+    train_data = train_data.head(10)
+    validation_data = validation_data.head(10)
 
     # Explore the data
     data_exploration = DataExploration(train_data)

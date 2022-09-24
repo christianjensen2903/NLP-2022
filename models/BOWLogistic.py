@@ -13,6 +13,12 @@ class BOWLogistic(Model):
         self.first_word_vectorizer = None
         self.model = LogisticRegression()
 
+    def set_language(self, language):
+        super().set_language(language)
+        self.question_vectorizer = None
+        self.plaintext_vectorizer = None
+        self.first_word_vectorizer = None
+
     def extract_X(self, dataset):
         # Extract bag of words for question and document
         if self.plaintext_vectorizer is None or self.plaintext_vectorizer is None or self.first_word_vectorizer is None:

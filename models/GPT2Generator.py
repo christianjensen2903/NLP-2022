@@ -12,6 +12,11 @@ import torch
 
 class GPT2Generator(Model):
     def __init__(self):
+        # self.language_to_model = {
+        #     'english': 'gpt2',
+        #     'finnish': 'Finnish-NLP/gpt2-finnish',
+        #     'japanese': 'cl-tohoku/bert-base-japanese-whole-word-masking'
+        # }
         self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.model = GPT2LMHeadModel.from_pretrained(

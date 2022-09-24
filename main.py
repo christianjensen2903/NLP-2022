@@ -1,13 +1,12 @@
+from models.GPT2ContinuousBOWLogistic import GPT2ContinuousBOWLogistic
 from models.ContinuousBOWLogistic import ContinuousBOWLogistic
 from models.ContinuousLogistic import ContinuousLogistic
 from languages.LanguageModel import LanguageModel
-from models.GPT2Logistic import GPT2Logistic
 from DataExploration import DataExploration
 from models.BOWLogistic import BOWLogistic
 # from languages.Japanese import Japanese
 from languages.English import English
 from languages.Finnish import Finnish
-from languages.Japanese import Japanese
 from Preprocess import Preprocess
 from models.Model import Model
 from Pipeline import Pipeline
@@ -21,15 +20,17 @@ datasets.logging.set_verbosity_error()
 languages: List[LanguageModel] = [
     English(),
     Finnish(),
-    Japanese()
+    # Japanese()
 ]
 
+gpt2ContinuousBOWLogistic = GPT2ContinuousBOWLogistic()
+bowLogistic = BOWLogistic()
+continuousLogistic = ContinuousLogistic()
+continuousBOWLogistic = ContinuousBOWLogistic()
 
-bowLogistic, continuousBOWLogistic, continuousLogistic, gpt2Logisitic = BOWLogistic(
-), ContinuousBOWLogistic(), ContinuousLogistic(), GPT2Logistic()
 # Define the models to be tested
 models: List[Model] = [
-    gpt2Logisitic,
+    gpt2ContinuousBOWLogistic,
     bowLogistic,
     continuousBOWLogistic,
     continuousLogistic
@@ -71,12 +72,15 @@ for language in languages:
     for model in models:
         model.set_language(language.name)
         print(f'\n - Model: {model.__class__.__name__}')
+
+        print('Extracting features...')
+        X_train = model.extract_X(train_data)
+        y_train = train_data['is_answerable']
+        X_validation = model.extract_X(validation_data)
+        y_validation = validation_data['is_answerable']
         try:
             model.load()
         except:
-            print('Extracting training features...')
-            X_train = model.extract_X(train_data)
-            y_train = train_data['is_answerable']
             if grid_search:
                 model = pipeline.grid_search(
                     model,
@@ -91,10 +95,6 @@ for language in languages:
                     y_train
                 )
             model.save()
-            
-        print('Extracting validation features...')
-        X_validation = model.extract_X(validation_data)
-        y_validation = validation_data['is_answerable']
         pipeline.evaluate(
             model,
             X_validation,

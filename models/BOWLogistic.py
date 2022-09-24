@@ -28,7 +28,7 @@ class BOWLogistic(Model):
                 tokenizer=lambda x: x,
                 preprocessor=lambda x: x
             )
-            
+
             question_bow = self.question_vectorizer.fit_transform(
                 dataset['tokenized_question']
             )
@@ -52,16 +52,13 @@ class BOWLogistic(Model):
         overlap = np.array([len([e for e in question if e in plaintext]) for question, plaintext in zip(
             dataset['cleaned_question'], dataset['cleaned_plaintext'])])
 
-        
-
-
         # Concatenate the features
         X = np.concatenate(
             (
                 question_bow.toarray(),
                 plaintext_bow.toarray(),
-                first_word_bow.toarray(), # First word in question
-                overlap.reshape(-1,  1),  # Amount of words overlapping 
+                first_word_bow.toarray(),  # First word in question
+                overlap.reshape(-1,  1),  # Amount of words overlapping
             ),
             axis=1
         )
@@ -80,15 +77,15 @@ class BOWLogistic(Model):
     def save(self):
         dump(self.model, open(self.get_save_path('pkl'), 'wb'))
 
-    def load(self, language):
+    def load(self):
         self.model = load(open(self.get_save_path('pkl'), 'rb'))
-    
-    def explainability(self , language):
+
+    def explainability(self):
         word_weigths = dict(zip(
-            list(map(lambda x : "*QUESTION* " + x,[*self.question_vectorizer.vocabulary_ ]))+
-            list(map(lambda x : "*PLAINTEXT* " + x,[*self.plaintext_vectorizer.vocabulary_]))+
-            list(map(lambda x : "*FIRSTWORD* " + x,[*self.first_word_vectorizer.vocabulary_]))+
+            list(map(lambda x: "*QUESTION* " + x, [*self.question_vectorizer.vocabulary_])) +
+            list(map(lambda x: "*PLAINTEXT* " + x, [*self.plaintext_vectorizer.vocabulary_])) +
+            list(map(lambda x: "*FIRSTWORD* " + x, [*self.first_word_vectorizer.vocabulary_])) +
             ['*OVERLAP*'],
             list(self.model.coef_[0]),
-            ))
-        return (sorted(word_weigths.items() , key=lambda item:item[1] , reverse=True)[:5] , sorted(word_weigths.items() , key=lambda item:item[1] , reverse=False)[:5])
+        ))
+        return (sorted(word_weigths.items(), key=lambda item: item[1], reverse=True)[:5], sorted(word_weigths.items(), key=lambda item: item[1], reverse=False)[:5])

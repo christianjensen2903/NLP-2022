@@ -15,6 +15,7 @@ class Model(ABC):
         os.makedirs(path, exist_ok=True)
 
         # Return the path of type saved_models/model_type/language.filetype
+        # Or saved_models/model_type/language if the saving is done on a directory
         return os.path.join(
             path,
             f'{self.language}.{filetype}' if filetype else self.language
@@ -47,6 +48,6 @@ class Model(ABC):
         """Load the model"""
         pass
 
-    def explainability(self, language: str):
+    def explainability(self):
         """Use an use an interpretability method on the model"""
         pass

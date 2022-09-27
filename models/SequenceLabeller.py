@@ -7,6 +7,8 @@ from transformers import AutoModelForTokenClassification, TrainingArguments, Tra
 from torch.utils.data import TensorDataset
 import torch
 from datasets import Dataset
+import evaluate
+import wandb
 
 class SequenceLabeller(Model):
 
@@ -49,7 +51,7 @@ class SequenceLabeller(Model):
 
     def _tokenize(self, examples):
         """Convert the dataset to a format that the model can understand using the tokenizer"""
-        tokenized_inputs = self.tokenizer(examples['tokenized_question'], examples['tokenized_plaintext'], is_split_into_words=True, truncation='only_second') # padding='max_length', max_length=512, return_tensors='pt')
+        tokenized_inputs = self.tokenizer(examples['tokenized_question'], examples['tokenized_plaintext'], is_split_into_words=True, truncation='only_second', padding='max_length', max_length=512) # , return_tensors='pt'
         labels = self._realign_labels(examples['plaintext_tags'], tokenized_inputs)
         tokenized_inputs['labels'] = labels
         return tokenized_inputs
@@ -98,8 +100,11 @@ class SequenceLabeller(Model):
         data_collator = DataCollatorForTokenClassification(tokenizer=self.tokenizer)
 
         training_args = TrainingArguments(
-            #output_dir='./',          # output directory
-            num_train_epochs=1,
+            output_dir='./results',          # output directory
+            report_to="wandb",              # Weights & Biases
+            run_name='sequence-labeller',  # name of the W&B run (optional)
+            num_train_epochs=6,              # total number of training epochs
+            learning_rate=2e-5,
             per_device_train_batch_size=32,
             per_device_eval_batch_size=16,
             warmup_steps=200,
@@ -111,18 +116,66 @@ class SequenceLabeller(Model):
             model=self.model,
             args=training_args,
             data_collator=data_collator,
-            train_dataset=X # X contains both the label and the features
+            train_dataset=X, # X contains both the label and the features
+            compute_metrics=self._compute_metrics
         )
         self.trainer.train()
+
+        wandb.finish()
 
 
     def predict(self, X):
         """Predict the answer"""
         return self.trainer.predict(X)
 
+    def _compute_metrics(self, p):
+        predictions, labels = p
+        predictions = np.argmax(predictions, axis=2)
+
+        label_list = ['B', 'I', 'O']
+
+        # Remove ignored index (special tokens)
+        true_predictions = [
+            [label_list[p] for (p, l) in zip(prediction, label) if l != -100]
+            for prediction, label in zip(predictions, labels)
+        ]
+        true_labels = [
+            [label_list[l] for (p, l) in zip(prediction, label) if l != -100]
+            for prediction, label in zip(predictions, labels)
+        ]
+
+        metric = evaluate.load("seqeval")
+
+        results = metric.compute(predictions=true_predictions, references=true_labels)
+        return {
+            "precision": results["overall_precision"],
+            "recall": results["overall_recall"],
+            "f1": results["overall_f1"],
+            "accuracy": results["overall_accuracy"],
+        }
+
     def evaluate(self, X, y):
         """Evaluate the model"""
-        return self.trainer.evaluate(X, y)
+        predictions, labels, _ = self.predict(X)
+        predictions = np.argmax(predictions, axis=2)
+
+        label_list = ['B', 'I', 'O']
+
+        # Remove ignored index (special tokens)
+        true_predictions = [
+            [label_list[p] for (p, l) in zip(prediction, label) if l != -100]
+            for prediction, label in zip(predictions, labels)
+        ]
+        true_labels = [
+            [label_list[l] for (p, l) in zip(prediction, label) if l != -100]
+            for prediction, label in zip(predictions, labels)
+        ]
+
+        metric = evaluate.load("seqeval")
+
+        results = metric.compute(predictions=true_predictions, references=true_labels)
+        return results
+        # return self.trainer.evaluate(X)
 
     def save(self, language: str):
         """Save the model"""

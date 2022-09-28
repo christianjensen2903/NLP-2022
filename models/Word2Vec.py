@@ -1,9 +1,10 @@
 from gensim.models import Word2Vec as GensimWord2Vec
 from models.Model import Model
+from models.feature_extraction.feature_extracion import feature_extraction
 import numpy as np
 
 
-class Word2Vec(Model):
+class Word2Vec(Model,feature_extraction):
     def __init__(self):
         super().__init__()
 

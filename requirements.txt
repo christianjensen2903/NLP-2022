@@ -4,3 +4,4 @@ python -m unidic download
 libvoikko
 advertools
 transformers
+xgboost

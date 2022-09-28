@@ -1,4 +1,4 @@
-from os import pread
+# from os import pread
 from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling
 from models.Model import Model
 from datasets import Dataset
@@ -97,12 +97,12 @@ class GPT2Generator(Model):
 
         def get_last_hidden_state(row):
             row['last_hidden_state'] = self.model(
-                torch.tensor(row['input_ids'])
+                torch.tensor(row['input_ids'],device="cpu")
             )[2][-1][-1]
             return row
 
         with torch.no_grad():
-            return np.array(X.map(get_last_hidden_state)['last_hidden_state'])
+            return (X.map(get_last_hidden_state)['last_hidden_state'])
 
     def save(self):
         path = self.get_save_path()

@@ -21,13 +21,6 @@ class Model(ABC):
             f'{self.language}.{filetype}' if filetype else self.language
         )
 
-    def set_language(self, language: str):
-        self.language = language
-
-    def extract_X(self, dataset):
-        """Extract features from the dataset"""
-        pass
-
     def train(self, X, y):
         """Train the model"""
         pass
@@ -46,6 +39,10 @@ class Model(ABC):
 
     def load(self):
         """Load the model"""
+        pass
+
+    def weights(self):
+        """Gets the model weights as a dictionary"""
         pass
 
     def explainability(self):

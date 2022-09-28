@@ -1,14 +1,18 @@
-from models.GPT2ContinuousBOWLogistic import GPT2ContinuousBOWLogistic
-from models.ContinuousBOWLogistic import ContinuousBOWLogistic
-from models.ContinuousLogistic import ContinuousLogistic
+from models.Model import Model
+# from models.GPT2CBOWLogistic import GPT2CBOWLogistic
+from models.Logistic.BOWLogistic import BOWLogistic
+from models.Logistic.CBOW_BOWLogistic import CBOW_BOWLogistic
+from models.Logistic.CBOWLogistic import CBOWLogistic
+from models.XGBoost.BOWXGBoost import BOWXGBoost
+from models.XGBoost.CBOW_BOWXGBoost import CBOW_BOWXGBoost
+from models.XGBoost.CBOWXGBoost import CBOWXGBoost
+
 from languages.LanguageModel import LanguageModel
 from DataExploration import DataExploration
-from models.BOWLogistic import BOWLogistic
-# from languages.Japanese import Japanese
+from languages.Japanese import Japanese
 from languages.English import English
 from languages.Finnish import Finnish
 from Preprocess import Preprocess
-from models.Model import Model
 from Pipeline import Pipeline
 from typing import List
 import datasets
@@ -20,20 +24,27 @@ datasets.logging.set_verbosity_error()
 languages: List[LanguageModel] = [
     English(),
     Finnish(),
-    # Japanese()
+    Japanese()
 ]
 
-gpt2ContinuousBOWLogistic = GPT2ContinuousBOWLogistic()
+# gpt2CBOWLogistic = GPT2CBOWLogistic()
 bowLogistic = BOWLogistic()
-continuousLogistic = ContinuousLogistic()
-continuousBOWLogistic = ContinuousBOWLogistic()
+cBOWLogistic = CBOWLogistic()
+cBOW_BOWLogistic = CBOW_BOWLogistic()
+BOW_XGb = BOWXGBoost()
+cBOW_BOWXGBoost = CBOW_BOWXGBoost()
+cBOWXGBoost = CBOWXGBoost()
 
 # Define the models to be tested
 models: List[Model] = [
-    gpt2ContinuousBOWLogistic,
+    # gpt2CBOWLogistic,
     bowLogistic,
-    continuousBOWLogistic,
-    continuousLogistic
+    cBOW_BOWLogistic,
+    cBOWLogistic,
+    BOW_XGb,
+    cBOW_BOWXGBoost,
+    cBOWXGBoost
+
 ]
 
 # Define the parameters to be used in the grid search
@@ -42,11 +53,11 @@ parameters = {
         'penalty': ['l2'],
         'C': [0.1, 1, 10, 100, 1000],
     },
-    continuousBOWLogistic: {
+    cBOW_BOWLogistic: {
         'penalty': ['l2'],
         'C': [0.1, 1, 10, 100, 1000],
     },
-    continuousLogistic: {
+    cBOWLogistic: {
         'penalty': ['l2'],
         'C': [0.1, 1, 10, 100, 1000],
     }
@@ -102,3 +113,4 @@ for language in languages:
             X_validation,
             y_validation
         )
+        model.explainability()

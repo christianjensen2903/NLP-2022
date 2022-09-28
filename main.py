@@ -1,5 +1,5 @@
 from models.Model import Model
-# from models.GPT2CBOWLogistic import GPT2CBOWLogistic
+from models.GPT2CBOWLogistic import GPT2CBOWLogistic
 from models.Logistic.BOWLogistic import BOWLogistic
 from models.Logistic.CBOW_BOWLogistic import CBOW_BOWLogistic
 from models.Logistic.CBOWLogistic import CBOWLogistic
@@ -27,7 +27,7 @@ languages: List[LanguageModel] = [
     Japanese()
 ]
 
-# gpt2CBOWLogistic = GPT2CBOWLogistic()
+gpt2CBOWLogistic = GPT2CBOWLogistic()
 bowLogistic = BOWLogistic()
 cBOWLogistic = CBOWLogistic()
 cBOW_BOWLogistic = CBOW_BOWLogistic()
@@ -37,7 +37,7 @@ cBOWXGBoost = CBOWXGBoost()
 
 # Define the models to be tested
 models: List[Model] = [
-    # gpt2CBOWLogistic,
+    gpt2CBOWLogistic,
     bowLogistic,
     cBOW_BOWLogistic,
     cBOWLogistic,

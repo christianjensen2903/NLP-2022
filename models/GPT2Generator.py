@@ -1,6 +1,8 @@
 # from os import pread
+import imp
 from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling
 from models.Model import Model
+from models.feature_extraction.feature_extracion import feature_extraction
 from datasets import Dataset
 import numpy as np
 import torch
@@ -11,7 +13,7 @@ import torch
 # https://github.com/huggingface/transformers/issues/1528#issuecomment-544977912
 
 
-class GPT2Generator(Model):
+class GPT2Generator(Model , feature_extraction):
     def __init__(self):
         self.language_to_pretrained_name = {
             'english': 'gpt2',

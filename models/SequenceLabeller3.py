@@ -7,6 +7,9 @@ import torch.optim as optim
 import numpy as np
 from models.Word2Vec import Word2Vec
 
+# TODO: Implement question as context
+# TODO: Possibly split extract_X into extract_X and extract_y
+
 class SequenceLabeller3(Model):
 
     def __init__(self, language: str = ""):
@@ -567,7 +570,7 @@ class BiLSTM_CRF(nn.Module):
         return alpha
 
 
-    def viterbi_algo(self, feats):
+    def viterbi_decode(self, feats):
         '''
         In this function, we implement the viterbi algorithm explained above.
         A Dynamic programming based approach to find the best tag sequence

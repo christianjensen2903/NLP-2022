@@ -17,10 +17,10 @@ class Word2Vec(Model):
     def predict(self, X):
         # Handle words missing from the vocabulary
         output = np.array([
-            self.model.wv[word] for word in X if word in self.model.wv
+            self.model.wv[word] if word in self.model.wv else np.zeros(self.model.vector_size) for word in X
         ])
         # If all words are missing, return a zero vector
-        return output if len(output) != 0 else np.zeros((1, self.model.vector_size))
+        return output if len(output) != 0 else np.zeros((len(output), self.model.vector_size))
 
     def evaluate(self, X, y):
         pass

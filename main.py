@@ -37,7 +37,7 @@ cBOWXGBoost = CBOWXGBoost()
 
 # Define the models to be tested
 models: List[Model] = [
-    # gpt2CBOWLogistic,
+    gpt2CBOWLogistic,
     bowLogistic,
     cBOW_BOWLogistic,
     cBOWLogistic,

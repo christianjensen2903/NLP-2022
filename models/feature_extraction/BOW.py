@@ -8,10 +8,11 @@ import numpy as np
 
 class BOW(feature_extraction):
     def __init__(self):
+        super().__init__()
         self.question_vectorizer = None
         self.plaintext_vectorizer = None
         self.first_word_vectorizer = None
-        self.model = LogisticRegression()
+        # self.model = LogisticRegression()
 
     def set_language(self, language):
         super().set_language(language)
@@ -19,20 +20,23 @@ class BOW(feature_extraction):
         self.plaintext_vectorizer = None
         self.first_word_vectorizer = None
 
+    def return_function(self , x):
+        return x
+
     def extract_X(self, dataset):
         # Extract bag of words for question and document
         if self.plaintext_vectorizer is None or self.plaintext_vectorizer is None or self.first_word_vectorizer is None:
             self.plaintext_vectorizer = CountVectorizer(
-                tokenizer=lambda x: x,  # Avoid tokenizing again
-                preprocessor=lambda x: x
+                tokenizer=self.return_function,  # Avoid tokenizing again
+                preprocessor=self.return_function
             )
             self.question_vectorizer = CountVectorizer(
-                tokenizer=lambda x: x,
-                preprocessor=lambda x: x
+                tokenizer=self.return_function,
+                preprocessor=self.return_function
             )
             self.first_word_vectorizer = CountVectorizer(
-                tokenizer=lambda x: x,
-                preprocessor=lambda x: x
+                tokenizer=self.return_function,
+                preprocessor=self.return_function
             )
 
             question_bow = self.question_vectorizer.fit_transform(

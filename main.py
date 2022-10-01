@@ -1,5 +1,6 @@
 from models.Model import Model
 from models.GPT2CBOWLogistic import GPT2CBOWLogistic
+from models.GPT2Generator import GPT2Generator
 from models.Logistic.BOWLogistic import BOWLogistic
 from models.Logistic.CBOW_BOWLogistic import CBOW_BOWLogistic
 from models.Logistic.CBOWLogistic import CBOWLogistic
@@ -27,6 +28,7 @@ languages: List[LanguageModel] = [
     Japanese()
 ]
 
+gpt2Generator = GPT2Generator()
 gpt2CBOWLogistic = GPT2CBOWLogistic()
 bowLogistic = BOWLogistic()
 cBOWLogistic = CBOWLogistic()
@@ -37,15 +39,21 @@ cBOWXGBoost = CBOWXGBoost()
 
 # Define the models to be tested
 models: List[Model] = [
-    gpt2CBOWLogistic,
-    bowLogistic,
-    cBOW_BOWLogistic,
-    cBOWLogistic,
-    BOW_XGb,
-    cBOW_BOWXGBoost,
-    cBOWXGBoost
-
+    gpt2Generator, 
+    # gpt2CBOWLogistic,
+    # bowLogistic,
+    # cBOW_BOWLogistic,
+    # cBOWLogistic,
+    # BOW_XGb,
+    # cBOW_BOWXGBoost,
+    # cBOWXGBoost
 ]
+
+question_beginning = {
+    'english': ['When', 'What', 'How'],
+    'finnish': ['Milloin', 'Mikä', 'Missä'],
+    'japanese': ['日本', '『', 'アメリカ']   
+}
 
 # Define the parameters to be used in the grid search
 parameters = {
@@ -93,6 +101,7 @@ for language in languages:
         y_validation = validation_data['is_answerable']
         try:
             model.load()
+            model.generate_text(question_beginning[language.name])
         except:
             if grid_search:
                 model = pipeline.grid_search(

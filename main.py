@@ -15,6 +15,7 @@ from languages.Finnish import Finnish
 from Preprocess import Preprocess
 from Pipeline import Pipeline
 from typing import List
+import torch
 import datasets
 
 # Is used to minimize the clutter in the console
@@ -27,6 +28,8 @@ languages: List[LanguageModel] = [
     Japanese()
 ]
 
+torch.cuda.empty_cache()
+
 gpt2CBOWLogistic = GPT2CBOWLogistic()
 bowLogistic = BOWLogistic()
 cBOWLogistic = CBOWLogistic()
@@ -37,14 +40,13 @@ cBOWXGBoost = CBOWXGBoost()
 
 # Define the models to be tested
 models: List[Model] = [
-    # gpt2CBOWLogistic,
+    gpt2CBOWLogistic,
     bowLogistic,
     cBOW_BOWLogistic,
     cBOWLogistic,
     BOW_XGb,
     cBOW_BOWXGBoost,
     cBOWXGBoost
-
 ]
 
 # Define the parameters to be used in the grid search
@@ -113,4 +115,4 @@ for language in languages:
             X_validation,
             y_validation
         )
-        model.explainability( n = 5)
+        model.explainability()

@@ -20,6 +20,10 @@ class GPT2Generator(Model , feature_extraction):
             'finnish': 'Finnish-NLP/gpt2-finnish',
             'japanese': 'rinna/japanese-gpt2-small' # Unsure if japanese is functional (not tested)
         }
+        if torch.cuda.is_available():  
+            self.device = "cuda:0" 
+        else:  
+            self.device = "cpu" 
 
     def set_language(self, language):
         super().set_language(language)
@@ -59,8 +63,8 @@ class GPT2Generator(Model , feature_extraction):
         training_args = TrainingArguments(
             output_dir=self.get_save_path(),
             num_train_epochs=3,
-            per_device_train_batch_size=32,
-            per_device_eval_batch_size=16,
+            per_device_train_batch_size=2,
+            per_device_eval_batch_size=2,
             warmup_steps=200,
             weight_decay=0.01,
             prediction_loss_only=True,
@@ -96,10 +100,11 @@ class GPT2Generator(Model , feature_extraction):
 
     def predict(self, X):
         self.model.eval()
+        self.model.to(self.device)
 
         def get_last_hidden_state(row):
             row['last_hidden_state'] = self.model(
-                torch.tensor(row['input_ids'],device="cpu")
+                torch.tensor(row['input_ids'],device=self.device)
             )[2][-1][-1]
             return row
 

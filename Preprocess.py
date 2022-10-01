@@ -5,17 +5,21 @@ class Preprocess:
     def __init__(self, tokenizer, cleaner):
         self.tokenizer = tokenizer
         self.cleaner = cleaner
+        self.from_datasets = True
 
     def preprocess(self, dataset):
         """Preprocess the dataset"""
-        data = self.flatten(dataset)
-        data = self.explode_annotations(data)
-        data = data.dropna()
-        data = data.drop_duplicates()
-        data = self.label_answerable(data)
+        data = dataset
+        if self.from_datasets:
+            data = self.flatten(dataset)
+            data = self.explode_annotations(data)
+            data = data.dropna()
+            data = data.drop_duplicates()
+            data = self.label_answerable(data)
         data = self.tokenize(data)
         data = self.clean(data)
-        data = self.balance(data)
+        if self.from_datasets:
+            data = self.balance(data)
 
         return data
 

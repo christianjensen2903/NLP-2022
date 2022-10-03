@@ -16,6 +16,7 @@ from languages.Finnish import Finnish
 from Preprocess import Preprocess
 from Pipeline import Pipeline
 from typing import List
+import torch
 import datasets
 
 # Is used to minimize the clutter in the console
@@ -29,6 +30,8 @@ languages: List[LanguageModel] = [
 ]
 
 gpt2Generator = GPT2Generator()
+torch.cuda.empty_cache()
+
 gpt2CBOWLogistic = GPT2CBOWLogistic()
 bowLogistic = BOWLogistic()
 cBOWLogistic = CBOWLogistic()
@@ -101,7 +104,8 @@ for language in languages:
         y_validation = validation_data['is_answerable']
         try:
             model.load()
-            model.generate_text(question_beginning[language.name])
+            for starting_word in question_beginning[language.name]:
+                model.generate_text(['Question:', starting_word])
         except:
             if grid_search:
                 model = pipeline.grid_search(
@@ -122,4 +126,4 @@ for language in languages:
             X_validation,
             y_validation
         )
-        model.explainability( n = 5)
+        model.explainability()

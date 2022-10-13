@@ -1,3 +1,5 @@
+from sqlite3 import converters
+from regex import X
 from models.Model import Model
 import torch
 import torch.autograd as autograd
@@ -6,11 +8,12 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 from models.Word2Vec import Word2Vec
+import pandas as pd
 
 # TODO: Implement question as context
 # TODO: Possibly split extract_X into extract_X and extract_y
 
-class SequenceLabeller3(Model):
+class SequenceLabeller_BiLSTM2(Model):
 
     def __init__(self, language: str = ""):
         super().__init__()
@@ -56,7 +59,10 @@ class SequenceLabeller3(Model):
 
     def _convert_to_iob(self, dataset):
         """Tag the dataset with the IOB format"""
-        return dataset.apply(lambda row: self._tag_sentence(row['tokenized_plaintext'], row['answer_start'], row['answer_end']), axis=1)
+        if isinstance(dataset,pd.Series):
+            return self._tag_sentence(dataset['tokenized_plaintext'], dataset['answer_start'], dataset['answer_end'])
+        else:
+            return dataset.apply(lambda row: self._tag_sentence(row['tokenized_plaintext'], row['answer_start'], row['answer_end']), axis=1)
 
     def _create_dico(self, item_list):
         """
@@ -169,14 +175,13 @@ class SequenceLabeller3(Model):
 
     def extract_X(self, dataset, language: str = ""):
         # Concatenate the question with the plaintext and tags
-        # return dataset.apply(lambda x: np.concatenate(([self.start_tag],x['tokenized_question'], [self.sep_tag],x['tokenized_plaintext'], [self.stop_tag])), axis=1)
-        return self._prepare_dataset(dataset)
+        return dataset.apply(lambda x: np.concatenate(([self.start_tag],x['tokenized_question'], [self.sep_tag],x['tokenized_plaintext'], [self.stop_tag])), axis=1)
+        # return self._prepare_dataset(dataset)
 
     def extract_y(self, dataset, language: str = ""):
-        tags = np.array(self._convert_to_iob(dataset))
-        # y = tags.apply(lambda x: self._prepare_target(x))
+        y = dataset.apply(lambda x: np.concatenate((['O']*(len(x['tokenized_question']) + 2), self._convert_to_iob(x), ['O'])), axis=1) # add O tags for start tag, question and sep tag
         # y = [self._prepare_target(x) for x in tags]
-        return tags
+        return y
 
 
     def train(self, X, y):

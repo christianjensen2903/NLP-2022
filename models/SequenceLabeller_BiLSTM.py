@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 
-class SequenceLabeller2(Model):
+class SequenceLabeller_BiLSTM(Model):
 
     def __init__(self, language: str = ""):
         super().__init__()

@@ -1,7 +1,7 @@
 from Preprocess import Preprocess
 from Pipeline import Pipeline
 from languages.English import English
-from models.SequenceLabeller import SequenceLabeller
+from models.SequenceLabeller_BERT import SequenceLabeller
 import numpy as np
 from os import truncate
 from transformers import BertForSequenceClassification, AdamW

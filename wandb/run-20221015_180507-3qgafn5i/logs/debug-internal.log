@@ -1,0 +1,500 @@
+2022-10-15 18:05:07,217 INFO    StreamThr :37365 [internal.py:wandb_internal():88] W&B internal server running at pid: 37365, started at: 2022-10-15 18:05:07.216158
+2022-10-15 18:05:07,218 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: status
+2022-10-15 18:05:07,219 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: status
+2022-10-15 18:05:07,220 DEBUG   SenderThread:37365 [sender.py:send():301] send: header
+2022-10-15 18:05:07,220 INFO    WriterThread:37365 [datastore.py:open_for_write():75] open: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_180507-3qgafn5i/run-3qgafn5i.wandb
+2022-10-15 18:15:13,537 DEBUG   SenderThread:37365 [sender.py:send():301] send: run
+2022-10-15 18:15:14,597 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: check_version
+2022-10-15 18:15:14,598 INFO    SenderThread:37365 [dir_watcher.py:__init__():216] watching files in: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_180507-3qgafn5i/files
+2022-10-15 18:15:14,598 INFO    SenderThread:37365 [sender.py:_start_run_threads():912] run started: 3qgafn5i with start time 1665849907.209366
+2022-10-15 18:15:14,598 DEBUG   SenderThread:37365 [sender.py:send():301] send: summary
+2022-10-15 18:15:14,599 INFO    SenderThread:37365 [sender.py:_save_file():1155] saving file wandb-summary.json with policy end
+2022-10-15 18:15:14,599 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: check_version
+2022-10-15 18:15:15,074 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: run_start
+2022-10-15 18:15:15,076 DEBUG   HandlerThread:37365 [meta.py:__init__():34] meta init
+2022-10-15 18:15:15,079 DEBUG   HandlerThread:37365 [meta.py:__init__():49] meta init done
+2022-10-15 18:15:15,079 DEBUG   HandlerThread:37365 [meta.py:probe():215] probe
+2022-10-15 18:15:15,082 DEBUG   HandlerThread:37365 [meta.py:_setup_git():205] setup git
+2022-10-15 18:15:15,604 INFO    Thread-13 :37365 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_180507-3qgafn5i/files/wandb-summary.json
+2022-10-15 18:25:43,571 DEBUG   HandlerThread:37365 [meta.py:_setup_git():212] setup git done
+2022-10-15 18:25:43,573 DEBUG   HandlerThread:37365 [meta.py:_save_pip():53] save pip
+2022-10-15 18:25:43,579 DEBUG   HandlerThread:37365 [meta.py:_save_pip():67] save pip done
+2022-10-15 18:25:43,580 DEBUG   HandlerThread:37365 [meta.py:probe():253] probe done
+2022-10-15 18:25:43,671 INFO    Thread-13 :37365 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_180507-3qgafn5i/files/requirements.txt
+2022-10-15 18:25:43,671 INFO    Thread-13 :37365 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_180507-3qgafn5i/files/wandb-metadata.json
+2022-10-15 18:25:43,774 DEBUG   SenderThread:37365 [sender.py:send():301] send: telemetry
+2022-10-15 18:25:43,774 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,774 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:43,778 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,779 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,779 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,779 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,780 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,780 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,780 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,780 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,781 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,781 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,781 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,781 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,781 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,782 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,782 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,782 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,783 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,783 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,783 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,783 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,783 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,784 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,784 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,784 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,784 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:43,784 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:25:43,784 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:25:44,263 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:44,264 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:44,264 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:44,264 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:44,264 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:44,265 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:25:45,678 DEBUG   SenderThread:37365 [sender.py:send():301] send: telemetry
+2022-10-15 18:25:45,678 DEBUG   SenderThread:37365 [sender.py:send():301] send: config
+2022-10-15 18:25:45,679 DEBUG   SenderThread:37365 [sender.py:send():301] send: metric
+2022-10-15 18:25:45,679 DEBUG   SenderThread:37365 [sender.py:send():301] send: telemetry
+2022-10-15 18:25:45,679 DEBUG   SenderThread:37365 [sender.py:send():301] send: metric
+2022-10-15 18:25:45,679 WARNING SenderThread:37365 [sender.py:send_metric():1111] Seen metric with glob (shouldn't happen)
+2022-10-15 18:25:45,679 DEBUG   SenderThread:37365 [sender.py:send():301] send: telemetry
+2022-10-15 18:25:45,681 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:45,683 INFO    Thread-13 :37365 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_180507-3qgafn5i/files/output.log
+2022-10-15 18:25:46,054 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:25:46,055 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:46,693 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:47,021 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:25:47,021 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:47,691 INFO    Thread-13 :37365 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_180507-3qgafn5i/files/output.log
+2022-10-15 18:25:47,820 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:48,327 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:25:48,327 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:48,790 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:49,216 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:25:49,216 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:49,480 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:50,846 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:25:50,846 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:54,760 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:55,247 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:25:55,247 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:55,590 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:58,306 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:25:58,306 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:58,719 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:59,102 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:25:59,103 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:59,495 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:25:59,495 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:25:59,943 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:00,322 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:26:00,323 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:00,493 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:26:00,953 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:01,430 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:26:01,430 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:01,972 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:02,388 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:26:02,389 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:03,472 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:04,505 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:26:04,506 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:05,326 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:05,672 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:26:05,673 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:06,207 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:06,539 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:26:06,539 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:06,899 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:07,215 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:26:07,216 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:07,627 DEBUG   SenderThread:37365 [sender.py:send():301] send: files
+2022-10-15 18:26:07,627 INFO    SenderThread:37365 [sender.py:_save_file():1155] saving file wandb-metadata.json with policy now
+2022-10-15 18:26:07,628 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:26:07,629 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:08,764 INFO    Thread-17 :37365 [upload_job.py:push():139] Uploaded file /var/folders/s3/51rzg94s5318dvd1cr9t6cq40000gn/T/tmp0ymsws5jwandb/193w3l51-wandb-metadata.json
+2022-10-15 18:26:20,500 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:26:22,190 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:26:22,829 INFO    Thread-13 :37365 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_180507-3qgafn5i/files/config.yaml
+2022-10-15 18:26:40,508 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:26:40,508 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:27:00,516 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:27:00,516 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:27:16,199 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:27:16,200 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:27:34,304 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:27:34,304 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:27:54,307 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:27:59,284 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:28:14,315 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:28:14,315 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:28:29,931 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:28:29,931 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:28:46,635 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:28:46,635 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:29:01,919 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:29:01,920 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:29:21,927 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:29:41,932 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:29:44,404 ERROR   SenderThread:37365 [retry.py:__call__():154] Retry attempt failed:
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 382, in _make_request
+    self._validate_conn(conn)
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 1010, in _validate_conn
+    conn.connect()
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connection.py", line 411, in connect
+    self.sock = ssl_wrap_socket(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/util/ssl_.py", line 449, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/util/ssl_.py", line 493, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "/opt/homebrew/Cellar/python@3.9/3.9.10/Frameworks/Python.framework/Versions/3.9/lib/python3.9/ssl.py", line 500, in wrap_socket
+    return self.sslsocket_class._create(
+  File "/opt/homebrew/Cellar/python@3.9/3.9.10/Frameworks/Python.framework/Versions/3.9/lib/python3.9/ssl.py", line 1040, in _create
+    self.do_handshake()
+  File "/opt/homebrew/Cellar/python@3.9/3.9.10/Frameworks/Python.framework/Versions/3.9/lib/python3.9/ssl.py", line 1309, in do_handshake
+    self._sslobj.do_handshake()
+socket.timeout: _ssl.c:1112: The handshake operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/util/retry.py", line 532, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/packages/six.py", line 770, in reraise
+    raise value
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 385, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=conn.timeout)
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 336, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Read timed out. (read timeout=10)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/sdk/lib/retry.py", line 113, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/sdk/internal/internal_api.py", line 199, in execute
+    return self.client.execute(*args, **kwargs)  # type: ignore
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/transport/requests.py", line 38, in execute
+    request = requests.post(self.url, **post_args)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/api.py", line 117, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/adapters.py", line 529, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='api.wandb.ai', port=443): Read timed out. (read timeout=10)
+2022-10-15 18:29:58,311 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:29:59,716 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:30:01,944 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:30:01,945 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:30:02,744 INFO    Thread-13 :37365 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_180507-3qgafn5i/files/output.log
+2022-10-15 18:30:20,123 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:30:20,124 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:30:35,434 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:30:35,435 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:30:50,772 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:30:50,772 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:31:06,186 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:31:06,187 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:31:21,948 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:31:21,949 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:31:37,706 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:31:37,706 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:31:53,211 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:31:53,212 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:32:08,654 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:32:08,655 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:32:28,661 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:32:48,669 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:32:51,382 ERROR   SenderThread:37365 [retry.py:__call__():154] Retry attempt failed:
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 382, in _make_request
+    self._validate_conn(conn)
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 1010, in _validate_conn
+    conn.connect()
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connection.py", line 411, in connect
+    self.sock = ssl_wrap_socket(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/util/ssl_.py", line 449, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/util/ssl_.py", line 493, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "/opt/homebrew/Cellar/python@3.9/3.9.10/Frameworks/Python.framework/Versions/3.9/lib/python3.9/ssl.py", line 500, in wrap_socket
+    return self.sslsocket_class._create(
+  File "/opt/homebrew/Cellar/python@3.9/3.9.10/Frameworks/Python.framework/Versions/3.9/lib/python3.9/ssl.py", line 1040, in _create
+    self.do_handshake()
+  File "/opt/homebrew/Cellar/python@3.9/3.9.10/Frameworks/Python.framework/Versions/3.9/lib/python3.9/ssl.py", line 1309, in do_handshake
+    self._sslobj.do_handshake()
+socket.timeout: _ssl.c:1112: The handshake operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/util/retry.py", line 532, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/packages/six.py", line 770, in reraise
+    raise value
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 385, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=conn.timeout)
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 336, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Read timed out. (read timeout=10)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/sdk/lib/retry.py", line 113, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/sdk/internal/internal_api.py", line 199, in execute
+    return self.client.execute(*args, **kwargs)  # type: ignore
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/transport/requests.py", line 38, in execute
+    request = requests.post(self.url, **post_args)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/api.py", line 117, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/adapters.py", line 529, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='api.wandb.ai', port=443): Read timed out. (read timeout=10)
+2022-10-15 18:33:08,679 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:33:28,687 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:33:48,694 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:34:08,697 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:34:28,710 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:34:43,744 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:34:44,109 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:34:44,507 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:34:44,956 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:34:45,440 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:34:45,879 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:34:46,940 INFO    Thread-13 :37365 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_180507-3qgafn5i/files/output.log
+2022-10-15 18:34:48,705 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:34:48,717 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:34:49,142 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:35:04,485 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:35:04,486 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:35:19,833 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:35:19,834 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:35:39,843 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:35:39,844 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:35:55,212 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:35:55,213 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:36:11,584 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:36:11,585 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:36:27,010 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:36:27,011 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:36:46,410 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:36:46,411 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:37:05,579 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:37:05,580 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:37:25,586 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:37:25,586 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:37:45,597 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:37:45,598 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:38:05,604 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:38:05,605 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:38:21,729 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:38:21,730 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:38:39,134 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:38:39,136 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:38:54,506 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:38:54,507 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:39:14,512 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:39:14,512 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:39:34,519 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:39:34,521 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:39:54,162 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:39:54,163 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:40:09,451 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:40:09,452 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:40:29,264 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:40:29,266 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:40:44,534 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:40:44,535 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:40:59,878 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:40:59,879 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:41:15,758 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:41:15,758 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:41:31,172 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:41:31,172 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:41:46,681 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:41:46,681 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:42:02,651 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:42:02,652 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:42:22,307 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:42:22,307 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:42:22,315 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:42:22,315 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:42:23,114 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:42:23,115 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:42:25,729 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:42:40,738 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:42:40,738 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:42:57,840 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:42:57,840 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:43:17,468 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:43:17,470 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:43:33,071 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:43:33,071 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:43:51,041 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:43:51,043 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:44:08,633 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:44:08,635 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:44:26,177 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:44:26,179 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:44:44,504 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:44:44,505 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:45:01,671 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:45:01,671 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:45:14,845 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:45:14,845 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:45:14,885 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:45:14,885 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:45:15,617 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:45:21,683 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:45:21,683 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:45:41,691 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:45:41,692 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:45:57,560 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:45:57,561 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:46:17,157 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:46:17,159 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:46:27,217 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:27,217 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:27,227 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:27,227 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:28,027 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:28,232 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:28,232 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:28,243 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:28,243 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:29,049 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:29,049 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:29,052 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:29,052 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:29,856 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:29,856 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:29,859 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:29,859 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:30,639 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:30,639 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:30,642 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:30,642 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:31,435 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:31,435 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:31,435 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:31,438 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:31,439 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:32,220 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:32,220 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:32,223 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:32,223 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:33,012 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:33,012 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:33,013 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:33,013 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:33,804 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:33,805 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:33,805 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:33,807 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:33,807 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:34,590 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:34,590 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:34,593 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:34,593 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:35,377 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:35,377 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:35,379 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:35,380 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:36,176 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:36,177 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:36,177 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:36,179 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:36,179 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:36,976 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:36,976 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:36,978 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:36,979 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:37,776 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:37,776 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:37,778 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:37,778 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:38,602 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:38,602 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:38,605 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:38,605 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:39,406 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:39,407 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:46:39,407 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:46:39,409 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:46:39,409 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:46:40,190 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:40,190 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:46:40,191 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:46:53,012 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:46:55,877 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:55,878 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:55,879 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:55,879 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:55,880 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:55,880 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:55,881 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:55,881 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:55,881 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:55,881 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:46:55,882 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:47:11,821 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:47:11,822 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:47:28,628 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:47:28,629 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:47:47,861 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: resume
+2022-10-15 18:47:47,861 INFO    HandlerThread:37365 [handler.py:handle_request_resume():687] starting system metrics thread
+2022-10-15 18:47:47,870 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: pause
+2022-10-15 18:47:47,870 INFO    HandlerThread:37365 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-15 18:47:48,663 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:47:48,663 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:47:53,036 DEBUG   SenderThread:37365 [sender.py:send():301] send: stats
+2022-10-15 18:48:08,047 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:48:08,048 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:48:25,494 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:48:25,495 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:48:41,567 DEBUG   HandlerThread:37365 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-15 18:48:41,568 DEBUG   SenderThread:37365 [sender.py:send_request():315] send_request: stop_status
+2022-10-15 18:48:48,475 INFO    MainThread:37365 [internal.py:handle_exit():78] Internal process exited
+2022-10-15 18:48:48,494 WARNING MsgRouterThr:37365 [router.py:message_loop():74] EOFError seen in message_loop

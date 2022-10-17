@@ -22,9 +22,11 @@ class SequenceLabeller_BERT(Model):
             self.model_name = "TurkuNLP/bert-base-finnish-cased-v1"
         else:
             raise ValueError("Language not implemented")
+
+        self.device = "cpu"#"mps" if torch.has_mps else "cpu"
         
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
-        self.model = AutoModelForTokenClassification.from_pretrained(self.model_name, num_labels=3)
+        self.model = AutoModelForTokenClassification.from_pretrained(self.model_name, num_labels=3).to(self.device)
 
     def _tag_token(self, token, index, answer_start, answer_end):
             """Tag a token with the IOB format"""

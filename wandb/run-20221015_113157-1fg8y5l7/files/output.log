@@ -1,0 +1,8 @@
+
+You're using a BertTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+/opt/homebrew/lib/python3.9/site-packages/torchcrf/__init__.py:249: UserWarning: where received a uint8 condition tensor. This behavior is deprecated and will be removed in a future version of PyTorch. Use a boolean condition instead. (Triggered internally at  /Users/distiller/project/pytorch/aten/src/ATen/native/TensorCompare.cpp:333.)
+  score = torch.where(mask[i].unsqueeze(1), next_score, score)
+Transition: tensor([[0.0891, 0.0652, 0.0445]], grad_fn=<IndexBackward0>)
+Broadcast prev score: tensor([0.1302, 0.1302, 0.1302], grad_fn=<ExpandBackward0>)
+Broadcast emission: tensor([ 0.0210, -0.0492, -0.4039], grad_fn=<SelectBackward0>)
+Next score: tensor([[ 0.2402,  0.1461, -0.2293]], grad_fn=<AddBackward0>)

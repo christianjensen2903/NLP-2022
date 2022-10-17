@@ -1,0 +1,103 @@
+2022-10-15 09:16:54,630 INFO    MainThread:25862 [wandb_setup.py:_flush():68] Configure stats pid to 25862
+2022-10-15 09:16:54,630 INFO    MainThread:25862 [wandb_setup.py:_flush():68] Loading settings from /Users/christianjensen/.config/wandb/settings
+2022-10-15 09:16:54,630 INFO    MainThread:25862 [wandb_setup.py:_flush():68] Loading settings from /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/settings
+2022-10-15 09:16:54,631 INFO    MainThread:25862 [wandb_setup.py:_flush():68] Loading settings from environment variables: {'_require_service': 'True', 'project': 'nlp_course_project'}
+2022-10-15 09:16:54,631 INFO    MainThread:25862 [wandb_setup.py:_flush():68] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-10-15 09:16:54,631 INFO    MainThread:25862 [wandb_init.py:_log_setup():476] Logging user logs to /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_091654-9n63vpiy/logs/debug.log
+2022-10-15 09:16:54,631 INFO    MainThread:25862 [wandb_init.py:_log_setup():477] Logging internal logs to /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_091654-9n63vpiy/logs/debug-internal.log
+2022-10-15 09:16:54,631 INFO    MainThread:25862 [wandb_init.py:_jupyter_setup():426] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x29136eee0>
+2022-10-15 09:16:54,632 INFO    MainThread:25862 [wandb_init.py:init():516] calling init triggers
+2022-10-15 09:16:54,632 INFO    MainThread:25862 [wandb_init.py:init():519] wandb.init called with sweep_config: {}
+config: {}
+2022-10-15 09:16:54,632 INFO    MainThread:25862 [wandb_init.py:init():569] starting backend
+2022-10-15 09:16:54,632 INFO    MainThread:25862 [wandb_init.py:init():573] setting up manager
+2022-10-15 09:16:54,643 INFO    MainThread:25862 [backend.py:_multiprocessing_setup():102] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2022-10-15 09:16:54,646 INFO    MainThread:25862 [wandb_init.py:init():580] backend started and connected
+2022-10-15 09:16:54,664 INFO    MainThread:25862 [wandb_run.py:_label_probe_notebook():1098] probe notebook
+2022-10-15 09:16:54,665 INFO    MainThread:25862 [wandb_run.py:_label_probe_notebook():1108] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-10-15 09:16:54,665 INFO    MainThread:25862 [wandb_init.py:init():658] updated telemetry
+2022-10-15 09:16:54,686 INFO    MainThread:25862 [wandb_init.py:init():692] communicating run to backend with 30 second timeout
+2022-10-15 09:17:22,816 ERROR   Thread-9  :25862 [retry.py:__call__():154] Retry attempt failed:
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connection.py", line 169, in _new_conn
+    conn = connection.create_connection(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/util/connection.py", line 96, in create_connection
+    raise err
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/util/connection.py", line 86, in create_connection
+    sock.connect(sa)
+socket.timeout: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 382, in _make_request
+    self._validate_conn(conn)
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 1010, in _validate_conn
+    conn.connect()
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connection.py", line 353, in connect
+    conn = self._new_conn()
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPSConnection object at 0x17bfeb040>, 'Connection to api.wandb.ai timed out. (connect timeout=10)')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+  File "/opt/homebrew/lib/python3.9/site-packages/urllib3/util/retry.py", line 574, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x17bfeb040>, 'Connection to api.wandb.ai timed out. (connect timeout=10)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/sdk/lib/retry.py", line 113, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/sdk/internal/internal_api.py", line 199, in execute
+    return self.client.execute(*args, **kwargs)  # type: ignore
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/transport/requests.py", line 38, in execute
+    request = requests.post(self.url, **post_args)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/api.py", line 117, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/homebrew/lib/python3.9/site-packages/requests/adapters.py", line 504, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x17bfeb040>, 'Connection to api.wandb.ai timed out. (connect timeout=10)'))
+2022-10-15 09:17:24,826 ERROR   MainThread:25862 [wandb_init.py:init():703] backend process timed out
+2022-10-15 09:17:24,827 ERROR   MainThread:25862 [wandb_init.py:init():712] encountered error: Error communicating with wandb process
+For more info see: https://docs.wandb.ai/library/init#init-start-error
+2022-10-15 09:18:33,477 INFO    MainThread:25862 [wandb_setup.py:_flush():68] Configure stats pid to 25862
+2022-10-15 09:18:33,477 INFO    MainThread:25862 [wandb_setup.py:_flush():68] Loading settings from /Users/christianjensen/.config/wandb/settings
+2022-10-15 09:18:33,477 INFO    MainThread:25862 [wandb_setup.py:_flush():68] Loading settings from /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/settings
+2022-10-15 09:18:33,477 INFO    MainThread:25862 [wandb_setup.py:_flush():68] Loading settings from environment variables: {'_require_service': 'True', 'project': 'nlp_course_project'}
+2022-10-15 09:18:33,477 INFO    MainThread:25862 [wandb_setup.py:_flush():68] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-10-15 09:18:33,477 INFO    MainThread:25862 [wandb_init.py:_log_setup():476] Logging user logs to /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_091833-3er92703/logs/debug.log
+2022-10-15 09:18:33,477 INFO    MainThread:25862 [wandb_init.py:_log_setup():477] Logging internal logs to /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022/wandb/run-20221015_091833-3er92703/logs/debug-internal.log
+2022-10-15 09:18:33,477 INFO    MainThread:25862 [wandb_init.py:init():516] calling init triggers
+2022-10-15 09:18:33,477 INFO    MainThread:25862 [wandb_init.py:init():519] wandb.init called with sweep_config: {}
+config: {}
+2022-10-15 09:18:33,477 INFO    MainThread:25862 [wandb_init.py:init():569] starting backend
+2022-10-15 09:18:33,477 INFO    MainThread:25862 [wandb_init.py:init():573] setting up manager
+2022-10-15 09:18:33,481 INFO    MainThread:25862 [backend.py:_multiprocessing_setup():102] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2022-10-15 09:18:33,482 INFO    MainThread:25862 [wandb_init.py:init():580] backend started and connected
+2022-10-15 09:18:33,488 INFO    MainThread:25862 [wandb_run.py:_label_probe_notebook():1098] probe notebook
+2022-10-15 09:18:33,488 INFO    MainThread:25862 [wandb_run.py:_label_probe_notebook():1108] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-10-15 09:18:33,488 INFO    MainThread:25862 [wandb_init.py:init():658] updated telemetry
+2022-10-15 09:18:33,507 INFO    MainThread:25862 [wandb_init.py:init():692] communicating run to backend with 30 second timeout
+2022-10-15 09:19:03,663 ERROR   MainThread:25862 [wandb_init.py:init():703] backend process timed out
+2022-10-15 09:19:03,664 ERROR   MainThread:25862 [wandb_init.py:init():712] encountered error: Error communicating with wandb process
+For more info see: https://docs.wandb.ai/library/init#init-start-error

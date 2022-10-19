@@ -10,7 +10,7 @@ from models.XGBoost.CBOWXGBoost import CBOWXGBoost
 
 from languages.LanguageModel import LanguageModel
 from DataExploration import DataExploration
-from languages.Japanese import Japanese
+# from languages.Japanese import Japanese
 from languages.English import English
 from languages.Finnish import Finnish
 from Preprocess import Preprocess
@@ -26,23 +26,23 @@ datasets.logging.set_verbosity_error()
 languages: List[LanguageModel] = [
     English(),
     Finnish(),
-    Japanese()
+    # Japanese()
 ]
 
 gpt2Generator = GPT2Generator()
 torch.cuda.empty_cache()
 
-gpt2CBOWLogistic = GPT2CBOWLogistic()
-bowLogistic = BOWLogistic()
-cBOWLogistic = CBOWLogistic()
-cBOW_BOWLogistic = CBOW_BOWLogistic()
-BOW_XGb = BOWXGBoost()
-cBOW_BOWXGBoost = CBOW_BOWXGBoost()
-cBOWXGBoost = CBOWXGBoost()
+# gpt2CBOWLogistic = GPT2CBOWLogistic()
+# bowLogistic = BOWLogistic()
+# cBOWLogistic = CBOWLogistic()
+# cBOW_BOWLogistic = CBOW_BOWLogistic()
+# BOW_XGb = BOWXGBoost()
+# cBOW_BOWXGBoost = CBOW_BOWXGBoost()
+# cBOWXGBoost = CBOWXGBoost()
 
 # Define the models to be tested
 models: List[Model] = [
-    gpt2Generator, 
+    gpt2Generator,
     # gpt2CBOWLogistic,
     # bowLogistic,
     # cBOW_BOWLogistic,
@@ -53,26 +53,26 @@ models: List[Model] = [
 ]
 
 question_beginning = {
-    'english': ['When', 'What', 'How'],
-    'finnish': ['Milloin', 'Mikä', 'Missä'],
-    'japanese': ['日本', '『', 'アメリカ']   
+    'english': ['Question: When', 'Question: What', 'Question: How'],
+    'finnish': ['Question: Milloin', 'Question: Mikä', 'Question: Missä'],
+    'japanese': ['Question: 日本', 'Question: 『', 'Question: アメリカ']
 }
 
 # Define the parameters to be used in the grid search
-parameters = {
-    bowLogistic: {
-        'penalty': ['l2'],
-        'C': [0.1, 1, 10, 100, 1000],
-    },
-    cBOW_BOWLogistic: {
-        'penalty': ['l2'],
-        'C': [0.1, 1, 10, 100, 1000],
-    },
-    cBOWLogistic: {
-        'penalty': ['l2'],
-        'C': [0.1, 1, 10, 100, 1000],
-    }
-}
+# parameters = {
+#     bowLogistic: {
+#         'penalty': ['l2'],
+#         'C': [0.1, 1, 10, 100, 1000],
+#     },
+#     cBOW_BOWLogistic: {
+#         'penalty': ['l2'],
+#         'C': [0.1, 1, 10, 100, 1000],
+#     },
+#     cBOWLogistic: {
+#         'penalty': ['l2'],
+#         'C': [0.1, 1, 10, 100, 1000],
+#     }
+# }
 
 grid_search = False
 
@@ -85,35 +85,38 @@ for language in languages:
     preprocessor = Preprocess(language.tokenize, language.clean)
     data = pipeline.get_data(language=language.name, preproccesor=preprocessor)
     train_data, validation_data = pipeline.split_data(data)
-    train_data = train_data
-    validation_data = validation_data
 
     # Explore the data
-    data_exploration = DataExploration(train_data)
-    data_exploration.find_frequent_words()
+    # data_exploration = DataExploration(train_data)
+    # data_exploration.find_frequent_words()
 
     # Train and evaluate all the models
     for model in models:
+        model_name = model.__class__.__name__
         model.set_language(language.name)
-        print(f'\n - Model: {model.__class__.__name__}')
+        print(f'\n - Model: {model_name}')
 
         print('Extracting features...')
-        X_train = model.extract_X(train_data)
-        y_train = train_data['is_answerable']
+        X_train = None  # model.extract_X(train_data)
+        y_train = None  # train_data['is_answerable']
         X_validation = model.extract_X(validation_data)
-        y_validation = validation_data['is_answerable']
+        y_validation = None  # validation_data['is_answerable']
+
         try:
             model.load()
-            for starting_word in question_beginning[language.name]:
-                model.generate_text(['Question:', starting_word])
+            if model_name == "GPT2Generator":
+                for starting_word in question_beginning[language.name]:
+                    model.generate_text(starting_word)
+                model.get_perplexity(X_validation)
         except:
             if grid_search:
-                model = pipeline.grid_search(
-                    model,
-                    X_train,
-                    y_train,
-                    parameters[model]
-                )
+                pass
+                # model = pipeline.grid_search(
+                #     model,
+                #     X_train,
+                #     y_train,
+                #     parameters[model]
+                # )
             else:
                 model = pipeline.train(
                     model,

@@ -35,10 +35,15 @@ class CBOW_BOW(BOW):
         plaintext_mean_representation = np.array([
             self.word2vec.predict(sentence).mean(axis=0) for sentence in dataset['tokenized_plaintext']
         ])
+        distance_between_representations = np.linalg.norm(
+            question_mean_representation - plaintext_mean_representation,
+            axis=1
+        ).reshape(-1, 1)
         return np.concatenate(
             (
                 question_mean_representation,
-                plaintext_mean_representation
+                plaintext_mean_representation,
+                distance_between_representations
             ),
             axis=1
         )

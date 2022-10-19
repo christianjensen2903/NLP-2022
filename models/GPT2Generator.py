@@ -6,6 +6,7 @@ from models.feature_extraction.feature_extracion import feature_extraction
 from datasets import Dataset
 import numpy as np
 import torch
+import math
 
 # -- Resources --
 # https://huggingface.co/Finnish-NLP/gpt2-finnish
@@ -13,17 +14,18 @@ import torch
 # https://github.com/huggingface/transformers/issues/1528#issuecomment-544977912
 
 
-class GPT2Generator(Model , feature_extraction):
+class GPT2Generator(Model, feature_extraction):
     def __init__(self):
         self.language_to_pretrained_name = {
             'english': 'gpt2',
             'finnish': 'Finnish-NLP/gpt2-finnish',
-            'japanese': 'rinna/japanese-gpt2-small' # Unsure if japanese is functional (not tested)
+            # Unsure if japanese is functional (not tested)
+            'japanese': 'rinna/japanese-gpt2-small'
         }
-        if torch.cuda.is_available():  
-            self.device = "cuda:0" 
-        else:  
-            self.device = "cpu" 
+        if torch.cuda.is_available():
+            self.device = "cuda:0"
+        else:
+            self.device = "cpu"
 
     def set_language(self, language):
         super().set_language(language)
@@ -36,17 +38,31 @@ class GPT2Generator(Model , feature_extraction):
             pretrained_name,
             output_hidden_states=True
         )
+        self.training_args = TrainingArguments(
+            output_dir=self.get_save_path(),
+            num_train_epochs=3,
+            per_device_train_batch_size=2,
+            per_device_eval_batch_size=2,
+            warmup_steps=200,
+            weight_decay=0.01,
+            prediction_loss_only=True,
+            save_steps=10000
+        )
+        self.data_collator = DataCollatorForLanguageModeling(
+            tokenizer=self.tokenizer,
+            mlm=False
+        )
 
     def extract_X(self, dataset):
         train_dataset = Dataset.from_pandas(
             dataset[['question_text', 'document_plaintext']])
 
         def tokenize_function(examples):
-            input_str = 'Question:' + \
-                examples['question_text'] + 'Context:' + \
+            input_str = 'Question: ' + \
+                examples['question_text'] + '\nContext: ' + \
                 examples['document_plaintext']
-            # Truncating input_str to max length
-            input_str = input_str[:1024]
+            # Truncating input_str to max length (little cursed)
+            input_str = input_str[:2500]
             return self.tokenizer(
                 input_str,
                 padding=True
@@ -59,30 +75,27 @@ class GPT2Generator(Model , feature_extraction):
 
         return tokenized_train_dataset
 
-    def train(self, X):
-        training_args = TrainingArguments(
-            output_dir=self.get_save_path(),
-            num_train_epochs=3,
-            per_device_train_batch_size=2,
-            per_device_eval_batch_size=2,
-            warmup_steps=200,
-            weight_decay=0.01,
-            prediction_loss_only=True,
-            save_steps=10000
-        )
-        data_collator = DataCollatorForLanguageModeling(
-            tokenizer=self.tokenizer,
-            mlm=False
-        )
+    def get_perplexity(self, X):
+        if not hasattr(self, 'trainer'):
+            self.trainer = Trainer(
+                model=self.model,
+                args=self.training_args,
+                data_collator=self.data_collator,
+                train_dataset=X,
+                eval_dataset=X
+            )
+        return math.exp(self.trainer.evaluate()['eval_loss'])
+
+    def train(self, X, y):
         self.trainer = Trainer(
             model=self.model,
-            args=training_args,
-            data_collator=data_collator,
+            args=self.training_args,
+            data_collator=self.data_collator,
             train_dataset=X
         )
         self.trainer.train()
 
-    def generate_text(self, X, num_return_sequences=5, max_length=30):
+    def generate_text(self, X, num_return_sequences=5, max_length=50):
         self.model.eval()
         text_ids = self.tokenizer.encode(X, return_tensors='pt')
 
@@ -104,7 +117,7 @@ class GPT2Generator(Model , feature_extraction):
 
         def get_last_hidden_state(row):
             row['last_hidden_state'] = self.model(
-                torch.tensor(row['input_ids'],device=self.device)
+                torch.tensor(row['input_ids'], device=self.device)
             )[2][-1][-1]
             return row
 

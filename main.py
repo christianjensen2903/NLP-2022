@@ -5,6 +5,9 @@ from models.Logistic.BOWLogistic import BOWLogistic
 from models.MLP.BOWMLP import BOWMLP
 from models.MLP.CBOW_BOWMLP import CBOW_BOWMLP
 from models.MLP.CBOWMLP import CBOWMLP
+from models.RandomForest.BOWRandomForest import BOWRandomForest
+from models.RandomForest.CBOW_BOWRandomForest import CBOW_BOWRandomForest
+from models.RandomForest.CBOWRandomForest import CBOWRandomForest
 from models.Logistic.CBOW_BOWLogistic import CBOW_BOWLogistic
 from models.Logistic.CBOWLogistic import CBOWLogistic
 from models.XGBoost.BOWXGBoost import BOWXGBoost
@@ -36,6 +39,9 @@ languages: List[LanguageModel] = [
 torch.cuda.empty_cache()
 
 # gpt2CBOWLogistic = GPT2CBOWLogistic()
+bowRandomForest = BOWRandomForest()
+cbow_BOWRandomForest = CBOW_BOWRandomForest()
+cbowRandomForest = CBOWRandomForest()
 bowMLP = BOWMLP()
 cbow_BOWMLP = CBOW_BOWMLP()
 cbowMLP = CBOWMLP()
@@ -50,6 +56,9 @@ cBOWXGBoost = CBOWXGBoost()
 models: List[Model] = [
     # gpt2Generator,
     # gpt2CBOWLogistic,
+    bowRandomForest,
+    cbow_BOWRandomForest,
+    cbowRandomForest,
     bowMLP,
     cbow_BOWMLP,
     cbowMLP,
@@ -119,7 +128,6 @@ for language in languages:
                 model.get_perplexity(X_validation)
         except:
             if grid_search:
-                pass
                 model = pipeline.grid_search(
                     model,
                     X_train,

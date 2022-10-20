@@ -45,11 +45,11 @@ models: List[Model] = [
     # gpt2Generator,
     # gpt2CBOWLogistic,
     bowLogistic,
-    cBOW_BOWLogistic,
-    cBOWLogistic,
     BOW_XGb,
     cBOW_BOWXGBoost,
-    cBOWXGBoost
+    cBOWXGBoost,
+    cBOW_BOWLogistic,
+    cBOWLogistic,
 ]
 
 question_beginning = {
@@ -97,10 +97,10 @@ for language in languages:
         print(f'\n - Model: {model_name}')
 
         print('Extracting features...')
-        X_train = None  # model.extract_X(train_data)
-        y_train = None  # train_data['is_answerable']
+        X_train = model.extract_X(train_data)
+        y_train = train_data['is_answerable']
         X_validation = model.extract_X(validation_data)
-        y_validation = None  # validation_data['is_answerable']
+        y_validation = validation_data['is_answerable']
 
         try:
             model.load()

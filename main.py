@@ -29,27 +29,27 @@ languages: List[LanguageModel] = [
     # Japanese()
 ]
 
-gpt2Generator = GPT2Generator()
+# gpt2Generator = GPT2Generator()
 torch.cuda.empty_cache()
 
 # gpt2CBOWLogistic = GPT2CBOWLogistic()
-# bowLogistic = BOWLogistic()
-# cBOWLogistic = CBOWLogistic()
-# cBOW_BOWLogistic = CBOW_BOWLogistic()
-# BOW_XGb = BOWXGBoost()
-# cBOW_BOWXGBoost = CBOW_BOWXGBoost()
-# cBOWXGBoost = CBOWXGBoost()
+bowLogistic = BOWLogistic()
+cBOWLogistic = CBOWLogistic()
+cBOW_BOWLogistic = CBOW_BOWLogistic()
+BOW_XGb = BOWXGBoost()
+cBOW_BOWXGBoost = CBOW_BOWXGBoost()
+cBOWXGBoost = CBOWXGBoost()
 
 # Define the models to be tested
 models: List[Model] = [
-    gpt2Generator,
+    # gpt2Generator,
     # gpt2CBOWLogistic,
-    # bowLogistic,
-    # cBOW_BOWLogistic,
-    # cBOWLogistic,
-    # BOW_XGb,
-    # cBOW_BOWXGBoost,
-    # cBOWXGBoost
+    bowLogistic,
+    cBOW_BOWLogistic,
+    cBOWLogistic,
+    BOW_XGb,
+    cBOW_BOWXGBoost,
+    cBOWXGBoost
 ]
 
 question_beginning = {
@@ -59,20 +59,20 @@ question_beginning = {
 }
 
 # Define the parameters to be used in the grid search
-# parameters = {
-#     bowLogistic: {
-#         'penalty': ['l2'],
-#         'C': [0.1, 1, 10, 100, 1000],
-#     },
-#     cBOW_BOWLogistic: {
-#         'penalty': ['l2'],
-#         'C': [0.1, 1, 10, 100, 1000],
-#     },
-#     cBOWLogistic: {
-#         'penalty': ['l2'],
-#         'C': [0.1, 1, 10, 100, 1000],
-#     }
-# }
+parameters = {
+    bowLogistic: {
+        'penalty': ['l2'],
+        'C': [0.1, 1, 10, 100, 1000],
+    },
+    cBOW_BOWLogistic: {
+        'penalty': ['l2'],
+        'C': [0.1, 1, 10, 100, 1000],
+    },
+    cBOWLogistic: {
+        'penalty': ['l2'],
+        'C': [0.1, 1, 10, 100, 1000],
+    }
+}
 
 grid_search = False
 
@@ -111,12 +111,12 @@ for language in languages:
         except:
             if grid_search:
                 pass
-                # model = pipeline.grid_search(
-                #     model,
-                #     X_train,
-                #     y_train,
-                #     parameters[model]
-                # )
+                model = pipeline.grid_search(
+                    model,
+                    X_train,
+                    y_train,
+                    parameters[model]
+                )
             else:
                 model = pipeline.train(
                     model,

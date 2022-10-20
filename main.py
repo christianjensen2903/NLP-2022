@@ -56,10 +56,10 @@ cBOWXGBoost = CBOWXGBoost()
 models: List[Model] = [
     # gpt2Generator,
     # gpt2CBOWLogistic,
+    bowMLP,
     bowRandomForest,
     cbow_BOWRandomForest,
     cbowRandomForest,
-    bowMLP,
     cbow_BOWMLP,
     cbowMLP,
     bowLogistic,

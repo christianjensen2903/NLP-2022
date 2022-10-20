@@ -3,4 +3,4 @@ fugashi[unidic]
 libvoikko
 advertools
 transformers
-xgboost
+xgboost1

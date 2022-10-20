@@ -39,11 +39,18 @@ class CBOW_BOW(BOW):
             question_mean_representation - plaintext_mean_representation,
             axis=1
         ).reshape(-1, 1)
+        cosine_similarity = np.array([
+            np.dot(question_mean_representation[i], plaintext_mean_representation[i]) / (
+                np.linalg.norm(
+                    question_mean_representation[i]) * np.linalg.norm(plaintext_mean_representation[i])
+            ) for i in range(len(question_mean_representation))
+        ]).reshape(-1, 1)
         return np.concatenate(
             (
                 question_mean_representation,
                 plaintext_mean_representation,
-                distance_between_representations
+                distance_between_representations,
+                cosine_similarity
             ),
             axis=1
         )

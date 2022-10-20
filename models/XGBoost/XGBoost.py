@@ -5,7 +5,7 @@ from pickle import dump, load
 class XGBoost(Model):
     def __init__(self):
         super().__init__()
-        self.model = XGB_model(objective="binary:logistic", random_state=42)
+        self.model = XGB_model(objective='binary:logistic', tree_method='gpu_hist', random_state=42)
 
     def train(self, X, y):
         self.model = self.model.fit(X, y)

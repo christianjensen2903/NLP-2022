@@ -2,6 +2,9 @@ from models.Model import Model
 from models.GPT2CBOWLogistic import GPT2CBOWLogistic
 from models.GPT2Generator import GPT2Generator
 from models.Logistic.BOWLogistic import BOWLogistic
+from models.MLP.BOWMLP import BOWMLP
+from models.MLP.CBOW_BOWMLP import CBOW_BOWMLP
+from models.MLP.CBOWMLP import CBOWMLP
 from models.Logistic.CBOW_BOWLogistic import CBOW_BOWLogistic
 from models.Logistic.CBOWLogistic import CBOWLogistic
 from models.XGBoost.BOWXGBoost import BOWXGBoost
@@ -33,6 +36,9 @@ languages: List[LanguageModel] = [
 torch.cuda.empty_cache()
 
 # gpt2CBOWLogistic = GPT2CBOWLogistic()
+bowMLP = BOWMLP()
+cbow_BOWMLP = CBOW_BOWMLP()
+cbowMLP = CBOWMLP()
 bowLogistic = BOWLogistic()
 cBOWLogistic = CBOWLogistic()
 cBOW_BOWLogistic = CBOW_BOWLogistic()
@@ -44,12 +50,15 @@ cBOWXGBoost = CBOWXGBoost()
 models: List[Model] = [
     # gpt2Generator,
     # gpt2CBOWLogistic,
+    bowMLP,
+    cbow_BOWMLP,
+    cbowMLP,
     bowLogistic,
-    BOW_XGb,
-    cBOW_BOWXGBoost,
-    cBOWXGBoost,
     cBOW_BOWLogistic,
     cBOWLogistic,
+    # BOW_XGb,
+    # cBOW_BOWXGBoost,
+    # cBOWXGBoost,
 ]
 
 question_beginning = {

@@ -20,23 +20,23 @@ class BOW(feature_extraction):
         self.plaintext_vectorizer = None
         self.first_word_vectorizer = None
 
-    def return_function(self , x):
+    def identity_function(self , x):
         return x
 
     def extract_X(self, dataset):
         # Extract bag of words for question and document
         if self.plaintext_vectorizer is None or self.plaintext_vectorizer is None or self.first_word_vectorizer is None:
             self.plaintext_vectorizer = CountVectorizer(
-                tokenizer=self.return_function,  # Avoid tokenizing again
-                preprocessor=self.return_function
+                tokenizer=self.identity_function,  # Avoid tokenizing again
+                preprocessor=self.identity_function
             )
             self.question_vectorizer = CountVectorizer(
-                tokenizer=self.return_function,
-                preprocessor=self.return_function
+                tokenizer=self.identity_function,
+                preprocessor=self.identity_function
             )
             self.first_word_vectorizer = CountVectorizer(
-                tokenizer=self.return_function,
-                preprocessor=self.return_function
+                tokenizer=self.identity_function,
+                preprocessor=self.identity_function
             )
 
             question_bow = self.question_vectorizer.fit_transform(

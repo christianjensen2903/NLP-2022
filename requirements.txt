@@ -1,6 +1,5 @@
 datasets
 fugashi[unidic]
-python -m unidic download
 libvoikko
 advertools
 transformers

@@ -1,0 +1,21 @@
+{
+    "os": "macOS-12.6-arm64-arm-64bit",
+    "python": "3.9.15",
+    "heartbeatAt": "2022-10-22T11:32:09.496186",
+    "startedAt": "2022-10-22T11:32:08.623181",
+    "docker": null,
+    "cpu_count": 8,
+    "cuda": null,
+    "args": null,
+    "state": "running",
+    "program": "test_sequence_labeller_BERT2-jvsc-045cc1b7-1c98-4f57-aefe-fe72eb1970f00aa1aa0c-c1ac-4957-8e4d-6cab1cc50a6b.ipynb",
+    "root": "/Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/NLP-2022",
+    "git": {
+        "remote": "https://github.com/christianjensen2903/QuestionAnswering.git",
+        "commit": "e0556a70117231a60c6be4d56ab11c5e40cf9a01"
+    },
+    "email": "cmj290300@gmail.com",
+    "host": "Christians-MacBook-Air.local",
+    "username": "christianjensen",
+    "executable": "/opt/homebrew/opt/python@3.9/bin/python3.9"
+}

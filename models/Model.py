@@ -1,8 +1,21 @@
 from abc import ABC, abstractmethod
 import os
+import torch
 
 
 class Model(ABC):
+
+    def __init__(self, language: str = "english", config: dict = {}):
+        super().__init__()
+
+        self.langauge = language
+
+        self.config = config
+
+        # Set the device to use
+        self.device = torch.device("cpu")
+        if torch.cuda.is_available():
+            self.device = torch.device("cuda")
 
     def get_save_path(self, language: str, filetype: str):
         """Get the path of the model for loading and saving"""

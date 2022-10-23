@@ -10,8 +10,9 @@ import wandb
 
 class SequenceLabeller_BERT(Model):
 
-    def __init__(self, language: str = ""):
-        super().__init__()
+    def __init__(self, language, config):
+        super().__init__(language, config)
+
         if language == "english":
             self.model_name = "bert-base-uncased"
         elif language == "japanese":
@@ -20,8 +21,6 @@ class SequenceLabeller_BERT(Model):
             self.model_name = "TurkuNLP/bert-base-finnish-cased-v1"
         else:
             raise ValueError("Language not implemented")
-
-        self.device = "cpu"#"mps" if torch.has_mps else "cpu"
         
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         self.model = AutoModelForTokenClassification.from_pretrained(self.model_name, num_labels=3).to(self.device)

@@ -15,10 +15,8 @@ import heapq
 
 class SequenceLabeller_BiLSTM_CRF_Beam(Model):
 
-    def __init__(self, language: str = ""):
-        super().__init__()
-
-        self.language = language
+    def __init__(self, language, config):
+        super().__init__(language, config)
 
         self.lstm_dim = 128
         self.dropout_prob = 0.1
@@ -27,12 +25,7 @@ class SequenceLabeller_BiLSTM_CRF_Beam(Model):
         self.n_epochs = 1
         self.n_workers = 0
         self.beam_size = 2
-
-        self.device = torch.device("cpu")
-        if torch.cuda.is_available():
-            self.device = torch.device("cuda")
    
-
 
     def _tag_token(self, token, index, answer_start, answer_end):
             """Tag a token with the IOB format"""

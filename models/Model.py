@@ -8,16 +8,18 @@ class Model(ABC):
     def __init__(self, language: str = "english", config: dict = {}):
         super().__init__()
 
-        self.langauge = language
+        self.langauge = language.lower()
 
         self.config = config
 
         # Set the device to use
-        self.device = torch.device("cpu")
         if torch.cuda.is_available():
             self.device = torch.device("cuda")
+        else:
+            self.device = torch.device("cpu")
+            
 
-    def get_save_path(self, language: str, filetype: str):
+    def get_save_path(self, filetype: str = ''):
         """Get the path of the model for loading and saving"""
         # Get the path of type saved_models/model_type
         path = os.path.join(

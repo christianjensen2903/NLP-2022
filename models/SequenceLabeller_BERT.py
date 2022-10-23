@@ -13,12 +13,14 @@ class SequenceLabeller_BERT(Model):
     def __init__(self, language, config):
         super().__init__(language, config)
 
-        if language == "english":
+        if self.language == "english":
             self.model_name = "bert-base-uncased"
-        elif language == "japanese":
+        elif self.language == "japanese":
             self.model_name = "cl-tohoku/bert-base-japanese-whole-word-masking"
-        elif language == "finnish":
+        elif self.language == "finnish":
             self.model_name = "TurkuNLP/bert-base-finnish-cased-v1"
+        elif self.language == "multilingual":
+            self.model_name = "bert-base-multilingual-cased"
         else:
             raise ValueError("Language not implemented")
         
@@ -185,12 +187,11 @@ class SequenceLabeller_BERT(Model):
         # }
         return self.trainer.evaluate(X)
 
-    def save(self, language: str):
+    def save(self):
         """Save the model"""
-        self.trainer.save_model(f'./saved_models/SequenceLabeller/{language}')
-        # self.trainer.save_model(self.get_save_path(language, "pth"))
+        self.trainer.save_model(self.get_save_path())
 
-    def load(self, language: str):
+    def load(self):
         """Load the model"""
-        self.model = AutoModelForTokenClassification.from_pretrained(f'./saved_models/SequenceLabeller/{language}')
+        self.model = AutoModelForTokenClassification.from_pretrained(self.get_save_path())
         self.trainer = Trainer(model=self.model)

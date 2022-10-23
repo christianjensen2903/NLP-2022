@@ -261,18 +261,17 @@ class SequenceLabeller_BiLSTM_CRF_Beam(Model):
                 labels = batch[2]
 
                 best_seq = self._decode(input_ids, input_lens, labels=labels, beam_size=self.beam_size)
-                mask = (input_ids != 0)
                 labels_all.extend([l for seq,samp in zip(list(labels.detach().cpu().numpy()), input_ids) for l,i in zip(seq,samp) if i != 0])
                 tags_all += best_seq[1][1:]
-                # print(best_seq[1][1:], labels)
+
         P, R, F1, _ = precision_recall_fscore_support(labels_all, tags_all, average='macro')
         return F1
 
-    def save(self, language: str):
-        torch.save(self.model.state_dict(), f'{language}.pt')
+    def save(self):
+        torch.save(self.model.state_dict(), self.get_save_path('pt'))
 
-    def load(self, language: str):
-        self.model.load_state_dict(torch.load(f'{language}.pt'))
+    def load(self):
+        self.model.load_state_dict(torch.load(self.get_save_path('pt')))
 
 
 

@@ -15,17 +15,14 @@ import math
 
 
 class GPT2Generator(Model, feature_extraction):
-    def __init__(self):
+    def __init__(self, language, config):
+        super().__init__(language, config)
         self.language_to_pretrained_name = {
             'english': 'gpt2',
             'finnish': 'Finnish-NLP/gpt2-finnish',
             # Unsure if japanese is functional (not tested)
             'japanese': 'rinna/japanese-gpt2-small'
         }
-        if torch.cuda.is_available():
-            self.device = "cuda:0"
-        else:
-            self.device = "cpu"
 
     def set_language(self, language):
         super().set_language(language)

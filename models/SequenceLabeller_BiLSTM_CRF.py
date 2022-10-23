@@ -27,7 +27,6 @@ class SequenceLabeller_BiLSTM_CRF(Model):
         self.n_workers = 0
 
 
-
     def _tag_token(self, token, index, answer_start, answer_end):
             """Tag a token with the IOB format"""
             if index == answer_start:
@@ -212,11 +211,11 @@ class SequenceLabeller_BiLSTM_CRF(Model):
         P, R, F1, _ = precision_recall_fscore_support(labels_all, tags_all, average='macro')
         return F1
 
-    def save(self, language: str):
-        torch.save(self.model.state_dict(), f'{language}.pt')
+    def save(self):
+        torch.save(self.model.state_dict(), self.get_save_path('pt'))
 
-    def load(self, language: str):
-        self.model.load_state_dict(torch.load(f'{language}.pt'))
+    def load(self):
+        self.model.load_state_dict(torch.load(self.get_save_path('pt')))
 
 
 

@@ -36,6 +36,14 @@ class Model(ABC):
             f'{self.language}.{filetype}' if filetype else self.language
         )
 
+    def extract_X(self, train_data):
+        """Extract the X values from the dataset"""
+        pass
+
+    def extract_y(self, train_data):
+        """Extract the y values from the dataset"""
+        pass
+
     def train(self, X, y):
         """Train the model"""
         pass

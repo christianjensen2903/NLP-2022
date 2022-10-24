@@ -18,13 +18,13 @@ class SequenceLabeller_BiLSTM_CRF_Beam(Model):
     def __init__(self, language, config):
         super().__init__(language, config)
 
-        self.lstm_dim = 128
-        self.dropout_prob = 0.1
-        self.batch_size = 8
-        self.lr = 1e-2
-        self.n_epochs = 1
-        self.n_workers = 0
-        self.beam_size = 2
+        self.lstm_dim = config['lstm_dim']
+        self.dropout_prob = config['dropout_prob']
+        self.batch_size = config['per_device_train_batch_size']
+        self.n_epochs = config['num_train_epochs']
+        self.lr = config['learning_rate']
+        self.n_workers = config['n_workers']
+        self.beam_size = config['beam_size']
    
 
     def _tag_token(self, token, index, answer_start, answer_end):

@@ -23,6 +23,15 @@ class SequenceLabeller_BERT(Model):
             self.model_name = "bert-base-multilingual-uncased"
         else:
             raise ValueError("Language not implemented")
+
+
+        self.num_train_epochs = config['num_train_epochs']
+        self.learning_rate = config['learning_rate']
+        self.per_device_train_batch_size = config['per_device_train_batch_size']
+        self.per_device_eval_batch_size = config['per_device_eval_batch_size']
+        self.warmup_steps = config['warmup_steps']
+        self.weight_decay = config['weight_decay']
+
         
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         self.model = AutoModelForTokenClassification.from_pretrained(self.model_name, num_labels=3).to(self.device)
@@ -113,7 +122,7 @@ class SequenceLabeller_BERT(Model):
 
         training_args = TrainingArguments(
             output_dir='./results',          # output directory
-            report_to="wandb",              # Weights & Biases
+            # report_to="wandb",              # Weights & Biases
             run_name='sequence-labeller',  # name of the W&B run (optional)
             num_train_epochs=6,              # total number of training epochs
             learning_rate=2e-5,
@@ -131,7 +140,7 @@ class SequenceLabeller_BERT(Model):
         )
         self.trainer.train()
 
-        wandb.finish()
+        # wandb.finish()
 
 
     def predict(self, X):

@@ -7,6 +7,6 @@ import numpy as np
 
 
 class CBOW_BOWMLP(MLP , CBOW_BOW):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, language):
+        super().__init__(language)
         self.word2vec = None

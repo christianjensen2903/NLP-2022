@@ -3,8 +3,8 @@ from xgboost import XGBClassifier as XGB_model
 from pickle import dump, load
 
 class XGBoost(Model):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, language):
+        super().__init__(language)
         self.model = XGB_model(objective='binary:logistic', tree_method='gpu_hist', random_state=43)
 
     def train(self, X, y):

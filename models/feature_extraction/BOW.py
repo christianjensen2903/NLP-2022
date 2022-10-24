@@ -7,8 +7,8 @@ import numpy as np
 
 
 class BOW(feature_extraction):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, language):
+        super().__init__(language)
         self.question_vectorizer = None
         self.plaintext_vectorizer = None
         self.first_word_vectorizer = None

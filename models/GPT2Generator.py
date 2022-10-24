@@ -15,8 +15,8 @@ import math
 
 
 class GPT2Generator(Model, feature_extraction):
-    def __init__(self, language, config):
-        super().__init__(language, config)
+    def __init__(self, language):
+        super().__init__(language)
         self.language_to_pretrained_name = {
             'english': 'gpt2',
             'finnish': 'Finnish-NLP/gpt2-finnish',

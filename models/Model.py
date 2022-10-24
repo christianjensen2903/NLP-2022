@@ -8,7 +8,7 @@ class Model(ABC):
     def __init__(self, language: str = "english", config: dict = {}):
         super().__init__()
 
-        self.langauge = language.lower()
+        self.language = language.lower()
 
         self.config = config
 

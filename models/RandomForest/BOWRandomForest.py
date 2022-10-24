@@ -4,5 +4,5 @@ from pickle import dump, load
 
 
 class BOWRandomForest(RandomForest , BOW):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, language):
+        super().__init__(language)

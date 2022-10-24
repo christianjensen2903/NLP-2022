@@ -4,12 +4,12 @@ import numpy as np
 
 
 class GPT2CBOWLogistic(CBOW_BOWLogistic):
-    def __init__(self, language, config):
-        super().__init__(language, config)
+    def __init__(self, language):
+        super().__init__(language)
         self.GPT2Generator = None
 
     def get_GPT2Generator(self, dataset):
-        gpt2 = GPT2Generator(self.langauge, self.config)
+        gpt2 = GPT2Generator(self.langauge)
         gpt2.set_language(self.language)
         try:
             gpt2.load()

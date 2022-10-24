@@ -5,5 +5,5 @@ from pickle import dump, load
 
 
 class BOWLogistic(Logistic , BOW):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, language):
+        super().__init__(language)

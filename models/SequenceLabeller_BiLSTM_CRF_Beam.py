@@ -25,6 +25,15 @@ class SequenceLabeller_BiLSTM_CRF_Beam(Model):
         self.lr = config['learning_rate']
         self.n_workers = config['n_workers']
         self.beam_size = config['beam_size']
+
+        if self.language == 'english':
+            self.vocab_path = 'word_vectors/cc.en.300.vec'
+        elif self.language == 'finnish':
+            self.vocab_path = 'word_vectors/cc.fi.300.vec'
+        elif self.language == 'japanese':
+            self.vocab_path = 'word_vectors/cc.ja.300.vec'
+        else:
+            raise ValueError('Language not supported')
    
 
     def _tag_token(self, token, index, answer_start, answer_end):
@@ -58,7 +67,7 @@ class SequenceLabeller_BiLSTM_CRF_Beam(Model):
 
         train_dataset = Dataset.from_pandas(dataset[['text', 'tags']])
         vocabulary = set([t for s in train_dataset for t in s['text']])
-        self.vocabulary, self.pretrained_embeddings = self._load_vectors('wiki-news-300d-1M.vec', vocabulary)
+        self.vocabulary, self.pretrained_embeddings = self._load_vectors(self.vocab_path, vocabulary)
         self.tokenizer = FasttextTokenizer(self.vocabulary)
 
 

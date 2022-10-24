@@ -21,7 +21,8 @@ class SequenceLabeller_BiLSTM_CRF(Model):
 
         self.lstm_dim = config['lstm_dim']
         self.dropout_prob = config['dropout_prob']
-        self.batch_size = config['per_device_train_batch_size']
+        self.per_device_train_batch_size = config['per_device_train_batch_size']
+        self.per_device_eval_batch_size = config['per_device_eval_batch_size']
         self.n_epochs = config['num_train_epochs']
         self.lr = config['learning_rate']
         self.n_workers = config['n_workers']
@@ -118,7 +119,7 @@ class SequenceLabeller_BiLSTM_CRF(Model):
 
     def train(self, X, y):
 
-        train_dl = DataLoader(X, batch_size=self.batch_size, shuffle=True, collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
+        train_dl = DataLoader(X, batch_size=self.per_device_train_batch_size, shuffle=True, collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
         # Create the optimizer
         optimizer = Adam(self.model.parameters(), lr=self.lr)
         scheduler = CyclicLR(optimizer, base_lr=0., max_lr=self.lr, step_size_up=1, step_size_down=len(train_dl)*self.n_epochs, cycle_momentum=False)
@@ -170,7 +171,7 @@ class SequenceLabeller_BiLSTM_CRF(Model):
 
     def predict(self, X):
 
-        valid_dl = DataLoader(X, batch_size=len(X), collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
+        valid_dl = DataLoader(X, batch_size=self.per_device_eval_batch_size, collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
 
         tags_all = []
 
@@ -192,7 +193,7 @@ class SequenceLabeller_BiLSTM_CRF(Model):
 
     def evaluate(self, X, y):
 
-        valid_dl = DataLoader(X, batch_size=len(X), collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
+        valid_dl = DataLoader(X, batch_size=self.per_device_eval_batch_size, collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
 
         # VERY IMPORTANT: Put your model in "eval" mode -- this disables things like 
         # layer normalization and dropout

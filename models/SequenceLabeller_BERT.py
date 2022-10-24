@@ -57,8 +57,11 @@ class SequenceLabeller_BERT(Model):
                             padding='max_length',
                             truncation='only_second',
                             is_split_into_words=True,
-                            return_tensors='pt'
-                            ).to(self.device)
+                            return_tensors='pt' if self.device.type == 'cuda' else 'np'
+                            )
+
+        if self.device.type == 'cuda':
+            tokenized_inputs = tokenized_inputs.to(self.device)
         
         labels = []
         for i, label in enumerate(batch["tags"]):

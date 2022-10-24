@@ -1,0 +1,21 @@
+{
+    "os": "macOS-12.6-arm64-arm-64bit",
+    "python": "3.9.15",
+    "heartbeatAt": "2022-10-24T08:28:24.799543",
+    "startedAt": "2022-10-24T08:28:24.255397",
+    "docker": null,
+    "cpu_count": 8,
+    "cuda": null,
+    "args": null,
+    "state": "running",
+    "program": "notebook-jvsc-120e5ca9-09bd-4e97-b5b6-414a200d7db4e9434b86-7c05-4200-a795-6df7e0c2aecb.ipynb",
+    "root": "/Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/QuestionAnswering",
+    "git": {
+        "remote": "https://github.com/christianjensen2903/QuestionAnswering.git",
+        "commit": "22f28635c92b9a294624edf254bdd52596fa4259"
+    },
+    "email": "cmj290300@gmail.com",
+    "host": "Christians-MacBook-Air.local",
+    "username": "christianjensen",
+    "executable": "/opt/homebrew/opt/python@3.9/bin/python3.9"
+}

@@ -1,0 +1,54 @@
+2022-10-24 10:28:24,274 INFO    StreamThr :2790 [internal.py:wandb_internal():88] W&B internal server running at pid: 2790, started at: 2022-10-24 10:28:24.272676
+2022-10-24 10:28:24,276 DEBUG   HandlerThread:2790 [handler.py:handle_request():138] handle_request: status
+2022-10-24 10:28:24,278 DEBUG   SenderThread:2790 [sender.py:send_request():315] send_request: status
+2022-10-24 10:28:24,280 DEBUG   SenderThread:2790 [sender.py:send():301] send: header
+2022-10-24 10:28:24,280 INFO    WriterThread:2790 [datastore.py:open_for_write():75] open: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/QuestionAnswering/wandb/run-20221024_102824-1huw5l1y/run-1huw5l1y.wandb
+2022-10-24 10:28:24,291 DEBUG   SenderThread:2790 [sender.py:send():301] send: run
+2022-10-24 10:28:24,700 INFO    SenderThread:2790 [dir_watcher.py:__init__():216] watching files in: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/QuestionAnswering/wandb/run-20221024_102824-1huw5l1y/files
+2022-10-24 10:28:24,701 INFO    SenderThread:2790 [sender.py:_start_run_threads():912] run started: 1huw5l1y with start time 1666600104.264517
+2022-10-24 10:28:24,701 DEBUG   HandlerThread:2790 [handler.py:handle_request():138] handle_request: check_version
+2022-10-24 10:28:24,701 DEBUG   SenderThread:2790 [sender.py:send():301] send: summary
+2022-10-24 10:28:24,701 INFO    SenderThread:2790 [sender.py:_save_file():1155] saving file wandb-summary.json with policy end
+2022-10-24 10:28:24,701 DEBUG   SenderThread:2790 [sender.py:send_request():315] send_request: check_version
+2022-10-24 10:28:24,794 DEBUG   HandlerThread:2790 [handler.py:handle_request():138] handle_request: run_start
+2022-10-24 10:28:24,796 DEBUG   HandlerThread:2790 [meta.py:__init__():34] meta init
+2022-10-24 10:28:24,796 DEBUG   HandlerThread:2790 [meta.py:__init__():49] meta init done
+2022-10-24 10:28:24,799 DEBUG   HandlerThread:2790 [meta.py:probe():215] probe
+2022-10-24 10:28:24,801 DEBUG   HandlerThread:2790 [meta.py:_setup_git():205] setup git
+2022-10-24 10:28:24,825 DEBUG   HandlerThread:2790 [meta.py:_setup_git():212] setup git done
+2022-10-24 10:28:24,826 DEBUG   HandlerThread:2790 [meta.py:_save_pip():53] save pip
+2022-10-24 10:28:24,827 DEBUG   HandlerThread:2790 [meta.py:_save_pip():67] save pip done
+2022-10-24 10:28:24,827 DEBUG   HandlerThread:2790 [meta.py:probe():253] probe done
+2022-10-24 10:28:24,961 DEBUG   SenderThread:2790 [sender.py:send():301] send: files
+2022-10-24 10:28:24,962 INFO    SenderThread:2790 [sender.py:_save_file():1155] saving file wandb-metadata.json with policy now
+2022-10-24 10:28:24,976 DEBUG   HandlerThread:2790 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-24 10:28:24,976 DEBUG   SenderThread:2790 [sender.py:send_request():315] send_request: stop_status
+2022-10-24 10:28:25,168 DEBUG   SenderThread:2790 [sender.py:send():301] send: telemetry
+2022-10-24 10:28:25,168 DEBUG   SenderThread:2790 [sender.py:send():301] send: config
+2022-10-24 10:28:25,168 DEBUG   SenderThread:2790 [sender.py:send():301] send: metric
+2022-10-24 10:28:25,169 DEBUG   SenderThread:2790 [sender.py:send():301] send: telemetry
+2022-10-24 10:28:25,169 DEBUG   SenderThread:2790 [sender.py:send():301] send: metric
+2022-10-24 10:28:25,169 WARNING SenderThread:2790 [sender.py:send_metric():1111] Seen metric with glob (shouldn't happen)
+2022-10-24 10:28:25,169 DEBUG   SenderThread:2790 [sender.py:send():301] send: telemetry
+2022-10-24 10:28:25,335 DEBUG   SenderThread:2790 [sender.py:send():301] send: telemetry
+2022-10-24 10:28:25,602 INFO    Thread-17 :2790 [upload_job.py:push():139] Uploaded file /var/folders/s3/51rzg94s5318dvd1cr9t6cq40000gn/T/tmpmjsw9n7uwandb/9woi3j40-wandb-metadata.json
+2022-10-24 10:28:25,709 INFO    Thread-13 :2790 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/QuestionAnswering/wandb/run-20221024_102824-1huw5l1y/files/output.log
+2022-10-24 10:28:25,712 INFO    Thread-13 :2790 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/QuestionAnswering/wandb/run-20221024_102824-1huw5l1y/files/wandb-metadata.json
+2022-10-24 10:28:25,713 INFO    Thread-13 :2790 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/QuestionAnswering/wandb/run-20221024_102824-1huw5l1y/files/wandb-summary.json
+2022-10-24 10:28:25,713 INFO    Thread-13 :2790 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/QuestionAnswering/wandb/run-20221024_102824-1huw5l1y/files/requirements.txt
+2022-10-24 10:28:27,723 INFO    Thread-13 :2790 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/QuestionAnswering/wandb/run-20221024_102824-1huw5l1y/files/output.log
+2022-10-24 10:28:40,252 DEBUG   HandlerThread:2790 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-24 10:28:40,254 DEBUG   SenderThread:2790 [sender.py:send_request():315] send_request: stop_status
+2022-10-24 10:28:54,842 INFO    Thread-13 :2790 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/christianjensen/Library/CloudStorage/OneDrive-UniversityofCopenhagen/2 - Projects/NLP Course/QuestionAnswering/wandb/run-20221024_102824-1huw5l1y/files/config.yaml
+2022-10-24 10:28:55,495 DEBUG   HandlerThread:2790 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-24 10:28:55,495 DEBUG   SenderThread:2790 [sender.py:send_request():315] send_request: stop_status
+2022-10-24 10:29:02,090 DEBUG   SenderThread:2790 [sender.py:send():301] send: stats
+2022-10-24 10:29:10,686 DEBUG   HandlerThread:2790 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-24 10:29:10,686 DEBUG   SenderThread:2790 [sender.py:send_request():315] send_request: stop_status
+2022-10-24 10:29:30,694 DEBUG   HandlerThread:2790 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-24 10:29:30,695 DEBUG   SenderThread:2790 [sender.py:send_request():315] send_request: stop_status
+2022-10-24 10:29:40,007 DEBUG   HandlerThread:2790 [handler.py:handle_request():138] handle_request: pause
+2022-10-24 10:29:40,007 INFO    HandlerThread:2790 [handler.py:handle_request_pause():696] stopping system metrics thread
+2022-10-24 10:29:40,409 DEBUG   SenderThread:2790 [sender.py:send():301] send: stats
+2022-10-24 10:29:45,924 DEBUG   HandlerThread:2790 [handler.py:handle_request():138] handle_request: stop_status
+2022-10-24 10:29:45,925 DEBUG   SenderThread:2790 [sender.py:send_request():315] send_request: stop_status

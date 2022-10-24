@@ -18,9 +18,9 @@ class SequenceLabeller_BERT(Model):
         elif self.language == "japanese":
             self.model_name = "cl-tohoku/bert-base-japanese-whole-word-masking"
         elif self.language == "finnish":
-            self.model_name = "TurkuNLP/bert-base-finnish-cased-v1"
+            self.model_name = "TurkuNLP/bert-base-finnish-uncased-v1"
         elif self.language == "multilingual":
-            self.model_name = "bert-base-multilingual-cased"
+            self.model_name = "bert-base-multilingual-uncased"
         else:
             raise ValueError("Language not implemented")
         

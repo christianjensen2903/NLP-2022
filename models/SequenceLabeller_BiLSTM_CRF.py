@@ -171,14 +171,14 @@ class SequenceLabeller_BiLSTM_CRF(Model):
 
     def predict(self, X):
 
-        valid_dl = DataLoader(X, batch_size=self.per_device_eval_batch_size, collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
+        valid_dl = DataLoader(X, batch_size=len(X), collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
 
         tags_all = []
 
         # ALSO IMPORTANT: Don't accumulate gradients during this process
         with torch.no_grad():
             for batch in tqdm(valid_dl, desc='Evaluation'):
-                batch = tuple(t.to(self.device) for t in batch)
+                batch = tuple(t for t in batch)
                 input_ids = batch[0]
                 seq_lens = batch[1]
                 labels = batch[2]
@@ -193,7 +193,7 @@ class SequenceLabeller_BiLSTM_CRF(Model):
 
     def evaluate(self, X, y):
 
-        valid_dl = DataLoader(X, batch_size=self.per_device_eval_batch_size, collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
+        valid_dl = DataLoader(X, batch_size=len(X), collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
 
         # VERY IMPORTANT: Put your model in "eval" mode -- this disables things like 
         # layer normalization and dropout
@@ -205,7 +205,7 @@ class SequenceLabeller_BiLSTM_CRF(Model):
         # ALSO IMPORTANT: Don't accumulate gradients during this process
         with torch.no_grad():
             for batch in tqdm(valid_dl, desc='Evaluation'):
-                batch = tuple(t.to(self.device) for t in batch)
+                batch = tuple(t for t in batch)
                 input_ids = batch[0]
                 seq_lens = batch[1]
                 labels = batch[2]

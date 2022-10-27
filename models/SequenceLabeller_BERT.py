@@ -122,8 +122,8 @@ class SequenceLabeller_BERT(Model):
             run_name='sequence-labeller',  # name of the W&B run (optional)
             num_train_epochs=6,              # total number of training epochs
             learning_rate=2e-5,
-            per_device_train_batch_size=32,
-            per_device_eval_batch_size=16,
+            per_device_train_batch_size=self.per_device_train_batch_size,  # batch size per device during training
+            per_device_eval_batch_size=self.per_device_eval_batch_size,   # batch size for evaluation
             warmup_steps=200,
             weight_decay=0.01,
         )

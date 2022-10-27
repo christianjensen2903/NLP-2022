@@ -1,9 +1,9 @@
-from models.Logistic.CBOW_BOWLogistic import CBOW_BOWLogistic
+from models.Logistic.Logistic import Logistic
 from models.GPT2Generator import GPT2Generator
 import numpy as np
 
 
-class GPT2CBOWLogistic(CBOW_BOWLogistic):
+class GPT2Logistic(Logistic):
     def __init__(self, language):
         super().__init__(language)
         self.GPT2Generator = None
@@ -19,15 +19,8 @@ class GPT2CBOWLogistic(CBOW_BOWLogistic):
         return gpt2
 
     def extract_X(self, dataset):
-        bow_continous = super().extract_X(dataset)
         self.GPT2Generator = self.get_GPT2Generator(dataset)
         gpt2_output = self.GPT2Generator.predict(
             self.GPT2Generator.extract_X(dataset)
         )
-        return np.concatenate(
-            (
-                bow_continous,
-                gpt2_output
-            ),
-            axis=1
-        )
+        return gpt2_output

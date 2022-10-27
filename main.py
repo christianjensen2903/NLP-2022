@@ -1,5 +1,5 @@
 from models.Model import Model
-from models.GPT2CBOWLogistic import GPT2CBOWLogistic
+from models.GPT2Logistic import GPT2CBOWLogistic
 from models.GPT2Generator import GPT2Generator
 from models.Logistic.BOWLogistic import BOWLogistic
 from models.MLP.BOWMLP import BOWMLP

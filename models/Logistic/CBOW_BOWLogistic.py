@@ -6,12 +6,6 @@ from models.Word2Vec import Word2Vec
 import numpy as np
 
 
-<<<<<<< Updated upstream
-class CBOW_BOWLogistic(Logistic , CBOW_BOW):
-    def __init__(self, language):
-        super().__init__(language)
-        self.word2vec = None
-=======
 class CBOW_BOWLogistic(Logistic, CBOW_BOW):
     def __init__(self):
         super().__init__()
@@ -52,4 +46,3 @@ class CBOW_BOWLogistic(Logistic, CBOW_BOW):
             sorted(self.weights().items(), key=lambda item: item[1], reverse=False)[
                 :n]  # n most negative
         )
->>>>>>> Stashed changes

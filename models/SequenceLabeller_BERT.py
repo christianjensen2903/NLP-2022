@@ -143,8 +143,8 @@ class SequenceLabeller_BERT(Model):
         """Predict the answer"""
         return self.trainer.predict(X)
 
-    def _compute_metrics(p):
-        predictions, labels = p
+    def _compute_metrics(predictions, labels):
+        # predictions, labels = p
         predictions = np.argmax(predictions, axis=2)
 
         # Remove ignored index (special tokens)

@@ -132,7 +132,7 @@ class SequenceLabeller_BERT(Model):
             args=training_args,
             data_collator=data_collator,
             train_dataset=X, # X contains both the label and the features
-            compute_metrics=self._compute_metrics
+            # compute_metrics=self._compute_metrics
         )
         self.trainer.train()
 
@@ -145,6 +145,7 @@ class SequenceLabeller_BERT(Model):
 
     def _compute_metrics(predictions, labels):
         # predictions, labels = p
+        print(predictions)
         predictions = np.argmax(predictions, axis=2)
 
         # Remove ignored index (special tokens)
@@ -170,30 +171,30 @@ class SequenceLabeller_BERT(Model):
 
     def evaluate(self, X, y):
         """Evaluate the model"""
-        # predictions, labels, _ = self.predict(X)
-        # predictions = np.argmax(predictions, axis=2)
+        predictions, labels, _ = self.predict(X)
+        predictions = np.argmax(predictions, axis=2)
 
-        # # Remove ignored index (special tokens)
-        # true_predictions = [
-        #     [p for (p, l) in zip(prediction, label) if l != -100]
-        #     for prediction, label in zip(predictions, labels)
-        # ]
-        # true_labels = [
-        #     [l for (p, l) in zip(prediction, label) if l != -100]
-        #     for prediction, label in zip(predictions, labels)
-        # ]
-        # binarizer = MultiLabelBinarizer().fit(true_labels)
+        # Remove ignored index (special tokens)
+        true_predictions = [
+            [p for (p, l) in zip(prediction, label) if l != -100]
+            for prediction, label in zip(predictions, labels)
+        ]
+        true_labels = [
+            [l for (p, l) in zip(prediction, label) if l != -100]
+            for prediction, label in zip(predictions, labels)
+        ]
+        binarizer = MultiLabelBinarizer().fit(true_labels)
 
-        # true_predictions = binarizer.transform(true_predictions)
-        # true_labels = binarizer.transform(true_labels)
+        true_predictions = binarizer.transform(true_predictions)
+        true_labels = binarizer.transform(true_labels)
 
-        # P, R, F1, _ = precision_recall_fscore_support(true_labels, true_predictions, average='macro', labels=[0,1,2])
-        # return {
-        #     "precision": P,
-        #     "recall": R,
-        #     "f1": F1,
-        # }
-        return self.trainer.evaluate(X)
+        P, R, F1, _ = precision_recall_fscore_support(true_labels, true_predictions, average='macro')
+        return {
+            "precision": P,
+            "recall": R,
+            "f1": F1,
+        }
+        # return self.trainer.evaluate(X)
 
     def save(self):
         """Save the model"""

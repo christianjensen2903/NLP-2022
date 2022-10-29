@@ -4,11 +4,8 @@ import numpy as np
 
 
 class Word2Vec(Model):
-    def __init__(self, language, config):
-        super().__init__(language, config)
-
-    def extract_X(self, dataset):
-        return dataset['tokenized_question'].to_list() + dataset['tokenized_plaintext'].to_list()
+    def __init__(self, extractor, language, config={}):
+        super().__init__(extractor, language, config)
 
     def train(self, X):
         self.model = GensimWord2Vec(X, min_count=1)
@@ -16,10 +13,11 @@ class Word2Vec(Model):
     def predict(self, X):
         # Handle words missing from the vocabulary
         return np.array([
-            self.model.wv[word] if word in self.model.wv else np.zeros(self.model.vector_size) 
+            self.model.wv[word] if word in self.model.wv else np.zeros(
+                self.model.vector_size)
             for word in X
         ])
-        
+
     def save(self):
         self.model.save(self.get_save_path('model'))
 

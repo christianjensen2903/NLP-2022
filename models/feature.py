@@ -57,9 +57,6 @@ def get_continuous_representation(dataset, word2vec):
         axis=1
     )
 
-def get_bow_representation(dataset, plaintext_vectorizer, question_vectorizer, first_word_vectorizer):
-    
-
 
 def get_continous_bow(dataset, word2vec, plaintext_vectorizer, question_vectorizer, first_word_vectorizer):
     return np.concatenate(

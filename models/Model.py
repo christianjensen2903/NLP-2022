@@ -5,6 +5,7 @@ import torch
 
 class Model(ABC):
     def __init__(self, extractor, language: str = "english", config: dict = {}):
+        self.name = self.__class__.__name__ + extractor.__name__
         self.extractor = extractor
         self.language = language.lower()
         self.config = config
@@ -20,7 +21,7 @@ class Model(ABC):
         # Get the path of type saved_models/model_type
         path = os.path.join(
             'saved_models',
-            self.__class__.__name__
+            self.name
         )
         # Create the directory if it doesn't exist
         os.makedirs(path, exist_ok=True)
@@ -34,7 +35,10 @@ class Model(ABC):
 
     def setup(self, train_data):
         """Runs data dependent processes needed for training"""
-        pass
+        # Initialize extractor
+        self.extractor = self.extractor(
+            self.language, train_data
+        )
 
     def extract(self, data):
         """Extracts X and y from the data"""
@@ -58,4 +62,4 @@ class Model(ABC):
 
     def load(self):
         """Load the model"""
-        pass
+        raise NotImplementedError

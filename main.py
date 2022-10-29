@@ -1,6 +1,7 @@
 from languages.LanguageModel import LanguageModel
 # from languages.Japanese import Japanese
 from extractors.BOW import BOW
+from extractors.Continous import Continous
 from models.Logistic import Logistic
 from languages.English import English
 from languages.Finnish import Finnish
@@ -27,6 +28,7 @@ for language in languages:
     print(f'\n\n--- Language: {language.name} ---')
     # Define the models to be tested
     models = [
+        Logistic(Continous, language.name),
         Logistic(BOW, language.name)
     ]
     
@@ -40,8 +42,7 @@ for language in languages:
 
     # Train and evaluate all the models
     for model in models:
-        model_name = model.__class__.__name__ + model.extractor.__name__
-        print(f'\n - Model: {model_name}')
+        print(f'\n - Model: {model.name}')
 
         print('Setup...')
         model.setup(train_data)

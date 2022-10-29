@@ -8,12 +8,6 @@ class Logistic(Model):
         super().__init__(extractor, language, config)
         self.model = LogisticRegression()
 
-    def setup(self, train_data):
-        # Initialize extractor
-        self.extractor = self.extractor(
-            self.language, train_data
-        )
-
     def train(self, X, y):
         self.model = self.model.fit(X, y)
 

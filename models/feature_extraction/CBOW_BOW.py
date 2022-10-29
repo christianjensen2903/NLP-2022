@@ -26,31 +26,56 @@ class CBOW_BOW(BOW):
             word2vec.save()
         return word2vec
 
+    def unit_length(self, matrix):
+        row_norm = np.linalg.norm(matrix, axis=1)
+        new_matrix = matrix / row_norm[:, np.newaxis]
+        return new_matrix
+
+    def bert_score(self, context_embeddings, question_embeddings):
+        context_embeddings = self.unit_length(context_embeddings)
+        question_embeddings = self.unit_length(question_embeddings)
+        similarity = context_embeddings@question_embeddings.T
+        recall = similarity.max(axis=1).sum()/len(context_embeddings)
+        precision = similarity.max(axis=0).sum()/len(question_embeddings)
+        f1 = 2*recall*precision/(recall+precision)
+        return f1
+
     def get_continuous_representation(self, dataset):
         if self.word2vec is None:
             self.word2vec = self.get_word2vec(dataset)
+        question_representations = [
+            self.word2vec.predict(sentence) for sentence in dataset['tokenized_question']
+        ]
+        context_representations = [
+            self.word2vec.predict(sentence) for sentence in dataset['tokenized_plaintext']
+        ]
         question_mean_representation = np.array([
-            self.word2vec.predict(sentence).mean(axis=0) for sentence in dataset['tokenized_question']
+            repr.mean(axis=0) for repr in question_representations
         ])
-        plaintext_mean_representation = np.array([
-            self.word2vec.predict(sentence).mean(axis=0) for sentence in dataset['tokenized_plaintext']
+        context_mean_representation = np.array([
+            repr.mean(axis=0) for repr in context_representations
         ])
         distance_between_representations = np.linalg.norm(
-            question_mean_representation - plaintext_mean_representation,
+            question_mean_representation - context_mean_representation,
             axis=1
         ).reshape(-1, 1)
         cosine_similarity = np.array([
-            np.dot(question_mean_representation[i], plaintext_mean_representation[i]) / (
+            np.dot(question_mean_representation[i], context_mean_representation[i]) / (
                 np.linalg.norm(
-                    question_mean_representation[i]) * np.linalg.norm(plaintext_mean_representation[i])
+                    question_mean_representation[i]) * np.linalg.norm(context_mean_representation[i])
             ) for i in range(len(question_mean_representation))
+        ]).reshape(-1, 1)
+        bert_scores = np.array([
+            self.bert_score(question, context)
+            for question, context in zip(question_representations, context_representations)
         ]).reshape(-1, 1)
         return np.concatenate(
             (
                 question_mean_representation,
-                plaintext_mean_representation,
+                context_mean_representation,
                 distance_between_representations,
-                cosine_similarity
+                cosine_similarity,
+                bert_scores
             ),
             axis=1
         )

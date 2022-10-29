@@ -10,6 +10,9 @@ from models.RandomForest.CBOWRandomForest import CBOWRandomForest
 from models.Logistic.CBOW_BOWLogistic import CBOW_BOWLogistic
 from models.Logistic.CBOWLogistic import CBOWLogistic
 from models.Logistic.GPT2Logistic import GPT2Logistic
+from models.MLP.GPT2MLP import GPT2MLP
+from models.XGBoost.GPT2XGBoost import GPT2XGBoost
+from models.RandomForest.GPT2RandomForest import GPT2RandomForest
 from models.XGBoost.BOWXGBoost import BOWXGBoost
 from models.XGBoost.CBOW_BOWXGBoost import CBOW_BOWXGBoost
 from models.XGBoost.CBOWXGBoost import CBOWXGBoost
@@ -39,6 +42,9 @@ languages: List[LanguageModel] = [
 torch.cuda.empty_cache()
 
 gpt2Logistic = GPT2Logistic()
+gpt2XGBoost = GPT2XGBoost()
+gpt2RandomForest = GPT2RandomForest()
+gpt2MLP = GPT2MLP()
 bowRandomForest = BOWRandomForest()
 cbow_BOWRandomForest = CBOW_BOWRandomForest()
 cbowRandomForest = CBOWRandomForest()
@@ -56,7 +62,7 @@ cBOWXGBoost = CBOWXGBoost()
 models: List[Model] = [
     # gpt2Generator,
     # gpt2CBOWLogistic,
-    gpt2Logistic,
+    cBOW_BOWLogistic,
     bowMLP,
     bowRandomForest,
     cbow_BOWRandomForest,
@@ -64,11 +70,14 @@ models: List[Model] = [
     cbow_BOWMLP,
     cbowMLP,
     bowLogistic,
-    cBOW_BOWLogistic,
     cBOWLogistic,
-    # BOW_XGb,
-    # cBOW_BOWXGBoost,
-    # cBOWXGBoost,
+    BOW_XGb,
+    cBOW_BOWXGBoost,
+    cBOWXGBoost,
+    gpt2Logistic,
+    gpt2XGBoost,
+    gpt2RandomForest,
+    gpt2MLP,
 ]
 
 # question_beginning = {
@@ -104,8 +113,6 @@ for language in languages:
     preprocessor = Preprocess(language.tokenize, language.clean)
     data = pipeline.get_data(language=language.name, preproccesor=preprocessor)
     train_data, validation_data = pipeline.split_data(data)
-    train_data = train_data.head(20)
-    validation_data = validation_data.head(20)
 
     # Explore the data
     # data_exploration = DataExploration(train_data)

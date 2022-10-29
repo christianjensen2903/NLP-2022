@@ -4,9 +4,9 @@ from models.feature_extraction.feature_extracion import feature_extraction
 import numpy as np
 
 
-class Word2Vec(Model,feature_extraction):
-    def __init__(self):
-        super().__init__()
+class Word2Vec(Model):
+    def __init__(self, language, config):
+        super().__init__(language, config)
 
     def extract_X(self, dataset):
         return dataset['tokenized_question'].to_list() + dataset['tokenized_plaintext'].to_list()
@@ -16,11 +16,9 @@ class Word2Vec(Model,feature_extraction):
 
     def predict(self, X):
         # Handle words missing from the vocabulary
-        output = np.array([
+        return np.array([
             self.model.wv[word] if word in self.model.wv else np.zeros(self.model.vector_size) for word in X
         ])
-        # If all words are missing, return a zero vector
-        return output if len(output) != 0 else np.zeros((len(output), self.model.vector_size))
 
     def evaluate(self, X, y):
         pass

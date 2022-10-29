@@ -6,8 +6,6 @@ import torch
 class Model(ABC):
 
     def __init__(self, language: str = "english", config: dict = {}):
-        super().__init__()
-
         self.language = language.lower()
 
         self.config = config
@@ -17,7 +15,6 @@ class Model(ABC):
             self.device = torch.device("cuda")
         else:
             self.device = torch.device("cpu")
-            
 
     def get_save_path(self, filetype: str = ''):
         """Get the path of the model for loading and saving"""

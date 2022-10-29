@@ -1,5 +1,5 @@
 from models.Model import Model
-from models.GPT2Logistic import GPT2CBOWLogistic
+from models.GPT2Logistic import GPT2Logistic
 from models.GPT2Generator import GPT2Generator
 from models.Logistic.BOWLogistic import BOWLogistic
 from models.MLP.BOWMLP import BOWMLP
@@ -8,7 +8,7 @@ from models.MLP.CBOWMLP import CBOWMLP
 from models.RandomForest.BOWRandomForest import BOWRandomForest
 from models.RandomForest.CBOW_BOWRandomForest import CBOW_BOWRandomForest
 from models.RandomForest.CBOWRandomForest import CBOWRandomForest
-from models.Logistic.CBOW_BOWLogistic import CBOW_BOWLogistic
+from models.Logistic.C_BOW_Logistic import CBOW_BOWLogistic
 from models.Logistic.CBOWLogistic import CBOWLogistic
 from models.XGBoost.BOWXGBoost import BOWXGBoost
 from models.XGBoost.CBOW_BOWXGBoost import CBOW_BOWXGBoost
@@ -39,32 +39,32 @@ languages: List[LanguageModel] = [
 torch.cuda.empty_cache()
 
 # gpt2CBOWLogistic = GPT2CBOWLogistic()
-bowRandomForest = BOWRandomForest()
-cbow_BOWRandomForest = CBOW_BOWRandomForest()
-cbowRandomForest = CBOWRandomForest()
-bowMLP = BOWMLP()
-cbow_BOWMLP = CBOW_BOWMLP()
-cbowMLP = CBOWMLP()
-bowLogistic = BOWLogistic()
-cBOWLogistic = CBOWLogistic()
-cBOW_BOWLogistic = CBOW_BOWLogistic()
-BOW_XGb = BOWXGBoost()
-cBOW_BOWXGBoost = CBOW_BOWXGBoost()
-cBOWXGBoost = CBOWXGBoost()
+# bowRandomForest = BOWRandomForest()
+# cbow_BOWRandomForest = CBOW_BOWRandomForest()
+# cbowRandomForest = CBOWRandomForest()
+# bowMLP = BOWMLP()
+# cbow_BOWMLP = CBOW_BOWMLP()
+# cbowMLP = CBOWMLP()
+# bowLogistic = BOWLogistic()
+# cBOWLogistic = CBOWLogistic()
+cBOW_BOWLogistic = CBOW_BOWLogistic("english", {})
+# BOW_XGb = BOWXGBoost()
+# cBOW_BOWXGBoost = CBOW_BOWXGBoost()
+# cBOWXGBoost = CBOWXGBoost()
 
 # Define the models to be tested
 models: List[Model] = [
     # gpt2Generator,
     # gpt2CBOWLogistic,
-    bowMLP,
-    bowRandomForest,
-    cbow_BOWRandomForest,
-    cbowRandomForest,
-    cbow_BOWMLP,
-    cbowMLP,
-    bowLogistic,
     cBOW_BOWLogistic,
-    cBOWLogistic,
+    # bowMLP,
+    # bowRandomForest,
+    # cbow_BOWRandomForest,
+    # cbowRandomForest,
+    # cbow_BOWMLP,
+    # cbowMLP,
+    # bowLogistic,
+    # cBOWLogistic,
     # BOW_XGb,
     # cBOW_BOWXGBoost,
     # cBOWXGBoost,
@@ -77,20 +77,20 @@ question_beginning = {
 }
 
 # Define the parameters to be used in the grid search
-parameters = {
-    bowLogistic: {
-        'penalty': ['l2'],
-        'C': [0.1, 1, 10, 100, 1000],
-    },
-    cBOW_BOWLogistic: {
-        'penalty': ['l2'],
-        'C': [0.1, 1, 10, 100, 1000],
-    },
-    cBOWLogistic: {
-        'penalty': ['l2'],
-        'C': [0.1, 1, 10, 100, 1000],
-    }
-}
+# parameters = {
+#     bowLogistic: {
+#         'penalty': ['l2'],
+#         'C': [0.1, 1, 10, 100, 1000],
+#     },
+#     cBOW_BOWLogistic: {
+#         'penalty': ['l2'],
+#         'C': [0.1, 1, 10, 100, 1000],
+#     },
+#     cBOWLogistic: {
+#         'penalty': ['l2'],
+#         'C': [0.1, 1, 10, 100, 1000],
+#     }
+# }
 
 grid_search = False
 
@@ -103,7 +103,6 @@ for language in languages:
     preprocessor = Preprocess(language.tokenize, language.clean)
     data = pipeline.get_data(language=language.name, preproccesor=preprocessor)
     train_data, validation_data = pipeline.split_data(data)
-
     # Explore the data
     # data_exploration = DataExploration(train_data)
     # data_exploration.find_frequent_words()
@@ -119,6 +118,10 @@ for language in languages:
         y_train = train_data['is_answerable']
         X_validation = model.extract_X(validation_data)
         y_validation = validation_data['is_answerable']
+        print(X_train)
+        print(X_train.shape)
+        print(y_train)
+        print(y_train.shape)
 
         try:
             model.load()
@@ -128,12 +131,13 @@ for language in languages:
                 model.get_perplexity(X_validation)
         except:
             if grid_search:
-                model = pipeline.grid_search(
-                    model,
-                    X_train,
-                    y_train,
-                    parameters[model]
-                )
+                pass
+                # model = pipeline.grid_search(
+                #     model,
+                #     X_train,
+                #     y_train,
+                #     parameters[model]
+                # )
             else:
                 model = pipeline.train(
                     model,

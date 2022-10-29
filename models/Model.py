@@ -1,13 +1,12 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 import os
 import torch
 
 
 class Model(ABC):
-
-    def __init__(self, language: str = "english", config: dict = {}):
+    def __init__(self, extractor, language: str = "english", config: dict = {}):
+        self.extractor = extractor
         self.language = language.lower()
-
         self.config = config
 
         # Set the device to use
@@ -33,13 +32,13 @@ class Model(ABC):
             f'{self.language}.{filetype}' if filetype else self.language
         )
 
-    def extract_X(self, train_data):
-        """Extract the X values from the dataset"""
+    def setup(self, train_data):
+        """Runs data dependent processes needed for training"""
         pass
 
-    def extract_y(self, train_data):
-        """Extract the y values from the dataset"""
-        pass
+    def extract(self, data):
+        """Extracts X and y from the data"""
+        return self.extractor.run(data)
 
     def train(self, X, y):
         """Train the model"""
@@ -59,12 +58,4 @@ class Model(ABC):
 
     def load(self):
         """Load the model"""
-        pass
-
-    def weights(self):
-        """Gets the model weights as a dictionary"""
-        pass
-
-    def explainability(self):
-        """Use an use an interpretability method on the model"""
         pass

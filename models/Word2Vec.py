@@ -1,6 +1,5 @@
 from gensim.models import Word2Vec as GensimWord2Vec
 from models.Model import Model
-from models.feature_extraction.feature_extracion import feature_extraction
 import numpy as np
 
 
@@ -17,12 +16,10 @@ class Word2Vec(Model):
     def predict(self, X):
         # Handle words missing from the vocabulary
         return np.array([
-            self.model.wv[word] if word in self.model.wv else np.zeros(self.model.vector_size) for word in X
+            self.model.wv[word] if word in self.model.wv else np.zeros(self.model.vector_size) 
+            for word in X
         ])
-
-    def evaluate(self, X, y):
-        pass
-
+        
     def save(self):
         self.model.save(self.get_save_path('model'))
 

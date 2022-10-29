@@ -58,27 +58,7 @@ def get_continuous_representation(dataset, word2vec):
     )
 
 def get_bow_representation(dataset, plaintext_vectorizer, question_vectorizer, first_word_vectorizer):
-    question_bow = question_vectorizer.transform(
-        dataset['tokenized_question']
-    )
-    plaintext_bow = plaintext_vectorizer.transform(
-        dataset['tokenized_plaintext']
-    )
-    first_word_bow = first_word_vectorizer.transform(
-        dataset['tokenized_question'].str[0]
-    )
-    overlap = np.array([len([e for e in question if e in plaintext]) for question, plaintext in zip(
-        dataset['cleaned_question'], dataset['cleaned_plaintext'])])
-    X = np.concatenate(
-        (
-            question_bow.toarray(),
-            plaintext_bow.toarray(),
-            first_word_bow.toarray(),  # First word in question
-            overlap.reshape(-1,  1),  # Amount of words overlapping
-        ),
-        axis=1
-    )
-    return X
+    
 
 
 def get_continous_bow(dataset, word2vec, plaintext_vectorizer, question_vectorizer, first_word_vectorizer):

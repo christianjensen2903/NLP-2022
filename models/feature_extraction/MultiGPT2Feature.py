@@ -1,5 +1,5 @@
 from models.feature_extraction.feature_extracion import feature_extraction
-from models.GPT2Generator import GPT2Generator
+from models.MultiGPT2Generator import MultiGPT2Generator
 import numpy as np
 
 
@@ -8,7 +8,7 @@ class MultiGPT2Feature(feature_extraction):
         super().__init__()
 
     def get_GPT2Generator(self, dataset):
-        gpt2 = GPT2Generator(multilingual = True)
+        gpt2 = MultiGPT2Generator()
         gpt2.set_language(self.language)
         try:
             gpt2.load()

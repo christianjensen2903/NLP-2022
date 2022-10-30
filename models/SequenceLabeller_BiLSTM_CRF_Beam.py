@@ -179,6 +179,7 @@ class SequenceLabeller_BiLSTM_CRF_Beam(Model):
         :return: predicted sequence of labels
         """
 
+        print(inputs)
         assert inputs.shape[0] == 1
 
         softmax = nn.Softmax(dim=-1)
@@ -235,7 +236,7 @@ class SequenceLabeller_BiLSTM_CRF_Beam(Model):
 
     def predict(self, X):
 
-        valid_dl = DataLoader(X, batch_size=self.per_device_eval_batch_size, collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
+        valid_dl = DataLoader(X, batch_size=1, collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
 
         tags_all = []
 
@@ -254,7 +255,7 @@ class SequenceLabeller_BiLSTM_CRF_Beam(Model):
 
     def evaluate(self, X, y):
 
-        valid_dl = DataLoader(X, batch_size=self.per_device_eval_batch_size, collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
+        valid_dl = DataLoader(X, batch_size=1, collate_fn=self._collate_batch_bilstm, num_workers=self.n_workers)
 
         # VERY IMPORTANT: Put your model in "eval" mode -- this disables things like 
         # layer normalization and dropout

@@ -15,7 +15,8 @@ import math
 
 
 class GPT2Generator(Model, feature_extraction):
-    def __init__(self):
+    def __init__(self, multilingual=False):
+        self.multilingual = multilingual
         self.language_to_pretrained_name = {
             'english': 'gpt2',
             'finnish': 'Finnish-NLP/gpt2-finnish',
@@ -29,7 +30,7 @@ class GPT2Generator(Model, feature_extraction):
 
     def set_language(self, language):
         super().set_language(language)
-        pretrained_name = self.language_to_pretrained_name[language]
+        pretrained_name = self.language_to_pretrained_name[language] if not self.multilingual else 'miguelvictor/multilingual-gpt2-large'
         self.tokenizer = GPT2Tokenizer.from_pretrained(
             pretrained_name
         )

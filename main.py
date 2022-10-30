@@ -74,8 +74,8 @@ models: List[Model] = [
     BOW_XGb,
     cBOW_BOWXGBoost,
     cBOWXGBoost,
-    gpt2Logistic,
     gpt2XGBoost,
+    gpt2Logistic,
     gpt2RandomForest,
     gpt2MLP,
 ]
@@ -113,7 +113,8 @@ for language in languages:
     preprocessor = Preprocess(language.tokenize, language.clean)
     data = pipeline.get_data(language=language.name, preproccesor=preprocessor)
     train_data, validation_data = pipeline.split_data(data)
-
+    train_data = train_data.head(20)
+    validation_data = validation_data.head(20)
     # Explore the data
     # data_exploration = DataExploration(train_data)
     # data_exploration.find_frequent_words()
@@ -128,6 +129,7 @@ for language in languages:
         X_train = model.extract_X(train_data)
         y_train = train_data['is_answerable']
         X_validation = model.extract_X(validation_data)
+        
         y_validation = validation_data['is_answerable']
 
         try:

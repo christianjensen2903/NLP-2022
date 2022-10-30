@@ -165,7 +165,7 @@ class SequenceLabeller_BiLSTM_CRF_Beam(Model):
                 # Finally, update the weights of the model
                 optimizer.step()
 
-            return losses
+        return losses
 
 
     def _decode(self, inputs, input_lens, labels=None, beam_size=2):

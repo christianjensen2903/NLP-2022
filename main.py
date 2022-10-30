@@ -113,8 +113,6 @@ for language in languages:
     preprocessor = Preprocess(language.tokenize, language.clean)
     data = pipeline.get_data(language=language.name, preproccesor=preprocessor)
     train_data, validation_data = pipeline.split_data(data)
-    train_data = train_data.head(20)
-    validation_data = validation_data.head(20)
     # Explore the data
     # data_exploration = DataExploration(train_data)
     # data_exploration.find_frequent_words()

@@ -1,6 +1,6 @@
 # from os import pread
 import imp
-from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling
+from transformers import BertTokenizer, BertLMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling
 from models.Model import Model
 from models.feature_extraction.feature_extracion import feature_extraction
 from datasets import Dataset
@@ -23,12 +23,12 @@ class MultiGPT2Generator(Model, feature_extraction):
 
     def set_language(self, language):
         super().set_language(language)
-        pretrained_name = 'miguelvictor/multilingual-gpt2-large'
-        self.tokenizer = GPT2Tokenizer.from_pretrained(
+        pretrained_name = 'bert-base-multilingual-uncased'
+        self.tokenizer = BertTokenizer.from_pretrained(
             pretrained_name
         )
         self.tokenizer.pad_token = self.tokenizer.eos_token
-        self.model = GPT2LMHeadModel.from_pretrained(
+        self.model = BertLMHeadModel.from_pretrained(
             pretrained_name,
             output_hidden_states=True
         )
@@ -125,5 +125,5 @@ class MultiGPT2Generator(Model, feature_extraction):
 
     def load(self):
         path = self.get_save_path()
-        self.tokenizer = GPT2Tokenizer.from_pretrained(path)
-        self.model = GPT2LMHeadModel.from_pretrained(path)
+        self.tokenizer = BertTokenizer.from_pretrained(path)
+        self.model = BertLMHeadModel.from_pretrained(path)

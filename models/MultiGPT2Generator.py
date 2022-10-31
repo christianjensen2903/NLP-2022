@@ -1,6 +1,6 @@
 # from os import pread
 import imp
-from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling
+from transformers import BloomTokenizerFast, BloomForCausalLM, Trainer, TrainingArguments, DataCollatorForLanguageModeling
 from models.Model import Model
 from models.feature_extraction.feature_extracion import feature_extraction
 from datasets import Dataset
@@ -25,12 +25,9 @@ class MultiGPT2Generator(Model, feature_extraction):
 
     def set_language(self, language):
         super().set_language(language)
-        pretrained_name = "sberbank-ai/mGPT"
-        self.tokenizer = GPT2Tokenizer.from_pretrained(
-            pretrained_name
-        )
-        self.tokenizer.pad_token = self.tokenizer.eos_token
-        self.model = GPT2LMHeadModel.from_pretrained(
+        pretrained_name = "bigscience/bloom-560m"
+        self.tokenizer = BloomTokenizerFast.from_pretrained(pretrained_name)
+        self.model = BloomForCausalLM.from_pretrained(
             pretrained_name,
             output_hidden_states=True
         )
@@ -57,11 +54,10 @@ class MultiGPT2Generator(Model, feature_extraction):
             input_str = 'Question: ' + \
                 examples['question_text'] + '\nContext: ' + \
                 examples['document_plaintext']
-            # Truncating input_str to max length (little cursed)
-            input_str = input_str[:2500]
             return self.tokenizer(
                 input_str,
-                padding=True
+                padding="max_length", 
+                truncation=True
             )
 
         tokenized_train_dataset = train_dataset.map(
@@ -115,7 +111,7 @@ class MultiGPT2Generator(Model, feature_extraction):
         def get_last_hidden_state(row):
             row['last_hidden_state'] = self.model(
                 torch.tensor(row['input_ids'], device=self.device)
-            )[2][-1][-1]
+            )[2][-1][0][-1]
             return row
 
         with torch.no_grad():
@@ -128,5 +124,5 @@ class MultiGPT2Generator(Model, feature_extraction):
 
     def load(self):
         path = self.get_save_path()
-        self.tokenizer = GPT2Tokenizer.from_pretrained(path)
-        self.model = GPT2LMHeadModel.from_pretrained(path)
+        self.tokenizer = BloomTokenizerFast.from_pretrained(path)
+        self.model = BloomForCausalLM.from_pretrained(path)

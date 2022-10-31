@@ -34,8 +34,8 @@ class MultiGPT2Generator(Model, feature_extraction):
         self.training_args = TrainingArguments(
             output_dir=self.get_save_path(),
             num_train_epochs=3,
-            per_device_train_batch_size=1,
-            per_device_eval_batch_size=1,
+            per_device_train_batch_size=16,
+            per_device_eval_batch_size=16,
             warmup_steps=200,
             weight_decay=0.01,
             prediction_loss_only=True,

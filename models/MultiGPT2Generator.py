@@ -4,7 +4,6 @@ from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArgume
 from models.Model import Model
 from models.feature_extraction.feature_extracion import feature_extraction
 from datasets import Dataset
-import numpy as np
 import torch
 import math
 
@@ -16,10 +15,13 @@ import math
 
 class MultiGPT2Generator(Model, feature_extraction):
     def __init__(self):
+        super().__init__()
         if torch.cuda.is_available():
             self.device = "cuda:0"
         else:
             self.device = "cpu"
+
+        self.set_language("english")
 
     def set_language(self, language):
         super().set_language(language)
@@ -91,6 +93,7 @@ class MultiGPT2Generator(Model, feature_extraction):
 
     def generate_text(self, X, num_return_sequences=5, max_length=50):
         self.model.eval()
+        self.model.to(self.device)
         text_ids = self.tokenizer.encode(X, return_tensors='pt')
 
         generated_text_samples = self.model.generate(

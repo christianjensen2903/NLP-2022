@@ -110,7 +110,7 @@ class MultiGPT2Generator(Model, feature_extraction):
 
         def get_last_hidden_state(row):
             row['last_hidden_state'] = self.model(
-                torch.tensor(row['input_ids'], device=self.device)
+                torch.tensor(row['input_ids'], device=self.device).unsqueeze(0)
             )[2][-1][0][-1]
             return row
 

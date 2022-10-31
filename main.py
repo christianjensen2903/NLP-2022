@@ -19,7 +19,7 @@ from models.XGBoost.CBOWXGBoost import CBOWXGBoost
 
 from languages.LanguageModel import LanguageModel
 from DataExploration import DataExploration
-# from languages.Japanese import Japanese
+from languages.Japanese import Japanese
 from languages.English import English
 from languages.Finnish import Finnish
 from Preprocess import Preprocess
@@ -34,7 +34,7 @@ datasets.logging.set_verbosity_error()
 # Define the languages to be used
 languages: List[LanguageModel] = [
     English(),
-    Finnish(),
+    # Finnish(),
     # Japanese()
 ]
 
@@ -60,24 +60,22 @@ cBOWXGBoost = CBOWXGBoost()
 
 # Define the models to be tested
 models: List[Model] = [
-    # gpt2Generator,
-    # gpt2CBOWLogistic,
     cBOW_BOWLogistic,
-    bowMLP,
-    bowRandomForest,
-    cbow_BOWRandomForest,
-    cbowRandomForest,
-    cbow_BOWMLP,
-    cbowMLP,
-    bowLogistic,
-    cBOWLogistic,
-    BOW_XGb,
+    # bowMLP,
+    # bowRandomForest,
+    # cbow_BOWRandomForest,
+    # cbowRandomForest,
+    # cbow_BOWMLP,
+    # cbowMLP,
+    # bowLogistic,
+    # cBOWLogistic,
+    # BOW_XGb,
     cBOW_BOWXGBoost,
-    cBOWXGBoost,
-    gpt2XGBoost,
-    gpt2Logistic,
-    gpt2RandomForest,
-    gpt2MLP,
+    # cBOWXGBoost,
+    # gpt2XGBoost,
+    # gpt2Logistic,
+    # gpt2RandomForest,
+    # gpt2MLP,
 ]
 
 # question_beginning = {
@@ -156,4 +154,4 @@ for language in languages:
             X_validation,
             y_validation
         )
-        # model.explainability()
+        model.explainability(X_validation,y_validation , n=20)

@@ -120,7 +120,7 @@ class SequenceLabeller_BERT(Model):
             output_dir='./results',          # output directory
             # report_to="wandb",              # Weights & Biases
             run_name='sequence-labeller',  # name of the W&B run (optional)
-            num_train_epochs=6,              # total number of training epochs
+            num_train_epochs=self.num_train_epochs,              # total number of training epochs
             learning_rate=2e-5,
             per_device_train_batch_size=self.per_device_train_batch_size,  # batch size per device during training
             per_device_eval_batch_size=self.per_device_eval_batch_size,   # batch size for evaluation

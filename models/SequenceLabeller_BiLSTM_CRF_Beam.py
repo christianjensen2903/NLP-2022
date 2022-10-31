@@ -179,7 +179,6 @@ class SequenceLabeller_BiLSTM_CRF_Beam(Model):
         :return: predicted sequence of labels
         """
 
-        print(inputs)
         assert inputs.shape[0] == 1
 
         softmax = nn.Softmax(dim=-1)

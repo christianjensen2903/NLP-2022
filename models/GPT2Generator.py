@@ -40,6 +40,7 @@ class GPT2Generator(Model, feature_extraction):
         else:
             self.tokenizer = GPT2Tokenizer.from_pretrained(
                 pretrained_name,
+                model_max_length=1024,
                 truncation=True
             )
             self.tokenizer.pad_token = self.tokenizer.eos_token
@@ -150,5 +151,8 @@ class GPT2Generator(Model, feature_extraction):
             )
             self.tokenizer.do_lower_case = True
         else:
-            self.tokenizer = GPT2Tokenizer.from_pretrained(path)
+            self.tokenizer = GPT2Tokenizer.from_pretrained(
+                path,
+                model_max_length=1024
+            )
         self.model = GPT2LMHeadModel.from_pretrained(path)

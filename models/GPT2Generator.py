@@ -31,11 +31,15 @@ class GPT2Generator(Model, feature_extraction):
         super().set_language(language)
         pretrained_name = self.language_to_pretrained_name[language]
         if language.lower() == "japanese":
-            self.tokenizer = T5Tokenizer.from_pretrained(pretrained_name)
+            self.tokenizer = T5Tokenizer.from_pretrained(
+                pretrained_name,
+                truncation=True
+            )
             self.tokenizer.do_lower_case = True
         else:
             self.tokenizer = GPT2Tokenizer.from_pretrained(
-                pretrained_name
+                pretrained_name,
+                truncation=True
             )
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.model = GPT2LMHeadModel.from_pretrained(

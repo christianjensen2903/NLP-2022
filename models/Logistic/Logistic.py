@@ -1,7 +1,9 @@
 from models.Model import Model
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix
 from pickle import dump, load
-
+import matplotlib.pyplot as plt
+import pandas as pd
 
 class Logistic(Model):
     def __init__(self):
@@ -28,19 +30,40 @@ class Logistic(Model):
 
     def weights(self):
         return dict(zip(
-            list(map(lambda x: "*QUESTION* " + x, [*self.question_vectorizer.vocabulary_])) +
-            list(map(lambda x: "*PLAINTEXT* " + x, [*self.plaintext_vectorizer.vocabulary_])) +
-            list(map(lambda x: "*FIRSTWORD* " + x, [*self.first_word_vectorizer.vocabulary_])) +
-            ['*OVERLAP*'],
+            [f'*QUESTION* {x}' for x in self.question_vectorizer.vocabulary_] +
+            [f'*PLAINTEXT* {x}' for x in self.plaintext_vectorizer.vocabulary_] +
+            [f'*FIRSTWORD* {x}' for x in self.first_word_vectorizer.vocabulary_] +
+            ['*OVERLAP*'] +
+            [f'*QUESTION_CONTINOUS* {x}' for x in range(100)] +
+            [f'*PLAINTEXT_CONTINOUS* {x}' for x in range(100)] +
+            ['*EUCLIDEAN*'] +
+            ['*COSINE*'] +
+            ['*BERT_SCORE*'],
             list(self.model.coef_[0]),
         ))
 
-    def explainability(self , n = 5):
+    def explainability(self , X , y , n = 10):
+        most_important = sorted(self.weights().items(), key=lambda item: abs(item[1]), reverse=True)[:n]
+        names , values = list(zip(*most_important))
+
+        plot_df = pd.DataFrame()
+        plot_df['names'] = names
+        plot_df['values'] = values
+        plot_df.plot( x = 'names' , y = 'values', kind='bar' , figsize=(20,10))
+        plt.show()
+
         print (
             "EXPLAINABILITY:\n",
             "Top {} weights for positive:\n".format(n),
-            sorted(self.weights().items(), key=lambda item: item[1], reverse=True)[:n], # n most positive
+            sorted(self.weights().items(), key=lambda item: item[1], reverse=True)[:n],         # n most positive
             "\n\n",
             "Top {} weights for negative:\n".format(n),
-            sorted(self.weights().items(), key=lambda item: item[1], reverse=False)[:n] # n most negative
+            sorted(self.weights().items(), key=lambda item: item[1], reverse=False)[:n],        # n most negative
+            "\n\n",
+            "Top {} most important weights:\n".format(n),
+            most_important,                                                                     # n most important
+            "\n\n",
+            "Top {} least important weights:\n".format(n),
+            sorted(self.weights().items(), key=lambda item: abs(item[1]), reverse=False)[:n]    # n least important
             )
+        print(f'Confusion_matrix Matrix:', confusion_matrix(y , self.model.predict(X) , normalize = "all"))

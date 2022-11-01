@@ -41,7 +41,7 @@ class GPT2Generator(Model, feature_extraction):
                 pretrained_name,
                 truncation=True
             )
-        self.tokenizer.pad_token = self.tokenizer.eos_token
+            self.tokenizer.pad_token = self.tokenizer.eos_token
         self.model = GPT2LMHeadModel.from_pretrained(
             pretrained_name,
             output_hidden_states=True

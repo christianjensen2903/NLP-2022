@@ -1,6 +1,6 @@
 # from os import pread
 import imp
-from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling
+from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, T5Tokenizer, TrainingArguments, DataCollatorForLanguageModeling
 from models.Model import Model
 from models.feature_extraction.feature_extracion import feature_extraction
 from datasets import Dataset
@@ -16,7 +16,6 @@ import math
 
 class GPT2Generator(Model, feature_extraction):
     def __init__(self, multilingual=False):
-        self.multilingual = multilingual
         self.language_to_pretrained_name = {
             'english': 'gpt2',
             'finnish': 'Finnish-NLP/gpt2-finnish',
@@ -30,10 +29,14 @@ class GPT2Generator(Model, feature_extraction):
 
     def set_language(self, language):
         super().set_language(language)
-        pretrained_name = self.language_to_pretrained_name[language] if not self.multilingual else 'miguelvictor/multilingual-gpt2-large'
-        self.tokenizer = GPT2Tokenizer.from_pretrained(
-            pretrained_name
-        )
+        pretrained_name = self.language_to_pretrained_name[language]
+        if language.lower() == "japanese":
+            self.tokenizer = T5Tokenizer.from_pretrained(pretrained_name)
+            self.tokenizer.do_lower_case = True
+        else:
+            self.tokenizer = GPT2Tokenizer.from_pretrained(
+                pretrained_name
+            )
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.model = GPT2LMHeadModel.from_pretrained(
             pretrained_name,

@@ -33,6 +33,7 @@ class GPT2Generator(Model, feature_extraction):
         if language.lower() == "japanese":
             self.tokenizer = T5Tokenizer.from_pretrained(
                 pretrained_name,
+                model_max_length=1024,
                 truncation=True
             )
             self.tokenizer.do_lower_case = True
@@ -73,7 +74,8 @@ class GPT2Generator(Model, feature_extraction):
             input_str = input_str[:200]
             return self.tokenizer(
                 input_str,
-                padding=True
+                padding=True,
+                truncation=True
             )
 
         tokenized_train_dataset = train_dataset.map(

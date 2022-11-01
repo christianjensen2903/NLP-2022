@@ -4,3 +4,5 @@ libvoikko
 advertools
 transformers
 xgboost
+transformers[sentencepiece]
+sentencepiece

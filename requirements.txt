@@ -4,5 +4,4 @@ libvoikko
 advertools
 transformers
 xgboost
-transformers[sentencepiece]
-sentencepiece
+sentencepiece==0.1.91

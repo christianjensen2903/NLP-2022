@@ -142,7 +142,10 @@ class GPT2Generator(Model, feature_extraction):
     def load(self):
         path = self.get_save_path()
         if self.language.lower() == "japanese":
-            self.tokenizer = T5Tokenizer.from_pretrained(path)
+            self.tokenizer = T5Tokenizer.from_pretrained(
+                path,
+                model_max_length=1024
+            )
             self.tokenizer.do_lower_case = True
         else:
             self.tokenizer = GPT2Tokenizer.from_pretrained(path)

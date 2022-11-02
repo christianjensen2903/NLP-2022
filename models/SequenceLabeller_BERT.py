@@ -16,7 +16,7 @@ class SequenceLabeller_BERT(Model):
         if self.language == "english":
             self.model_name = "bert-base-uncased"
         elif self.language == "japanese":
-            self.model_name = "cl-tohoku/bert-base-japanese-whole-word-masking"
+            self.model_name = "KoichiYasuoka/bert-large-japanese-char-extended"
         elif self.language == "finnish":
             self.model_name = "TurkuNLP/bert-base-finnish-uncased-v1"
         elif self.language == "multilingual":

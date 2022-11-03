@@ -2,8 +2,9 @@ import numpy as np
 import textwrap
 
 class DataExploration():
-    def __init__(self, data):
+    def __init__(self, data, language = 'english'):
         self.data = data
+        self.language = language
 
     def get_data(self):
         return self.data
@@ -27,7 +28,10 @@ class DataExploration():
 
         tokenized_questions = self.data['tokenized_question']
         first = [sublist[0] for sublist in tokenized_questions]
-        last = [sublist[-1] for sublist in tokenized_questions]
+        if self.language == 'japanese':
+            last = [sublist[-2] for sublist in tokenized_questions]
+        else:
+            last = [sublist[-1] for sublist in tokenized_questions]
         
         # textwrap.dedent is used to remove the indentation from the string
         print(textwrap.dedent(f"""

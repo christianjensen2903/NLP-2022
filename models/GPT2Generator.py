@@ -74,7 +74,6 @@ class GPT2Generator(Model, feature_extraction):
                 examples['question_text'] + '\nContext: ' + \
                 examples['document_plaintext']
             # Truncating input_str to max length (little cursed)
-            input_str = input_str[:2500]
             return self.tokenizer(
                 input_str,
                 padding=True,

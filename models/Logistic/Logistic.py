@@ -35,7 +35,7 @@ class Logistic(Model):
             list(self.model.coef_[0]),
         ))
 
-    def explainability(self , n = 5):
+    def explainability(self , n = 10):
         print (
             "EXPLAINABILITY:\n",
             "Top {} weights for positive:\n".format(n),

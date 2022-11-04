@@ -26,18 +26,17 @@ class CBOW_BOW(BOW):
             word2vec.save()
         return word2vec
 
-    def unit_length(self, matrix, data_row):
+    def unit_length(self, matrix):
         row_norm = np.linalg.norm(matrix, axis=1)
-        if row_norm.any() == 0:
-            print(row_norm)
-            print(matrix)
-            print(data_row)
         new_matrix = matrix / row_norm[:, np.newaxis]
-        return np.nan_to_num(new_matrix)
+        return new_matrix
 
-    def bert_score(self, context_embeddings, question_embeddings, data_row):
-        context_embeddings = self.unit_length(context_embeddings, data_row)
-        question_embeddings = self.unit_length(question_embeddings, data_row)
+    def bert_score(self, context_embeddings, question_embeddings):
+        all_zeros = (not np.any(context_embeddings)) or (not np.any(question_embeddings))
+        if all_zeros:
+            return 0
+        context_embeddings = self.unit_length(context_embeddings)
+        question_embeddings = self.unit_length(question_embeddings)
         similarity = context_embeddings@question_embeddings.T
         recall = similarity.max(axis=1).sum()/len(context_embeddings)
         precision = similarity.max(axis=0).sum()/len(question_embeddings)
@@ -70,8 +69,8 @@ class CBOW_BOW(BOW):
             ) for i in range(len(question_mean_representation))
         ]).reshape(-1, 1)
         bert_scores = np.array([
-                    self.bert_score(question, context, dataset.iloc[i])
-                    for i, (question, context) in enumerate(zip(question_representations, context_representations))
+                    self.bert_score(question, context)
+                    for question, context in zip(question_representations, context_representations)
                 ]).reshape(-1, 1)
         return np.concatenate(
             (

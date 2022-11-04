@@ -17,13 +17,22 @@ pipeline = Pipeline()
 # Get the preprocessed data and split it into training and validation data
 preprocessor = Preprocess(language.tokenize, language.clean)
 preprocessor.from_datasets = False
+# raw_data = {
+#   "question_text"      : ["When was Queen Elizabeth II born?" , "What is the name for a male horse?" , "What is the name for a male horse?"],
+#   "document_plaintext" : [
+#     "Queen Elizabeth II was the queen of England from 1952 until she died on the 8th of september 2022." ,
+#     "A horse is frequently referred to as a stallion once he fathers a foal. While in most of the western world stallions are primarily kept for breeding, it is popular in parts of the Middle East and Asia for stallions to be used for riding (almost always by men)." ,
+#     "A mare is an adult female horse or other equine. In most cases, a mare is a female horse over the age of three, and a filly is a female horse three and younger. In Thoroughbred horse racing, a mare is defined as a female horse more than four years old. The word can also be used for other female equine animals, particularly mules and zebras, but a female donkey is usually called a 'jenny'. A broodmare is a mare used for breeding. A horse's female parent is known as its dam."]
+# }
+
 raw_data = {
-  "question_text"      : ["When was Queen Elizabeth II born?" , "What is the name for a male horse?" , "What is the name for a male horse?"],
+  "question_text"      : ["When was Queen Elizabeth II born?" , "What is an uncastrated male horse called" , "How can fast does the earth spin around its own axis"],
   "document_plaintext" : [
     "Queen Elizabeth II was the queen of England from 1952 until she died on the 8th of september 2022." ,
-    "A horse is frequently referred to as a stallion once he fathers a foal. While in most of the western world stallions are primarily kept for breeding, it is popular in parts of the Middle East and Asia for stallions to be used for riding (almost always by men)." ,
-    "A mare is an adult female horse or other equine. In most cases, a mare is a female horse over the age of three, and a filly is a female horse three and younger. In Thoroughbred horse racing, a mare is defined as a female horse more than four years old. The word can also be used for other female equine animals, particularly mules and zebras, but a female donkey is usually called a 'jenny'. A broodmare is a mare used for breeding. A horse's female parent is known as its dam."]
+    "A horse of masculine gneder which has not been castrated can be referred to as a stallion in American English" ,
+    "Earth earth earth earth spin spin spin spin around around around around"]
 }
+
 dataset = pd.DataFrame.from_dict(data = raw_data)
 data = preprocessor.preprocess(dataset)
 

@@ -32,9 +32,6 @@ class SequenceLabeller_BERT(Model):
         self.warmup_steps = config['warmup_steps']
         self.weight_decay = config['weight_decay']
 
-
-        self.label_list = ['B', 'I', 'O']
-
         
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         self.model = AutoModelForTokenClassification.from_pretrained(self.model_name, num_labels=3).to(self.device)
@@ -42,11 +39,11 @@ class SequenceLabeller_BERT(Model):
     def _tag_token(self, token, index, answer_start, answer_end):
             """Tag a token with the IOB format"""
             if index == answer_start:
-                return self.label_list.index('B')
+                return 0 # B
             elif answer_start < index <= answer_end:
-                return self.label_list.index('I')
+                return 1 # I
             else:
-                return self.label_list.index('O')
+                return 2 # O
 
     def _tag_sentence(self, sentence, answer_start, answer_end):
         """Tag a sentence with the IOB format"""
@@ -135,6 +132,7 @@ class SequenceLabeller_BERT(Model):
             args=training_args,
             data_collator=data_collator,
             train_dataset=X, # X contains both the label and the features
+            # compute_metrics=self._compute_metrics
         )
         self.trainer.train()
 
@@ -143,21 +141,37 @@ class SequenceLabeller_BERT(Model):
 
     def predict(self, X):
         """Predict the answer"""
-        predictions, labels, _ = self.trainer.predict(X)
+        return self.trainer.predict(X)
+
+    def _compute_metrics(predictions, labels):
+        # predictions, labels = p
+        print(predictions)
         predictions = np.argmax(predictions, axis=2)
 
         # Remove ignored index (special tokens)
         true_predictions = [
-            [self.label_list[p] for (p, l) in zip(prediction, label) if l != -100]
+            [p for (p, l) in zip(prediction, label) if l != -100]
             for prediction, label in zip(predictions, labels)
         ]
+        true_labels = [
+            [l for (p, l) in zip(prediction, label) if l != -100]
+            for prediction, label in zip(predictions, labels)
+        ]
+        binarizer = MultiLabelBinarizer().fit(true_labels)
 
-        return true_predictions
+        true_predictions = binarizer.transform(true_predictions)
+        true_labels = binarizer.transform(true_labels)
 
+        P, R, F1, _ = precision_recall_fscore_support(true_labels, true_predictions, average='macro', labels=[0,1,2])
+        return {
+            "precision": P,
+            "recall": R,
+            "f1": F1,
+        }
 
     def evaluate(self, X, y):
         """Evaluate the model"""
-        predictions, labels, _ = self.trainer.predict(X)
+        predictions, labels, _ = self.predict(X)
         predictions = np.argmax(predictions, axis=2)
 
         # Remove ignored index (special tokens)
@@ -180,6 +194,7 @@ class SequenceLabeller_BERT(Model):
             "recall": R,
             "f1": F1,
         }
+        # return self.trainer.evaluate(X)
 
     def save(self):
         """Save the model"""

@@ -72,15 +72,17 @@ class CBOW_BOW(BOW):
                     self.bert_score(question, context)
                     for question, context in zip(question_representations, context_representations)
                 ]).reshape(-1, 1)
-        return np.concatenate(
-            (
-                question_mean_representation,
-                context_mean_representation,
-                distance_between_representations,
-                cosine_similarity,
-                bert_scores
-            ),
-            axis=1
+        return np.nan_to_num(
+            np.concatenate(
+                (
+                    question_mean_representation,
+                    context_mean_representation,
+                    distance_between_representations,
+                    cosine_similarity,
+                    bert_scores
+                ),
+                axis=1
+            )
         )
 
     def extract_X(self, dataset):

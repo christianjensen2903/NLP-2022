@@ -3,5 +3,5 @@ from models.feature_extraction.CBOW import CBOW
 
 
 class CBOWMLP(MLP , CBOW):
-    def __init__(self, language):
-        super().__init__(language)
+    def __init__(self):
+        super().__init__()

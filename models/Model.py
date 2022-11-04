@@ -1,25 +1,10 @@
 from abc import ABC, abstractmethod
 import os
-import torch
 
 
 class Model(ABC):
 
-    def __init__(self, language: str = "english", config: dict = {}):
-        super().__init__()
-
-        self.language = language.lower()
-
-        self.config = config
-
-        # Set the device to use
-        if torch.cuda.is_available():
-            self.device = torch.device("cuda")
-        else:
-            self.device = torch.device("cpu")
-            
-
-    def get_save_path(self, filetype: str = ''):
+    def get_save_path(self, filetype=''):
         """Get the path of the model for loading and saving"""
         # Get the path of type saved_models/model_type
         path = os.path.join(
@@ -35,14 +20,6 @@ class Model(ABC):
             path,
             f'{self.language}.{filetype}' if filetype else self.language
         )
-
-    def extract_X(self, train_data):
-        """Extract the X values from the dataset"""
-        pass
-
-    def extract_y(self, train_data):
-        """Extract the y values from the dataset"""
-        pass
 
     def train(self, X, y):
         """Train the model"""

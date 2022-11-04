@@ -22,6 +22,10 @@ class GPT2Generator(Model, feature_extraction):
             # Unsure if japanese is functional (not tested)
             'japanese': 'rinna/japanese-gpt2-small'
         }
+        if torch.cuda.is_available():
+            self.device = "cuda:0"
+        else:
+            self.device = "cpu"
 
     def set_language(self, language):
         super().set_language(language)

@@ -7,6 +7,6 @@ import numpy as np
 
 
 class CBOW_BOWRandomForest(RandomForest , CBOW_BOW):
-    def __init__(self, language):
-        super().__init__(language)
+    def __init__(self):
+        super().__init__()
         self.word2vec = None

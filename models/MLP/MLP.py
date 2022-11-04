@@ -4,8 +4,8 @@ from pickle import dump, load
 
 
 class MLP(Model):
-    def __init__(self, language):
-        super().__init__(language)
+    def __init__(self):
+        super().__init__()
         self.question_vectorizer = None
         self.plaintext_vectorizer = None
         self.first_word_vectorizer = None

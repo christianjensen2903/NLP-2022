@@ -6,6 +6,6 @@ from models.XGBoost.XGBoost import XGBoost
 
 
 class CBOW_BOWXGBoost(XGBoost , CBOW_BOW):
-    def __init__(self, language):
-        super().__init__(language)
+    def __init__(self):
+        super().__init__()
         self.word2vec = None

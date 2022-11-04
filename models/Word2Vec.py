@@ -20,7 +20,7 @@ class Word2Vec(Model,feature_extraction):
             self.model.wv[word] if word in self.model.wv else np.zeros(self.model.vector_size) for word in X
         ])
         # If all words are missing, return a zero vector
-        return output if len(output) != 0 else np.zeros((len(output), self.model.vector_size))
+        return output
 
     def evaluate(self, X, y):
         pass

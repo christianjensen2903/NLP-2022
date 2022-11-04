@@ -28,8 +28,11 @@ class CBOW_BOW(BOW):
 
     def unit_length(self, matrix):
         row_norm = np.linalg.norm(matrix, axis=1)
+        # if row_norm.any() == 0:
+            # print(row_norm)
+            # row_norm = np.array([0.1])
         new_matrix = matrix / row_norm[:, np.newaxis]
-        return new_matrix
+        return np.nan_to_num(new_matrix)
 
     def bert_score(self, context_embeddings, question_embeddings):
         context_embeddings = self.unit_length(context_embeddings)

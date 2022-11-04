@@ -1,10 +1,9 @@
 # from os import pread
 import imp
-from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, T5Tokenizer, TrainingArguments, DataCollatorForLanguageModeling
+from transformers import BloomTokenizerFast, BloomForCausalLM, Trainer, TrainingArguments, DataCollatorForLanguageModeling
 from models.Model import Model
 from models.feature_extraction.feature_extracion import feature_extraction
 from datasets import Dataset
-import numpy as np
 import torch
 import math
 
@@ -14,45 +13,33 @@ import math
 # https://github.com/huggingface/transformers/issues/1528#issuecomment-544977912
 
 
-class GPT2Generator(Model, feature_extraction):
-    def __init__(self, multilingual=False):
-        self.language_to_pretrained_name = {
-            'english': 'gpt2',
-            'finnish': 'Finnish-NLP/gpt2-finnish',
-            # Unsure if japanese is functional (not tested)
-            'japanese': 'rinna/japanese-gpt2-small'
-        }
+class MultiGPT2Generator(Model, feature_extraction):
+    def __init__(self):
+        super().__init__()
+        if torch.cuda.is_available():
+            self.device = "cuda:0"
+        else:
+            self.device = "cpu"
+
+        self.set_language("english")
 
     def set_language(self, language):
         super().set_language(language)
-        pretrained_name = self.language_to_pretrained_name[language]
-        if language.lower() == "japanese":
-            self.tokenizer = T5Tokenizer.from_pretrained(
-                pretrained_name,
-                model_max_length=1024,
-                truncation=True
-            )
-            self.tokenizer.do_lower_case = True
-        else:
-            self.tokenizer = GPT2Tokenizer.from_pretrained(
-                pretrained_name,
-                model_max_length=1024,
-                truncation=True
-            )
-            self.tokenizer.pad_token = self.tokenizer.eos_token
-        self.model = GPT2LMHeadModel.from_pretrained(
+        pretrained_name = "bigscience/bloom-560m"
+        self.tokenizer = BloomTokenizerFast.from_pretrained(pretrained_name)
+        self.model = BloomForCausalLM.from_pretrained(
             pretrained_name,
             output_hidden_states=True
         )
         self.training_args = TrainingArguments(
             output_dir=self.get_save_path(),
-            num_train_epochs=1,
-            per_device_train_batch_size=8,
-            per_device_eval_batch_size=8,
-            dataloader_pin_memory=True,
-            dataloader_num_workers=4,
+            num_train_epochs=3,
+            per_device_train_batch_size=2,
+            per_device_eval_batch_size=2,
             warmup_steps=200,
             weight_decay=0.01,
+            dataloader_pin_memory=True,
+            dataloader_num_workers=4,
             prediction_loss_only=True,
             save_steps=10000
         )
@@ -69,10 +56,9 @@ class GPT2Generator(Model, feature_extraction):
             input_str = 'Question: ' + \
                 examples['question_text'] + '\nContext: ' + \
                 examples['document_plaintext']
-            # Truncating input_str to max length (little cursed)
             return self.tokenizer(
                 input_str,
-                padding=True,
+                padding="max_length", 
                 truncation=True
             )
 
@@ -105,6 +91,7 @@ class GPT2Generator(Model, feature_extraction):
 
     def generate_text(self, X, num_return_sequences=5, max_length=50):
         self.model.eval()
+        self.model.to(self.device)
         text_ids = self.tokenizer.encode(X, return_tensors='pt')
 
         generated_text_samples = self.model.generate(
@@ -125,8 +112,8 @@ class GPT2Generator(Model, feature_extraction):
 
         def get_last_hidden_state(row):
             row['last_hidden_state'] = self.model(
-                torch.tensor(row['input_ids'], device=self.device)
-            )[2][-1][-1]
+                torch.tensor(row['input_ids'], device=self.device).unsqueeze(0)
+            )[2][-1][0][-1]
             return row
 
         with torch.no_grad():
@@ -139,15 +126,5 @@ class GPT2Generator(Model, feature_extraction):
 
     def load(self):
         path = self.get_save_path()
-        if self.language.lower() == "japanese":
-            self.tokenizer = T5Tokenizer.from_pretrained(
-                path,
-                model_max_length=1024
-            )
-            self.tokenizer.do_lower_case = True
-        else:
-            self.tokenizer = GPT2Tokenizer.from_pretrained(
-                path,
-                model_max_length=1024
-            )
-        self.model = GPT2LMHeadModel.from_pretrained(path)
+        self.tokenizer = BloomTokenizerFast.from_pretrained(path)
+        self.model = BloomForCausalLM.from_pretrained(path)

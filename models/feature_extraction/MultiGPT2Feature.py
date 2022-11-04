@@ -1,17 +1,14 @@
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import GridSearchCV
-from pickle import dump, load
 from models.feature_extraction.feature_extracion import feature_extraction
+from models.MultiGPT2Generator import MultiGPT2Generator
 import numpy as np
-from models.GPT2Generator import GPT2Generator
 
-class GPT2Feature(feature_extraction):
+
+class MultiGPT2Feature(feature_extraction):
     def __init__(self):
         super().__init__()
 
     def get_GPT2Generator(self, dataset):
-        gpt2 = GPT2Generator(self.langauge)
+        gpt2 = MultiGPT2Generator()
         gpt2.set_language(self.language)
         try:
             gpt2.load()

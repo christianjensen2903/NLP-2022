@@ -66,10 +66,14 @@ class CBOW_BOW(BOW):
             ) for i in range(len(question_mean_representation))
         ]).reshape(-1, 1)
         bert_scores = np.nan_to_num(
-            np.array([
-                self.bert_score(question, context)
-                for question, context in zip(question_representations, context_representations)
-            ]).reshape(-1, 1)
+            np.clip(
+                np.array([
+                    self.bert_score(question, context)
+                    for question, context in zip(question_representations, context_representations)
+                ]).reshape(-1, 1),
+                0,
+                1
+            )
         )
         return np.concatenate(
             (

@@ -1,4 +1,4 @@
-from models.Model import Model
+from models.Model2 import Model
 import numpy as np
 from transformers import DataCollatorForTokenClassification
 from transformers import AutoTokenizer

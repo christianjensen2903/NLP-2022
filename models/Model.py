@@ -48,11 +48,7 @@ class Model(ABC):
     def explainability(self):
         """Use an use an interpretability method on the model"""
         pass
-
-    def extract_X(self, data):
-        """Extract the X values from the dataset"""
-        pass
-
+    
     def extract_y(self, data):
         """Extract the y values from the dataset"""
         return data['is_answerable']

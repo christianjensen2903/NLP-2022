@@ -11,7 +11,7 @@ class Logistic(Model):
         self.question_vectorizer = None
         self.plaintext_vectorizer = None
         self.first_word_vectorizer = None
-        self.model = LogisticRegression()
+        self.model = LogisticRegression(seed=42)
 
     def train(self, X, y):
         self.model = self.model.fit(X, y)

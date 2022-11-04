@@ -8,7 +8,7 @@ import pandas as pd
 class XGBoost(Model):
     def __init__(self):
         super().__init__()
-        self.model = XGB_model(objective='binary:logistic', random_state=43) #  tree_method='gpu_hist', 
+        self.model = XGB_model(objective='binary:logistic', random_state=43)
 
     def train(self, X, y):
         self.model = self.model.fit(X, y)

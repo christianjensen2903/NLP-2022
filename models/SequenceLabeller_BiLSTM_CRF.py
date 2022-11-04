@@ -1,4 +1,4 @@
-from .Model import Model
+from .Model2 import Model
 import numpy as np
 import torch
 from datasets import Dataset

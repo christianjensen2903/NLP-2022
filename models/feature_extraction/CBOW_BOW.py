@@ -2,7 +2,7 @@ from models.feature_extraction.BOW import BOW
 from gensim.models import Word2Vec as GensimWord2Vec
 from models.Word2Vec import Word2Vec
 import numpy as np
-
+np.seterr(invalid='ignore')
 
 class CBOW_BOW(BOW):
     def __init__(self):
@@ -28,13 +28,13 @@ class CBOW_BOW(BOW):
 
     def unit_length(self, matrix):
         row_norm = np.linalg.norm(matrix, axis=1)
-        # if row_norm.any() == 0:
-            # print(row_norm)
-            # row_norm = np.array([0.1])
         new_matrix = matrix / row_norm[:, np.newaxis]
-        return np.nan_to_num(new_matrix)
+        return new_matrix
 
     def bert_score(self, context_embeddings, question_embeddings):
+        all_zeros = (not np.any(context_embeddings)) or (not np.any(question_embeddings))
+        if all_zeros:
+            return 0
         context_embeddings = self.unit_length(context_embeddings)
         question_embeddings = self.unit_length(question_embeddings)
         similarity = context_embeddings@question_embeddings.T
@@ -68,21 +68,21 @@ class CBOW_BOW(BOW):
                     question_mean_representation[i]) * np.linalg.norm(context_mean_representation[i])
             ) for i in range(len(question_mean_representation))
         ]).reshape(-1, 1)
-        bert_scores = np.nan_to_num(
-            np.array([
-                self.bert_score(question, context)
-                for question, context in zip(question_representations, context_representations)
-            ]).reshape(-1, 1)
-        )
-        return np.concatenate(
-            (
-                question_mean_representation,
-                context_mean_representation,
-                distance_between_representations,
-                cosine_similarity,
-                bert_scores
-            ),
-            axis=1
+        bert_scores = np.array([
+                    self.bert_score(question, context)
+                    for question, context in zip(question_representations, context_representations)
+                ]).reshape(-1, 1)
+        return np.nan_to_num(
+            np.concatenate(
+                (
+                    question_mean_representation,
+                    context_mean_representation,
+                    distance_between_representations,
+                    cosine_similarity,
+                    bert_scores
+                ),
+                axis=1
+            )
         )
 
     def extract_X(self, dataset):

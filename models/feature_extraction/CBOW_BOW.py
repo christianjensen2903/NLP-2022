@@ -2,7 +2,7 @@ from models.feature_extraction.BOW import BOW
 from gensim.models import Word2Vec as GensimWord2Vec
 from models.Word2Vec import Word2Vec
 import numpy as np
-
+np.seterr(invalid='ignore')
 
 class CBOW_BOW(BOW):
     def __init__(self):

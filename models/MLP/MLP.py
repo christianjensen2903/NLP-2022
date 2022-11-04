@@ -9,7 +9,7 @@ class MLP(Model):
         self.question_vectorizer = None
         self.plaintext_vectorizer = None
         self.first_word_vectorizer = None
-        self.model = MLPClassifier(early_stopping=True, hidden_layer_sizes=(50, 50), seed = 42)
+        self.model = MLPClassifier(early_stopping=True, hidden_layer_sizes=(50, 50), random_state=42)
 
     def train(self, X, y):
         self.model = self.model.fit(X, y)

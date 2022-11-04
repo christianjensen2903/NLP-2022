@@ -13,3 +13,4 @@ tqdm==4.64.1
 transformers==4.22.1
 xgboost==1.6.2
 transformers[ja]==4.22.1
+sentencepiece==0.1.91

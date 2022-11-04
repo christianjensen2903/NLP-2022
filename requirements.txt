@@ -15,3 +15,4 @@ xgboost==1.6.2
 transformers[ja]==4.22.1
 sentencepiece==0.1.91
 wandb==0.13.5
+transformers==4.22.1

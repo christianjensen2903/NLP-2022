@@ -50,6 +50,7 @@ class Logistic(Model):
         plot_df['names'] = names
         plot_df['values'] = values
         plot_df.plot( x = 'names' , y = 'values', kind='bar' , figsize=(20,10))
+        plt.xticks(fontsize = 15)
         plt.show()
 
         print (

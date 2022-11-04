@@ -28,9 +28,6 @@ class CBOW_BOW(BOW):
 
     def unit_length(self, matrix):
         row_norm = np.linalg.norm(matrix, axis=1)
-        # if row_norm.any() == 0:
-            # print(row_norm)
-            # row_norm = np.array([0.1])
         new_matrix = matrix / row_norm[:, np.newaxis]
         return np.nan_to_num(new_matrix)
 
